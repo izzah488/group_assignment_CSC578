@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Budget Tracker</title>
+  <link rel="stylesheet" href="budget.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile" class="avatar" />
+        <span>Hi, Rebecca!</span>
+      </div>
+      <nav>
+        <button class="menu-toggle">☰ Dashboard</button>
+        <ul>
+          <li>💰 Savings</li>
+          <li>👤 Profile</li>
+          <li>📊 Statistics</li>
+          <li class="active">📁 Budget</li>
+          <li>🧾 Expenses</li>
+        </ul>
+      </nav>
+      <button class="logout">🔴 Log Out</button>
+    </aside>
+
+    <main class="content">
+      <header>
+        <button class="back-btn">←</button>
+        <h1>Budget</h1>
+        <p>Take charge of your money by setting clear budgets.</p>
+      </header>
+
+      <section class="card">
+        <div class="card-header">Money Budget <span>RM 2500</span></div>
+        <div class="progress-bar"><div class="progress pink" style="width: 100%;"></div></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">Money Expenses <span>RM 2000</span></div>
+        <div class="progress-bar"><div class="progress teal" style="width: 80%;"></div></div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">Money Balance <span>RM 500</span></div>
+        <div class="progress-bar"><div class="progress light-pink" style="width: 20%;"></div></div>
+      </section>
+
+      <button class="new-expense-btn">➕ New Expenses</button>
+    </main>
+  </div>
+</body>
+</html>
