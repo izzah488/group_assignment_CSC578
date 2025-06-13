@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expenses Chart</title>
+  <link rel="stylesheet" href="expenses.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" class="avatar" />
+        <span>Hi, Rebecca!</span>
+      </div>
+      <button class="menu-toggle">☰ Dashboard</button>
+      <ul>
+        <li>⭐ Savings</li>
+        <li>👤 Profile</li>
+        <li>📊 Statistics</li>
+        <li>📁 Budget</li>
+        <li class="active">⬅ Expenses</li>
+      </ul>
+      <button class="logout">🔴 Log Out</button>
+    </aside>
+
+    <main class="content">
+      <header>
+        <h1>Expenses Chart</h1>
+        <p>Visualize your monthly commitments at a glance.</p>
+      </header>
+
+      <div class="chart-section">
+        <div class="chart-placeholder">
+          <!-- Placeholder for chart (you can replace with a real chart if using Chart.js) -->
+          <img src="https://via.placeholder.com/200x200?text=Pie+Chart" alt="Pie Chart" />
+        </div>
+
+        <div class="legend">
+          <span class="legend-item purple">▣ Food</span>
+          <span class="legend-item yellow">▣ Transport</span>
+          <span class="legend-item teal">▣ Bill</span>
+          <span class="legend-item green">▣ Top Up</span>
+          <span class="legend-item blue">▣ Entertainment</span>
+        </div>
+      </div>
+
+      <div class="table">
+        <div class="table-section food">
+          <div class="category-header purple-bg">Food</div>
+          <div class="item">nasi ganja <span>12/03/2025 08:30 am</span> <strong>RM 6.00</strong></div>
+          <div class="item">nasi ayam <span>11/03/2025 08:30 am</span> <strong>RM 7.00</strong></div>
+          <div class="item">dessert <span>10/03/2025 10:30 am</span> <strong>RM 17.00</strong></div>
+          <div class="item">mochi cheesecake <span>09/03/2025 05:00 pm</span> <strong>RM 9.00</strong></div>
+          <div class="item">roti <span>09/03/2025 10:00 am</span> <strong>RM 3.00</strong></div>
+        </div>
+
+        <div class="category-header yellow-bg">Transport</div>
+        <div class="category-header teal-bg">Bill</div>
+        <div class="category-header green-bg">Top Up</div>
+        <div class="category-header blue-bg">Entertainment</div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f5f5fc;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #ddd;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.menu-toggle {
+  background: #f0f0f0;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar li.active {
+  background-color: black;
+  color: white;
+}
+
+.logout {
+  background: red;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+header h1 {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.chart-section {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 30px;
+}
+
+.chart-placeholder img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legend-item {
+  font-weight: bold;
+  display: inline-block;
+  padding: 6px 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.purple { color: purple; border-color: purple; }
+.yellow { color: gold; }
+.teal { color: teal; }
+.green { color: green; }
+.blue { color: royalblue; }
+
+.table {
+  width: 100%;
+}
+
+.category-header {
+  font-weight: bold;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+.purple-bg { background: purple; }
+.yellow-bg { background: gold; }
+.teal-bg { background: teal; }
+.green-bg { background: green; }
+.blue-bg { background: royalblue; }
+
+.food .item {
+  background: #dda0dd;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid white;
+  color: #000;
+}
+
+.food .item span {
+  margin: 0 20px;
+  font-size: 0.9em;
+  color: #444;
+}
