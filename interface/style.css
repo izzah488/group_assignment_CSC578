@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+    background: #f8f9fa;
+  }
+  
+  .dashboard {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 200px;
+    background: #fff;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .profile {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile img {
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
+  
+  .profile p {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  nav a {
+    display: block;
+    padding: 8px 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  nav a:hover {
+    color: #5a5a5a;
+  }
+  
+  .logout {
+    margin-top: auto;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 30px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  
+  .card {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .card h2 {
+    margin: 0 0 10px;
+    font-size: 16px;
+  }
+  
+  .card p {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .savings h2,
+  .chart h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .saving-list {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .saving-card {
+    flex: 1;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .add-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .chart-box {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .pie-chart {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(
+      #fbbc04 0% 25%,
+      #34a853 25% 50%,
+      #4285f4 50% 70%,
+      #ff6d00 70% 85%,
+      #ea4335 85% 100%
+    );
+  }
+  
+  .legend p {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+  }
+  
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .food { background: #fbbc04; }
+  .transport { background: #34a853; }
+  .bill { background: #4285f4; }
+  .topup { background: #ff6d00; }
+  .entertainment { background: #ea4335; }
+  

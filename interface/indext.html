@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minimalist Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="profile">
+      <img src="https://via.placeholder.com/48" alt="Profile">
+      <p>Rebecca</p>
+    </div>
+    <nav>
+      <a href="#">Dashboard</a>
+      <a href="#">Savings</a>
+      <a href="#">Profile</a>
+      <a href="#">Statistics</a>
+      <a href="#">Budget</a>
+      <a href="#">Expenses</a>
+    </nav>
+    <button class="logout">Log Out</button>
+  </aside>
+
+  <main class="main">
+    <h1>Budget & Expenses</h1>
+
+    <div class="cards">
+      <div class="card">
+        <h2>Budget</h2>
+        <p>RM 2500</p>
+      </div>
+      <div class="card">
+        <h2>Expenses</h2>
+        <p>RM 2000</p>
+      </div>
+      <div class="card">
+        <h2>Balance</h2>
+        <p>RM 500</p>
+      </div>
+    </div>
+
+    <section class="savings">
+      <h2>Savings</h2>
+      <div class="saving-list">
+        <div class="saving-card">
+          <p>Zoo Negara Trip — RM 200</p>
+          <small>10/3/2025</small>
+        </div>
+        <div class="saving-card">
+          <p>Pulau Kapas Trip — RM 80</p>
+          <small>1/7/2025</small>
+        </div>
+        <div class="saving-card">
+          <p>Redang Trip — RM 120</p>
+          <small>7/12/2025</small>
+        </div>
+      </div>
+      <button class="add-btn">+ Add Savings</button>
+    </section>
+
+    <section class="chart">
+      <h2>Expenses Chart</h2>
+      <div class="chart-box">
+        <div class="pie-chart"></div>
+        <div class="legend">
+          <p><span class="dot food"></span> Food</p>
+          <p><span class="dot transport"></span> Transport</p>
+          <p><span class="dot bill"></span> Bill</p>
+          <p><span class="dot topup"></span> Topup</p>
+          <p><span class="dot entertainment"></span> Entertainment</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>
