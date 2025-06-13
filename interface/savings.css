@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #e0d5fb;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ccc;
+}
+
+.user-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.sidebar-btn {
+  background-color: #f2f2f2;
+  border: none;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: left;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background-color: black;
+  color: white;
+}
+
+.logout-btn {
+  margin-top: auto;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.main-content h1 {
+  margin-bottom: 20px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card h2 span {
+  font-weight: bold;
+  display: block;
+}
+
+.card p {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: gray;
+}
+
+.progress {
+  height: 8px;
+  border-radius: 10px;
+}
+
+/* Color Bars */
+.pink { background-color: #f78ab0; }
+.yellow { background-color: #f7ce63; }
+.red { background-color: #c64d4d; }
+.purple { background-color: #9b59b6; }
+.blue { background-color: #2980b9; }
+.lightblue { background-color: #7f8fa6; }
+.orange { background-color: #e67e22; }
+.green { background-color: #2ecc71; }
+
+.new-savings-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to right, #c471f5, #5b86e5);
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
