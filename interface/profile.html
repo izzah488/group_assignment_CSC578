@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Money Mate - Profile</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="user-info">
+        <img src="avatar.png" alt="User Avatar" class="avatar" />
+        <p>Hi, Rebecca!</p>
+      </div>
+      <button class="sidebar-btn"><span class="icon">☰</span> Dashboard</button>
+      <nav>
+        <a href="#"><span class="icon">⭐</span> Savings</a>
+        <a href="#" class="active"><span class="icon">👤</span> Profile</a>
+        <a href="#"><span class="icon">📈</span> Statistics</a>
+        <a href="#"><span class="icon">⬇</span> Budget</a>
+        <a href="#"><span class="icon">⬆</span> Expenses</a>
+      </nav>
+      <button class="logout-btn"><span class="icon">🔴</span> Log Out</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1>Profile</h1>
+      <p class="subtext">View and edit your profile, change settings, and manage your data.</p>
+
+      <div class="profile-box">
+        <div class="profile-field">
+          <label>First Name</label>
+          <p>Rebecca</p>
+        </div>
+        <div class="profile-field">
+          <label>Last Name</label>
+          <p>Donaldson</p>
+        </div>
+        <div class="profile-field">
+          <label>Email</label>
+          <p>rebecca@gmail.com</p>
+        </div>
+        <div class="profile-field password-field">
+          <label>Current Password</label>
+          <div class="password-display">
+            <span>********</span>
+            <span class="eye-icon">🙈</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="edit-btn">Edit Profile</button>
+    </main>
+  </div>
+</body>
+</html>
