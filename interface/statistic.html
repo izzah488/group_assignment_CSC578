@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistics Dashboard</title>
+  <link rel="stylesheet" href="statistic.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <aside>
+    <img src="https://via.placeholder.com/50" alt="Profile" />
+    <h4>Hi, Rebecca!</h4>
+    <a href="#" class="">Dashboard</a>
+    <a href="#" class="">Savings</a>
+    <a href="#" class="">Profile</a>
+    <a href="#" class="active">Statistics</a>
+    <a href="#">Budget</a>
+    <a href="#">Expenses</a>
+    <button class="logout">🔁 Log Out</button>
+  </aside>
+  <main>
+    <h1>Statistics</h1>
+    <p class="subheading">Track your monthly budget, expenses and balance.</p>
+    <div class="cards">
+      <div class="card budget">
+        <h3>Money Budget</h3>
+        <p>RM 2500</p>
+        <div class="progress-bar"><div class="progress"></div></div>
+      </div>
+      <div class="card expenses">
+        <h3>Money Expenses</h3>
+        <p>RM 2000</p>
+        <div class="progress-bar"><div class="progress"></div></div>
+      </div>
+      <div class="card balance">
+        <h3>Money Balance</h3>
+        <p>RM 500</p>
+        <div class="progress-bar"><div class="progress"></div></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="chart">
+        <h3>Monthly Spends</h3>
+        <canvas id="barChart" width="300" height="200"></canvas>
+      </div>
+      <div class="top-expenses">
+        <h3>Top Money Expenses</h3>
+        <div><span>Food</span><span>RM 150</span></div>
+        <div><span>Bills</span><span>RM 90</span></div>
+        <div><span>Transport</span><span>RM 50</span></div>
+        <div><span>Top Up</span><span>RM 30</span></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const ctx = document.getElementById('barChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          {
+            label: 'Necessities',
+            data: [10, 15, 20, 25, 30, 35],
+            backgroundColor: '#4bb7b3'
+          },
+          {
+            label: 'Others',
+            data: [5, 10, 10, 10, 10, 10],
+            backgroundColor: '#f4a261'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

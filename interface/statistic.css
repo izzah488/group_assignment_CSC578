@@ -1,0 +1,103 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+aside {
+  width: 200px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+aside img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+aside h4 {
+  margin: 10px 0;
+}
+
+aside a, aside button {
+  display: block;
+  margin: 10px 0;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+aside a.active {
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.logout {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+.subheading {
+  color: #888;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex: 1;
+}
+
+.progress-bar {
+  background-color: #eee;
+  border-radius: 10px;
+  height: 8px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.progress-bar .progress {
+  height: 100%;
+  background-color: #c58bcf;
+  width: 80%; /* Example value, change accordingly */
+}
+
+.sidebar-section {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.chart, .top-expenses {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+}
+
+.top-expenses div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
