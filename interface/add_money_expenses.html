@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Money Expenses</title>
+  <link rel="stylesheet" href="add_money_expenses.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="user-info">
+        <img src="avatar.png" alt="User Avatar" class="avatar">
+        <p>Hi, Rebecca!</p>
+      </div>
+      <button class="menu-btn">☰ Dashboard</button>
+      <nav class="nav-links">
+        <a href="#">⭐ Savings</a>
+        <a href="#">👤 Profile</a>
+        <a href="#">📈 Statistics</a>
+        <a href="#">⬇ Budget</a>
+        <a class="active" href="#">⬆ Expenses</a>
+      </nav>
+      <button class="logout">⏻ Log Out</button>
+    </aside>
+
+    <main class="main-content">
+      <h1>Money Expenses</h1>
+      <p class="subtitle">Add new money expenses.</p>
+
+      <div class="form-card">
+        <button class="back-btn">←</button>
+        <h2>Add Money Expenses</h2>
+        <form>
+          <input type="text" placeholder="Title" class="input" required>
+          <input type="text" placeholder="RM" class="input" required>
+          <select class="input">
+            <option disabled selected>Category</option>
+            <option>Food</option>
+            <option>Transport</option>
+            <option>Shopping</option>
+            <option>Utilities</option>
+          </select>
+          <input type="date" class="input" required>
+
+          <div class="btn-group">
+            <button type="reset" class="btn cancel">CANCEL</button>
+            <button type="submit" class="btn confirm">CONFIRM</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
