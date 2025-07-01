@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #d0cbe6;
+}
+
+.container {
+  display: flex;
+}
+
+/* Sidebar */
+aside {
+  width: 220px;
+  background: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+aside img {
+  border-radius: 50%;
+  width: 50px;
+  margin-bottom: 10px;
+}
+
+aside h4 {
+  margin-bottom: 30px;
+}
+
+aside a {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #000;
+  background: #f6f6f6;
+  border-radius: 8px;
+}
+
+aside a.active {
+  background: #000;
+  color: #fff;
+}
+
+.logout {
+  margin-top: auto;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Main content */
+main {
+  flex: 1;
+  padding: 40px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.subheading {
+  color: #777;
+  margin-bottom: 30px;
+}
+
+/* Edit Box */
+.edit-box {
+  background: #e0e0e0;
+  padding: 30px;
+  border-radius: 16px;
+  width: 360px;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.budget-input label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.amount-box {
+  display: flex;
+  align-items: center;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 5px;
+}
+
+.amount-box span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.amount-box input {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  width: 100%;
+}
+
+.amount-box input:focus {
+  outline: none;
+}
+
+small {
+  font-size: 12px;
+  color: #555;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.month-select select {
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 5px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cancel-btn, .save-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.cancel-btn {
+  background: #f0605e;
+  color: white;
+}
+
+.save-btn {
+  background: #2a8f78;
+  color: white;
+}
