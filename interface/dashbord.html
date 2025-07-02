@@ -1,83 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Minimalist Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget & Expenses Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="flex min-h-screen">
 
-<div class="dashboard">
-  <aside class="sidebar">
-    <div class="profile">
-      <img src="https://via.placeholder.com/48" alt="Profile">
-      <p>Rebecca</p>
-    </div>
-    <nav>
-      <a href="#">Dashboard</a>
-      <a href="#">Savings</a>
-      <a href="#">Profile</a>
-      <a href="#">Statistics</a>
-      <a href="#">Budget</a>
-      <a href="#">Expenses</a>
-    </nav>
-    <button class="logout">Log Out</button>
-  </aside>
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-3xl shadow-lg">
+        <div>
+            <!-- User Profile -->
+            <div class="flex items-center mb-8">
+                <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Rebecca's profile picture" class="w-10 h-10 rounded-full mr-3">
+                <div>
+                    <p class="text-sm text-gray-500">Hi, Rebecca!</p>
+                    <p class="font-semibold text-gray-800">Rebecca</p>
+                </div>
+            </div>
 
-  <main class="main">
-    <h1>Budget & Expenses</h1>
-
-    <div class="cards">
-      <div class="card">
-        <h2>Budget</h2>
-        <p>RM 2500</p>
-      </div>
-      <div class="card">
-        <h2>Expenses</h2>
-        <p>RM 2000</p>
-      </div>
-      <div class="card">
-        <h2>Balance</h2>
-        <p>RM 500</p>
-      </div>
-    </div>
-
-    <section class="savings">
-      <h2>Savings</h2>
-      <div class="saving-list">
-        <div class="saving-card">
-          <p>Zoo Negara Trip — RM 200</p>
-          <small>10/3/2025</small>
+            <!-- Navigation Links -->
+            <nav>
+                <ul>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-600 transition-colors">
+                            <i class="fas fa-th-large mr-3"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-star mr-3"></i>
+                            Savings
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-user mr-3"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-chart-line mr-3"></i>
+                            Statistics
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-wallet mr-3"></i>
+                            Budget
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-arrow-up mr-3"></i>
+                            Expenses
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <div class="saving-card">
-          <p>Pulau Kapas Trip — RM 80</p>
-          <small>1/7/2025</small>
-        </div>
-        <div class="saving-card">
-          <p>Redang Trip — RM 120</p>
-          <small>7/12/2025</small>
-        </div>
-      </div>
-      <button class="add-btn">+ Add Savings</button>
-    </section>
 
-    <section class="chart">
-      <h2>Expenses Chart</h2>
-      <div class="chart-box">
-        <div class="pie-chart"></div>
-        <div class="legend">
-          <p><span class="dot food"></span> Food</p>
-          <p><span class="dot transport"></span> Transport</p>
-          <p><span class="dot bill"></span> Bill</p>
-          <p><span class="dot topup"></span> Topup</p>
-          <p><span class="dot entertainment"></span> Entertainment</p>
+        <!-- Log Out Button -->
+        <div class="mt-8">
+            <button class="w-full flex items-center justify-center p-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-600 transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Log Out
+            </button>
         </div>
-      </div>
-    </section>
+    </aside>
 
-  </main>
-</div>
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8">
+        <!-- Budget & Expenses Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Budget & Expenses</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Money Budget Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md relative overflow-hidden">
+                    <div class="absolute inset-0 gradient-bg-1 opacity-20 rounded-xl"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-lg font-medium text-gray-700 mb-2">Money Budget</h3>
+                        <p class="text-2xl font-bold text-gray-900 mb-4">RM 2500</p>
+                        <!-- Plus button moved here -->
+                        <div class="flex justify-end mb-2"> <!-- Added mb-2 for spacing -->
+                            <span class="text-purple-500"><i class="fas fa-plus-circle"></i></span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-purple-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Money Expenses Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md relative overflow-hidden">
+                    <div class="absolute inset-0 gradient-bg-2 opacity-20 rounded-xl"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-lg font-medium text-gray-700 mb-2">Money Expenses</h3>
+                        <p class="text-2xl font-bold text-gray-900 mb-4">RM 2000 <span class="ml-2 text-green-500"><i class="fas fa-plus-circle"></i></span></p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Money Balance Card -->
+                <div class="bg-white p-6 rounded-xl shadow-md relative overflow-hidden">
+                    <div class="absolute inset-0 gradient-bg-3 opacity-20 rounded-xl"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-lg font-medium text-gray-700 mb-2">Money Balance</h3>
+                        <p class="text-2xl font-bold text-gray-900 mb-4">RM 500</p>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-pink-500 h-2.5 rounded-full" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Savings Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Savings</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <!-- Savings Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Zoo Negara Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 200</p>
+                    <p class="text-sm text-gray-500 mb-4">10/3/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-pink-500 h-2.5 rounded-full" style="width: 70%;"></div>
+                        </div>
+                        <div class="text-gray-400">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Pulau Kapas Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 80</p>
+                    <p class="text-sm text-gray-500 mb-4">1/7/2025</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 40%;"></div>
+                        </div>
+                        <div class="text-gray-400">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Redang Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 120</p>
+                    <p class="text-sm text-gray-500 mb-4">12/6/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                        </div>
+                        <div class="text-gray-400">
+                            <i class="fas fa-pen"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Savings Button -->
+            <button class="w-full flex items-center justify-center p-4 gradient-bg-4 text-white rounded-xl shadow-md hover:opacity-90 transition-opacity">
+                <i class="fas fa-plus mr-2"></i>
+                New Savings
+            </button>
+        </section>
+
+        <!-- Expenses Chart Section -->
+        <section>
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Expenses Chart</h2>
+                <div class="flex flex-col md:flex-row items-center justify-around">
+                    <!-- Chart Placeholder -->
+                    <div class="chart-placeholder flex-shrink-0 mb-6 md:mb-0"></div>
+
+                    <!-- Legend -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <span class="w-4 h-4 rounded-full bg-purple-700 mr-2"></span>
+                            Food
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-4 h-4 rounded-full bg-green-500 mr-2"></span>
+                            Topup
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-4 h-4 rounded-full bg-yellow-500 mr-2"></span>
+                            Transport
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-4 h-4 rounded-full bg-blue-500 mr-2"></span>
+                            Entertainment
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-4 h-4 rounded-full bg-cyan-500 mr-2"></span>
+                            Bill
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
 </body>
 </html>

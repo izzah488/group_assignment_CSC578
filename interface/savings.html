@@ -1,86 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Money Mate - Savings</title>
-  <link rel="stylesheet" href="savings.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="container">
+<body class="flex min-h-screen">
+
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="user-info">
-        <img src="avatar.png" alt="User Avatar" class="avatar" />
-        <p>Hi, Rebecca!</p>
-      </div>
-      <button class="sidebar-btn"><span class="icon">☰</span> Dashboard</button>
-      <nav>
-        <a href="#" class="active"><span class="icon">⭐</span> Savings</a>
-        <a href="#"><span class="icon">👤</span> Profile</a>
-        <a href="#"><span class="icon">📈</span> Statistics</a>
-        <a href="#"><span class="icon">⬇</span> Budget</a>
-        <a href="#"><span class="icon">⬆</span> Expenses</a>
-      </nav>
-      <button class="logout-btn"><span class="icon">🔴</span> Log Out</button>
+    <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-3xl shadow-lg">
+        <div>
+            <!-- User Profile -->
+            <div class="flex items-center mb-8">
+                <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Rebecca's profile picture" class="w-10 h-10 rounded-full mr-3">
+                <div>
+                    <p class="text-sm text-gray-500">Hi, Rebecca!</p>
+                    <p class="font-semibold text-gray-800">Rebecca</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav>
+                <ul>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-th-large mr-3"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <!-- Active Savings Link -->
+                        <a href="#" class="flex items-center p-3 bg-black text-white rounded-xl shadow-md hover:bg-gray-800 transition-colors">
+                            <i class="fas fa-star mr-3"></i>
+                            Savings
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-user mr-3"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-chart-line mr-3"></i>
+                            Statistics
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-wallet mr-3"></i>
+                            Budget
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                            <i class="fas fa-arrow-up mr-3"></i>
+                            Expenses
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Log Out Button -->
+        <div class="mt-8">
+            <button class="w-full flex items-center justify-center p-3 bg-red-500 text-white rounded-xl shadow-md hover:bg-red-600 transition-colors">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Log Out
+            </button>
+        </div>
     </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <h1>Savings</h1>
-      <div class="cards-grid">
-        <!-- Example Card -->
-        <div class="card">
-          <h2>Zoo Negara Trip<br><span>RM 200</span></h2>
-          <p>10/3/2026</p>
-          <div class="progress pink"></div>
-        </div>
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8">
+        <!-- Savings Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Savings</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <!-- Savings Card 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Zoo Negara Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 200</p>
+                    <p class="text-sm text-gray-500 mb-4">10/3/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-pink-500 h-2.5 rounded-full" style="width: 70%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Zoo Negara Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Pulau Kapas Trip<br><span>RM 80</span></h2>
-          <p>1/7/2025</p>
-          <div class="progress yellow"></div>
-        </div>
+                <!-- Savings Card 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Pulau Kapas Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 80</p>
+                    <p class="text-sm text-gray-500 mb-4">1/7/2025</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 40%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Pulau Kapas Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Redang Trip<br><span>RM 120</span></h2>
-          <p>12/6/2026</p>
-          <div class="progress lightblue"></div>
-        </div>
+                <!-- Savings Card 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Redang Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 120</p>
+                    <p class="text-sm text-gray-500 mb-4">12/6/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Redang Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Pulau Perhentian Trip<br><span>RM 180</span></h2>
-          <p>25/3/2026</p>
-          <div class="progress red"></div>
-        </div>
+                <!-- Savings Card 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Pulau Perhentian Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 180</p>
+                    <p class="text-sm text-gray-500 mb-4">25/3/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-red-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Pulau Perhentian Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Legoland<br><span>RM 150</span></h2>
-          <p>28/5/2026</p>
-          <div class="progress purple"></div>
-        </div>
+                <!-- Savings Card 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Legoland</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 150</p>
+                    <p class="text-sm text-gray-500 mb-4">28/5/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-purple-500 h-2.5 rounded-full" style="width: 75%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Legoland')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Pulau Tioman Trip<br><span>RM 90</span></h2>
-          <p>1/6/2026</p>
-          <div class="progress blue"></div>
-        </div>
+                <!-- Savings Card 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Pulau Tioman Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 90</p>
+                    <p class="text-sm text-gray-500 mb-4">1/6/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-blue-700 h-2.5 rounded-full" style="width: 65%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Pulau Tioman Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Bangkok Trip<br><span>RM 500</span></h2>
-          <p>1/8/2026</p>
-          <div class="progress orange"></div>
-        </div>
+                <!-- Savings Card 7 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Bangkok Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 500</p>
+                    <p class="text-sm text-gray-500 mb-4">1/9/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-orange-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Bangkok Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="card">
-          <h2>Bandung Trip<br><span>RM 1000</span></h2>
-          <p>1/9/2026</p>
-          <div class="progress green"></div>
-        </div>
-      </div>
+                <!-- Savings Card 8 -->
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h3 class="text-lg font-medium text-gray-700 mb-2">Bandung Trip</h3>
+                    <p class="text-xl font-bold text-gray-900 mb-2">RM 1000</p>
+                    <p class="text-sm text-gray-500 mb-4">1/9/2026</p>
+                    <div class="flex items-center justify-between w-full">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+                            <div class="bg-green-400 h-2.5 rounded-full" style="width: 90%;"></div>
+                        </div>
+                        <div>
+                            <button class="text-gray-400 hover:text-gray-600 focus:outline-none" onclick="alert('Edit Bandung Trip')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-      <button class="new-savings-btn">➕ New Savings</button>
+                <!-- Empty Savings Card (for alignment/future use) -->
+                <div class="bg-white p-6 rounded-xl shadow-md opacity-0 pointer-events-none hidden md:block">
+                    <!-- This is a placeholder to maintain grid alignment if needed -->
+                </div>
+            </div>
+
+            <!-- New Savings Button -->
+            <button class="w-full flex items-center justify-center p-4 gradient-bg-4 text-white rounded-xl shadow-md hover:opacity-90 transition-opacity">
+                <i class="fas fa-plus mr-2"></i>
+                + new saving
+            </button>
+        </section>
     </main>
-  </div>
+
 </body>
 </html>

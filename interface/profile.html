@@ -1,59 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Money Mate - Profile</title>
-  <link rel="stylesheet" href="profile.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="profile.css">
 </head>
-<body>
-  <div class="container">
+<body class="flex min-h-screen">
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="user-info">
-        <img src="avatar.png" alt="User Avatar" class="avatar" />
-        <p>Hi, Rebecca!</p>
-      </div>
-      <button class="sidebar-btn"><span class="icon">☰</span> Dashboard</button>
-      <nav>
-        <a href="#"><span class="icon">⭐</span> Savings</a>
-        <a href="#" class="active"><span class="icon">👤</span> Profile</a>
-        <a href="#"><span class="icon">📈</span> Statistics</a>
-        <a href="#"><span class="icon">⬇</span> Budget</a>
-        <a href="#"><span class="icon">⬆</span> Expenses</a>
-      </nav>
-      <button class="logout-btn"><span class="icon">🔴</span> Log Out</button>
+    <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-2xl shadow-lg">
+        <div>
+            <!-- User Info -->
+            <div class="flex items-center mb-8">
+                <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3">
+                <div>
+                    <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav>
+                <ul>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-th-large mr-3 text-lg"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-star mr-3 text-lg"></i>
+                            Savings
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center p-3 bg-black text-white rounded-lg shadow-md">
+                            <i class="fas fa-user mr-3 text-lg"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-chart-line mr-3 text-lg"></i>
+                            Statistics
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-wallet mr-3 text-lg"></i>
+                            Budget
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-arrow-up mr-3 text-lg"></i>
+                            Expenses
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Log Out Button -->
+        <div class="mt-auto">
+            <button class="w-full bg-red-500 text-white py-3 px-4 rounded-xl shadow-lg hover:bg-red-600 transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-sign-out-alt mr-2 text-lg"></i>
+                Log Out
+            </button>
+        </div>
     </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <h1>Profile</h1>
-      <p class="subtext">View and edit your profile, change settings, and manage your data.</p>
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-2">Profile</h1>
+        <p class="text-gray-600 mb-8">View and edit your profile, change settings, and manage your data.</p>
 
-      <div class="profile-box">
-        <div class="profile-field">
-          <label>First Name</label>
-          <p>Rebecca</p>
-        </div>
-        <div class="profile-field">
-          <label>Last Name</label>
-          <p>Donaldson</p>
-        </div>
-        <div class="profile-field">
-          <label>Email</label>
-          <p>rebecca@gmail.com</p>
-        </div>
-        <div class="profile-field password-field">
-          <label>Current Password</label>
-          <div class="password-display">
-            <span>********</span>
-            <span class="eye-icon">🙈</span>
-          </div>
-        </div>
-      </div>
+        <!-- Profile Form -->
+        <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto">
+            <div class="grid grid-cols-1 gap-y-6">
+                <!-- First Name -->
+                <div>
+                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                    <div class="relative">
+                        <input type="text" id="firstName" value="Rebecca"
+                               class="w-full p-3 border border-gray-200 rounded-lg bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all duration-200 text-gray-800"
+                               readonly>
+                    </div>
+                </div>
 
-      <button class="edit-btn">Edit Profile</button>
+                <!-- Last Name -->
+                <div>
+                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                    <div class="relative">
+                        <input type="text" id="lastName" value="Donaldson"
+                               class="w-full p-3 border border-gray-200 rounded-lg bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all duration-200 text-gray-800"
+                               readonly>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <div class="relative">
+                        <input type="email" id="email" value="rebecca@gmail.com"
+                               class="w-full p-3 border border-gray-200 rounded-lg bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all duration-200 text-gray-800"
+                               readonly>
+                    </div>
+                </div>
+
+                <!-- Current Password -->
+                <div>
+                    <label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                    <div class="relative">
+                        <input type="password" id="currentPassword" value="password123"
+                               class="w-full p-3 border border-gray-200 rounded-lg bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-200 transition-all duration-200 text-gray-800"
+                               readonly>
+                        <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 password-toggle" onclick="togglePasswordVisibility()">
+                            <i class="fas fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Profile Button -->
+            <div class="mt-10 text-center">
+                <button class="bg-blue-500 text-white py-3 px-8 rounded-xl shadow-lg hover:bg-blue-600 transition-colors duration-200 text-lg font-semibold"
+                        style="background-image: linear-gradient(to right, #a7d9f7, #c6e7ff); color: #333; border: 1px solid #9acbe9;">
+                    Edit Profile
+                </button>
+            </div>
+        </div>
     </main>
-  </div>
+
+    <script>
+        // Function to toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('currentPassword');
+            const toggleIcon = document.querySelector('.password-toggle i');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            }
+        }
+    </script>
 </body>
 </html>
