@@ -1,0 +1,42 @@
+/* styles.css */
+
+/* Body styling */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f2f5; /* Light gray background */
+}
+
+/* Navigation bar gradient */
+.navbar-gradient {
+  background: linear-gradient(to right, #8e2de2, #4a00e0); /* Purple to darker purple */
+}
+
+/* Sign up button gradient */
+.signup-button-gradient {
+  background: linear-gradient(to right, #e0b0ff, #b080ff); /* Lighter purple to purple */
+}
+
+.signup-button-gradient:hover {
+  filter: brightness(1.05); /* Slight brightening on hover */
+}
+
+/* Card border gradient */
+.card-border-gradient {
+  background: linear-gradient(to bottom right, #e0b0ff, #b080ff); /* Lighter purple to purple */
+  padding: 2px; /* Border effect using padding */
+  border-radius: 1rem; /* Match card border radius */
+}
+
+/* Inner card content */
+.card-content {
+  background-color: white;
+  border-radius: 0.9rem; /* Slightly smaller to show border effect */
+  height: 100%;
+}
+
+/* Quote text styling */
+.quote-font {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  color: #4a00e0; /* Dark purple */
+}
