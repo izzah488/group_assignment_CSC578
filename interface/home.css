@@ -3,29 +3,8 @@ body {
   background-color: #f9f9f9;
 }
 
-h1,
-.hero-text-gradient {
+h1, .hero-text-gradient {
   font-family: 'Playfair Display', serif;
-}
-
-.main-heading {
-  font-size: 1.875rem; /* text-3xl */
-  font-weight: 800;
-  color: #000;
-  line-height: 1.25;
-  margin-bottom: 0.5rem;
-}
-
-@media (min-width: 640px) {
-  .main-heading {
-    font-size: 2.25rem; /* text-4xl */
-  }
-}
-
-@media (min-width: 1024px) {
-  .main-heading {
-    font-size: 3.75rem; /* text-6xl */
-  }
 }
 
 .navbar-gradient {
@@ -42,29 +21,10 @@ h1,
 .cta-button {
   background: linear-gradient(to right, #e0c3fc, #8ec5fc);
   color: #4B0082;
-  font-weight: 700;
-  padding: 0.75rem 2rem; /* py-3 px-8 */
-  border-radius: 9999px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
 .cta-button:hover {
   transform: scale(1.05);
   background: linear-gradient(to right, #d3b0f5, #6ba6f9);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.signup-btn {
-  background: linear-gradient(to right, #ec4899, #8b5cf6);
-  color: white;
-  padding: 0.5rem 1.5rem; /* py-2 px-6 */
-  border-radius: 9999px;
-  font-weight: 700;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: filter 0.3s ease;
-}
-
-.signup-btn:hover {
-  filter: brightness(1.1);
 }
