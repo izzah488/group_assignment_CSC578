@@ -1,24 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Home Page</title>
-  <link rel="stylesheet" href="home.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Money Mate</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    h1, .hero-text-gradient {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .navbar-gradient {
+      background: linear-gradient(to right, #4B0082, #8A2BE2);
+    }
+
+    .hero-text-gradient {
+      background: linear-gradient(to right, #6a0dad, #8a2be2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .cta-button {
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      color: #4B0082;
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #d3b0f5, #6ba6f9);
+    }
+  </style>
 </head>
-<body>
-  <nav class="navbar">
-    <div class="logo">MyWebsite</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="login.html">Sign In</a></li>
-      <li><a href="register.html">Sign Up</a></li>
-    </ul>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="navbar-gradient p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Logo and Name -->
+      <div class="flex items-center space-x-2">
+        <div class="bg-white text-purple-700 rounded-full w-9 h-9 flex items-center justify-center font-bold text-lg">S</div>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 text-xl font-bold">
+          Money Mate
+        </span>
+      </div>
+
+      <!-- Menu -->
+      <<!-- Menu -->
+<div class="hidden md:flex space-x-6 text-lg">
+  <a href="#" class="text-violet-100 hover:text-white font-semibold transition duration-300">Home</a>
+  <a href="#" class="text-violet-100 hover:text-white font-semibold transition duration-300">About</a>
+  <a href="#" class="text-violet-100 hover:text-white font-semibold transition duration-300">Login</a>
+  <button class="bg-gradient-to-r from-pink-400 to-purple-600 text-white px-6 py-2 rounded-full font-bold shadow-md hover:brightness-110 transition duration-300">
+    Sign Up
+  </button>
+</div>
+
+      </div>
+    </div>
   </nav>
 
-  <section class="hero">
-    <h1>Welcome to MyWebsite</h1>
-    <p>Your simple, clean, responsive homepage</p>
-  </section>
+  <!-- Hero Section -->
+  <main class="flex-grow flex items-center justify-center px-4 py-20 bg-white">
+    <div class="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 max-w-6xl">
+
+      <!-- Left Side: Text -->
+      <div class="text-center md:text-left md:w-1/2">
+        <h1 class="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-black leading-tight mb-2">
+  Manage your money with
+</h1>
+
+        <h2 class="hero-text-gradient text-5xl sm:text-6xl font-extrabold leading-none mb-4">
+          us
+        </h2>
+        <p class="text-lg text-gray-600 mb-8 max-w-md md:max-w-lg">
+          Track your income, expenses, and savings — all in one simple and beautiful platform.
+        </p>
+        <button class="cta-button font-bold py-3 px-8 rounded-full shadow-md hover:shadow-xl">
+          Read More
+        </button>
+      </div>
+
+      <!-- Right Side: Image -->
+      <div class="md:w-1/2 flex justify-center">
+        <img src="https://i.pinimg.com/736x/72/17/4e/72174ef251d0438cbf00d62975727d4a.jpg"
+             alt="Money Illustration"
+             class="rounded-xl shadow-xl w-full max-w-md"
+             onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E0E0/333333?text=Image+Not+Found';"/>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
