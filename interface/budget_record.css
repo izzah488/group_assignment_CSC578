@@ -1,127 +1,50 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
 body {
-  background-color: #f0effc;
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5; /* Light grey background */
+}
+/* Custom styles for the eye icon to match the image */
+.password-toggle {
+    cursor: pointer;
+    color: #9ca3af; /* Gray color for the icon */
 }
 
-.container {
-  display: flex;
-  height: 100vh;
+/* Custom styles for the pie chart colors */
+.pie-chart-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
-
-.sidebar {
-  width: 250px;
-  background-color: white;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.pie-chart-legend-color {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+    border-radius: 0.25rem; /* 4px */
+    margin-right: 0.5rem; /* 8px */
 }
+/* Specific colors from the image */
+.color-purple { background-color: #9333ea; } /* Food */
+.color-yellow { background-color: #facc15; } /* Transport */
+.color-teal { background-color: #14b8a6; } /* Bill */
+.color-green { background-color: #22c55e; } /* Top Up */
+.color-blue { background-color: #3b82f6; } /* Entertainment */
 
-.user-info {
-  text-align: center;
-  margin-bottom: 20px;
+/* Custom styles for the expense list sections */
+.expense-category-header {
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    font-weight: 600; /* font-semibold */
+    border-radius: 0.5rem 0.5rem 0 0; /* rounded-t-lg */
+    margin-top: 1.5rem; /* mt-6 */
 }
-
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+.expense-category-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    border-bottom: 1px solid #e5e7eb; /* border-b border-gray-200 */
 }
-
-.menu-btn {
-  background: #fff;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  margin: 10px 0;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  border-radius: 10px;
-  text-align: left;
+.expense-category-item:last-child {
+    border-bottom: none;
 }
-
-.nav-links a {
-  display: block;
-  padding: 10px;
-  margin: 5px 0;
-  text-decoration: none;
-  color: black;
-  border-radius: 8px;
-}
-
-.nav-links a.active {
-  background-color: black;
-  color: white;
-}
-
-.logout {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.main-content {
-  flex: 1;
-  padding: 40px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.back-btn {
-  background-color: #f0f0f0;
-  border: none;
-  font-size: 24px;
-  padding: 8px 12px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.main-content h1 {
-  font-size: 28px;
-  margin-bottom: 4px;
-}
-
-.subtitle {
-  color: gray;
-}
-
-.budget-record {
-  background-color: #ffd6e6;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-.record-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #f4b8c8;
-}
-
-.record-row:last-child {
-  border-bottom: none;
-}
-
-.note {
-  margin-top: 15px;
-  font-size: 12px;
-  color: gray;
-  font-style: italic;
+.expense-category-list {
+    background-color: white;
+    border-radius: 0 0 0.5rem 0.5rem; /* rounded-b-lg */
+    padding-bottom: 0.5rem; /* pb-2 */
 }

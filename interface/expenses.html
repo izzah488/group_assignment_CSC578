@@ -1,66 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Expenses Chart</title>
-  <link rel="stylesheet" href="expenses.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Chart</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="profile.css">
+    <style>
+        /* Custom styles for the pie chart colors */
+        .pie-chart-legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .pie-chart-legend-color {
+            width: 1.25rem; /* 20px */
+            height: 1.25rem; /* 20px */
+            border-radius: 0.25rem; /* 4px */
+            margin-right: 0.5rem; /* 8px */
+        }
+        /* Specific colors from the image */
+        .color-purple { background-color: #9333ea; } /* Food */
+        .color-yellow { background-color: #facc15; } /* Transport */
+        .color-teal { background-color: #14b8a6; } /* Bill */
+        .color-green { background-color: #22c55e; } /* Top Up */
+        .color-blue { background-color: #3b82f6; } /* Entertainment */
+
+        /* Custom styles for the expense list sections */
+        .expense-category-header {
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            font-weight: 600; /* font-semibold */
+            border-radius: 0.5rem 0.5rem 0 0; /* rounded-t-lg */
+            margin-top: 1.5rem; /* mt-6 */
+        }
+        .expense-category-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-bottom: 1px solid #e5e7eb; /* border-b border-gray-200 */
+        }
+        .expense-category-item:last-child {
+            border-bottom: none;
+        }
+        .expense-category-list {
+            background-color: white;
+            border-radius: 0 0 0.5rem 0.5rem; /* rounded-b-lg */
+            padding-bottom: 0.5rem; /* pb-2 */
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <aside class="sidebar">
-      <div class="profile">
-        <img src="https://via.placeholder.com/40" class="avatar" />
-        <span>Hi, Rebecca!</span>
-      </div>
-      <button class="menu-toggle">☰ Dashboard</button>
-      <ul>
-        <li>⭐ Savings</li>
-        <li>👤 Profile</li>
-        <li>📊 Statistics</li>
-        <li>📁 Budget</li>
-        <li class="active">⬅ Expenses</li>
-      </ul>
-      <button class="logout">🔴 Log Out</button>
+<body class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-2xl shadow-lg">
+        <div>
+            <!-- User Info -->
+            <div class="flex items-center mb-8">
+                <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3">
+                <div>
+                    <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+                </div>
+            </div>
+
+<!-- Navigation Menu -->
+            <nav>
+                <ul>
+                    <li class="mb-2">
+                        <a href="dashboard.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-th-large mr-3 text-lg"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="savings.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-star mr-3 text-lg"></i>
+                            Savings
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="profile.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-user mr-3 text-lg"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="statistics.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-chart-line mr-3 text-lg"></i>
+                            Statistics
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="budget.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-wallet mr-3 text-lg"></i>
+                            Budget
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="expenses.html" class="flex items-center p-3 bg-black text-white rounded-lg shadow-md">
+                            <i class="fas fa-arrow-up mr-3 text-lg"></i>
+                            Expenses
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Log Out Button -->
+        <div class="mt-auto">
+            <button class="w-full bg-red-500 text-white py-3 px-4 rounded-xl shadow-lg hover:bg-red-600 transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-sign-out-alt mr-2 text-lg"></i>
+                Log Out
+            </button>
+        </div>
     </aside>
 
-    <main class="content">
-      <header>
-        <h1>Expenses Chart</h1>
-        <p>Visualize your monthly commitments at a glance.</p>
-      </header>
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-2">Expenses Chart</h1>
+        <p class="text-gray-600 mb-8">Visualize your monthly commitments at a glance.</p>
 
-      <div class="chart-section">
-        <div class="chart-placeholder">
-          <!-- Placeholder for chart (you can replace with a real chart if using Chart.js) -->
-          <img src="https://via.placeholder.com/200x200?text=Pie+Chart" alt="Pie Chart" />
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <!-- Left Column: Pie Chart Placeholder -->
+            <div class="flex justify-center lg:justify-end">
+                <!-- Placeholder for the pie chart -->
+                <img src="https://placehold.co/200x200/e0e0e0/000000?text=Pie+Chart+Placeholder" alt="Pie Chart" class="rounded-full shadow-md">
+            </div>
+
+<!-- Right Column: Legend -->
+            <div class="flex flex-col justify-center lg:justify-start">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="pie-chart-legend-item">
+                        <div class="pie-chart-legend-color color-purple"></div>
+                        <span class="text-gray-700 font-medium">Food</span>
+                    </div>
+                    <div class="pie-chart-legend-item">
+                        <div class="pie-chart-legend-color color-green"></div>
+                        <span class="text-gray-700 font-medium">Top Up</span>
+                    </div>
+                    <div class="pie-chart-legend-item">
+                        <div class="pie-chart-legend-color color-yellow"></div>
+                        <span class="text-gray-700 font-medium">Transport</span>
+                    </div>
+                    <div class="pie-chart-legend-item">
+                        <div class="pie-chart-legend-color color-blue"></div>
+                        <span class="text-gray-700 font-medium">Entertainment</span>
+                    </div>
+                    <div class="pie-chart-legend-item">
+                        <div class="pie-chart-legend-color color-teal"></div>
+                        <span class="text-gray-700 font-medium">Bill</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="legend">
-          <span class="legend-item purple">▣ Food</span>
-          <span class="legend-item yellow">▣ Transport</span>
-          <span class="legend-item teal">▣ Bill</span>
-          <span class="legend-item green">▣ Top Up</span>
-          <span class="legend-item blue">▣ Entertainment</span>
-        </div>
-      </div>
+        <!-- Expense Categories List -->
+        <div class="mt-12 max-w-4xl mx-auto">
+            <!-- Food Category -->
+            <div class="expense-category-header bg-purple-500 text-white shadow-md">Food</div>
+            <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+                <div class="expense-category-item">
+                    <span>nasi ganja</span>
+                    <span class="text-gray-500">12/03/2025 08:30 am</span>
+                    <span class="font-semibold">RM 6.00</span>
+                </div>
+                <div class="expense-category-item">
+                    <span>nasi ayam</span>
+                    <span class="text-gray-500">11/03/2025 08:30 am</span>
+                    <span class="font-semibold">RM 7.00</span>
+                </div>
+                <div class="expense-category-item">
+                    <span>dessert</span>
+                    <span class="text-gray-500">10/03/2025 10:30 am</span>
+                    <span class="font-semibold">RM 17.00</span>
+                </div>
+                <div class="expense-category-item">
+                    <span>mochi cheesecake</span>
+                    <span class="text-gray-500">09/03/2025 05:00 pm</span>
+                    <span class="font-semibold">RM 9.00</span>
+                </div>
+                <div class="expense-category-item">
+                    <span>roti</span>
+                    <span class="text-gray-500">09/03/2025 10:00am</span>
+                    <span class="font-semibold">RM 3.00</span>
+                </div>
+            </div>
 
-      <div class="table">
-        <div class="table-section food">
-          <div class="category-header purple-bg">Food</div>
-          <div class="item">nasi ganja <span>12/03/2025 08:30 am</span> <strong>RM 6.00</strong></div>
-          <div class="item">nasi ayam <span>11/03/2025 08:30 am</span> <strong>RM 7.00</strong></div>
-          <div class="item">dessert <span>10/03/2025 10:30 am</span> <strong>RM 17.00</strong></div>
-          <div class="item">mochi cheesecake <span>09/03/2025 05:00 pm</span> <strong>RM 9.00</strong></div>
-          <div class="item">roti <span>09/03/2025 10:00 am</span> <strong>RM 3.00</strong></div>
-        </div>
+            <!-- Transport Category -->
+            <div class="expense-category-header bg-yellow-500 text-gray-800 shadow-md">Transport</div>
+            <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+                <!-- Add transport items here if needed -->
+            </div>
 
-        <div class="category-header yellow-bg">Transport</div>
-        <div class="category-header teal-bg">Bill</div>
-        <div class="category-header green-bg">Top Up</div>
-        <div class="category-header blue-bg">Entertainment</div>
-      </div>
+            <!-- Bill Category -->
+            <div class="expense-category-header bg-teal-500 text-white shadow-md">Bill</div>
+            <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+                <!-- Add bill items here if needed -->
+            </div>
+
+            <!-- Top Up Category -->
+            <div class="expense-category-header bg-green-500 text-white shadow-md">Top Up</div>
+            <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+                <!-- Add top up items here if needed -->
+            </div>
+
+<!-- Entertainment Category -->
+            <div class="expense-category-header bg-blue-500 text-white shadow-md">Entertainment</div>
+            <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+                <!-- Add entertainment items here if needed -->
+            </div>
+        </div>
     </main>
-  </div>
 </body>
 </html>

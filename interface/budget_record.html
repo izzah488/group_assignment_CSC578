@@ -1,79 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Budget Record</title>
-  <link rel="stylesheet" href="budget_record.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Record</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="profile.css">
 </head>
-<body>
-  <div class="container">
-    <aside class="sidebar">
-      <div class="user-info">
-        <img src="avatar.png" alt="User Avatar" class="avatar">
-        <p>Hi, Rebecca!</p>
-      </div>
-      <button class="menu-btn">☰ Dashboard</button>
-      <nav class="nav-links">
-        <a href="#">⭐ Savings</a>
-        <a href="#">👤 Profile</a>
-        <a href="#">📈 Statistics</a>
-        <a class="active" href="#">⬇ Budget</a>
-        <a href="#">⬆ Expenses</a>
-      </nav>
-      <button class="logout">⏻ Log Out</button>
+<body class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-2xl shadow-lg">
+        <div>
+            <!-- User Info -->
+            <div class="flex items-center mb-8">
+                <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3">
+                <div>
+                    <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav>
+                <ul>
+                    <li class="mb-2">
+                        <a href="dashboard.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-th-large mr-3 text-lg"></i>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="savings.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-star mr-3 text-lg"></i>
+                            Savings
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="profile.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-user mr-3 text-lg"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="statistics.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-chart-line mr-3 text-lg"></i>
+                            Statistics
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="budget.html" class="flex items-center p-3 bg-black text-white rounded-lg shadow-md">
+                            <i class="fas fa-wallet mr-3 text-lg"></i>
+                            Budget
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="expenses.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-arrow-up mr-3 text-lg"></i>
+                            Expenses
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Log Out Button -->
+        <div class="mt-auto">
+            <button class="w-full bg-red-500 text-white py-3 px-4 rounded-xl shadow-lg hover:bg-red-600 transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-sign-out-alt mr-2 text-lg"></i>
+                Log Out
+            </button>
+        </div>
     </aside>
 
-    <main class="main-content">
-      <div class="header">
-        <button class="back-btn">←</button>
-        <div>
-          <h1>Budget Record</h1>
-          <p class="subtitle">View past budget.</p>
+<!-- Main Content Area -->
+    <main class="flex-1 p-8">
+        <div class="flex items-center mb-6">
+            <a href="#" class="text-gray-500 hover:text-gray-700 mr-4">
+                <i class="fas fa-arrow-left text-xl"></i>
+            </a>
+            <div>
+                <h1 class="text-3xl font-semibold text-gray-800">Budget Record</h1>
+                <p class="text-gray-600">View past budget.</p>
+            </div>
         </div>
-      </div>
 
-      <div class="budget-record">
-        <div class="record-row">
-          <span>March</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>February</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>January</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>December</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>November</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>October</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>September</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>August</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>July</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>June</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>May</span><span>RM 2000.00</span>
-        </div>
-        <div class="record-row">
-          <span>April</span><span>RM 2000.00</span>
-        </div>
-      </div>
+        <!-- Budget Record Table -->
+        <div class="bg-pink-50 p-6 rounded-2xl shadow-lg max-w-xl mx-auto">
+            <div class="grid grid-cols-2 gap-y-3 text-gray-800 font-medium">
+                <div class="col-span-1">March</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
 
-      <p class="note">Record will permanently erased after 12 months.</p>
+                <div class="col-span-1">February</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">January</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">December</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">November</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">October</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">September</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">August</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">July</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">June</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">May</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+
+                <div class="col-span-1">April</div>
+                <div class="col-span-1 text-right">RM 2000.00</div>
+            </div>
+        </div>
+
+        <p class="text-gray-500 text-sm mt-6 text-center max-w-xl mx-auto">Record will permanently erased after 12 months.</p>
     </main>
-  </div>
 </body>
 </html>
