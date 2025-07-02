@@ -27,3 +27,30 @@ body {
         #0000ff 80% 100% /* Entertainment - Blue */
     );
 }
+
+/* New CSS for the button-gradient */
+.button-gradient {
+    background: linear-gradient(135deg, #4CAF50, #8BC34A); /* Example gradient */
+}
+/* Use Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom gradient for the button */
+        .button-gradient {
+            background-image: linear-gradient(to right, #D66D75, #5B2C6F);
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
