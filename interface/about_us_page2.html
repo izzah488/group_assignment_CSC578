@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Mate</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+        }
+        /* Custom gradient for the header */
+        .header-gradient {
+            background: linear-gradient(to right, #6b46c1, #805ad5, #a78bfa); /* Purple gradient */
+        }
+        /* Custom gradient for the sign-up button */
+        .signup-button-gradient {
+            background: linear-gradient(to right, #d6bcfa, #fbd38d); /* Lighter purple to orange gradient */
+        }
+        /* Scroll to top button style */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4a5568; /* Dark gray */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 9999px; /* Fully rounded */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            z-index: 1000;
+        }
+        .scroll-to-top.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Header Section -->
+    <header class="header-gradient text-white py-4 px-6 md:px-12 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo and App Name -->
+            <div class="flex items-center space-x-2">
+                <div class="bg-white p-2 rounded-full">
+                    <svg class="w-6 h-6 text-purple-700" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm11.5 1.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM12 13a1 1 0 100 2h.01a1 1 0 100-2H12zm-3 0a1 1 0 100 2h.01a1 1 0 100-2H9zm-3 0a1 1 0 100 2h.01a1 1 0 100-2H6z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <span class="text-2xl font-bold">Money Mate</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#" class="hover:text-gray-200 font-medium">HOME</a>
+                <a href="#" class="hover:text-gray-200 font-medium">ABOUT US</a>
+                <a href="#" class="hover:text-gray-200 font-medium">LOGIN</a>
+                <button class="signup-button-gradient text-purple-900 font-semibold py-2 px-6 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out">
+                    SIGN UP
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button (Hamburger Icon) - Optional, not in original image but good for responsiveness -->
+            <div class="md:hidden">
+                <button class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Team Members Section -->
+    <section class="container mx-auto py-16 px-4 md:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Member 1: Farhana -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                <!-- Replace 'https://example.com/farhana.jpg' with the actual URL of Farhana's image -->
+                <img src="https://placehold.co/150x150/A78BFA/ffffff?text=FARHANA" alt="Farhana" class="w-36 h-36 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/150x150/A78BFA/ffffff?text=FARHANA';">
+                <h3 class="text-xl font-semibold text-gray-800 mb-1">FARHANA</h3>
+                <p class="text-purple-600 font-medium">CEO & FOUNDER</p>
+            </div>
+
+            <!-- Member 2: Huwayda -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                <!-- Replace 'https://example.com/huwayda.jpg' with the actual URL of Huwayda's image -->
+                <img src="https://placehold.co/150x150/A78BFA/ffffff?text=HUWAYDA" alt="Huwayda" class="w-36 h-36 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/150x150/A78BFA/ffffff?text=HUWAYDA';">
+                <h3 class="text-xl font-semibold text-gray-800 mb-1">HUWAYDA</h3>
+                <p class="text-purple-600 font-medium">CSO & CO FOUNDER</p>
+            </div>
+
+            <!-- Member 3: Arissa -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                <!-- Replace 'https://example.com/arissa.jpg' with the actual URL of Arissa's image -->
+                <img src="https://placehold.co/150x150/A78BFA/ffffff?text=ARISSA" alt="Arissa" class="w-36 h-36 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/150x150/A78BFA/ffffff?text=ARISSA';">
+                <h3 class="text-xl font-semibold text-gray-800 mb-1">ARISSA</h3>
+                <p class="text-purple-600 font-medium">COO</p>
+            </div>
+
+            <!-- Member 4: Izzah -->
+            <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+                <!-- Replace 'https://example.com/izzah.jpg' with the actual URL of Izzah's image -->
+                <img src="https://placehold.co/150x150/A78BFA/ffffff?text=IZZAH" alt="Izzah" class="w-36 h-36 rounded-full object-cover mb-4 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/150x150/A78BFA/ffffff?text=IZZAH';">
+                <h3 class="text-xl font-semibold text-gray-800 mb-1">IZZAH</h3>
+                <p class="text-purple-600 font-medium">CTO</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="container mx-auto py-16 px-4 md:px-8 text-center">
+        <h2 class="text-5xl font-extrabold text-purple-800 mb-4 tracking-wide">CONTACT US</h2>
+        <p class="text-gray-600 text-lg mb-10">If you want to get in touch with us, use these e-mails.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-16 text-left max-w-3xl mx-auto">
+            <!-- Support -->
+            <div>
+                <p class="font-semibold text-gray-700 mb-2">For Support</p>
+                <a href="mailto:hello@moneyTracker.com" class="text-purple-600 hover:underline">hello@moneyTracker.com</a>
+            </div>
+            <!-- Media & PR Opportunities -->
+            <div>
+                <p class="font-semibold text-gray-700 mb-2">For Media & PR Opportunities</p>
+                <a href="mailto:media@moneyTracker.com" class="text-purple-600 hover:underline">media@moneyTracker.com</a>
+            </div>
+            <!-- Business Opportunities -->
+            <div>
+                <p class="font-semibold text-gray-700 mb-2">For Business Opportunities & Marketing Purposes,<br>contact Arissa</p>
+                <a href="mailto:Arissa@moneyTracker.com" class="text-purple-600 hover:underline">Arissa@moneyTracker.com</a>
+            </div>
+            <!-- Other Opportunities -->
+            <div>
+                <p class="font-semibold text-gray-700 mb-2">For Other Opportunities, contact<br>our CEO Farhana</p>
+                <a href="mailto:Farhana@moneyTracker.com" class="text-purple-600 hover:underline">Farhana@moneyTracker.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="scroll-to-top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Get the button
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.classList.add("show");
+            } else {
+                scrollToTopBtn.classList.remove("show");
+            }
+        };
+
+        // When the user clicks on the button, scroll to the top of the document
+        scrollToTopBtn.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+
+</body>
+</html>
