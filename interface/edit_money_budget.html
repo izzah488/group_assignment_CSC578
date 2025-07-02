@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Money Budget</title>
+  <link rel="stylesheet" href="edit_money_budget.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside>
+      <img src="https://via.placeholder.com/50" alt="Profile" />
+      <h4>Hi, Rebecca!</h4>
+      <a href="#">Dashboard</a>
+      <a href="#">Savings</a>
+      <a href="#">Profile</a>
+      <a href="#">Statistics</a>
+      <a href="#" class="active">Budget</a>
+      <a href="#">Expenses</a>
+      <button class="logout">🔁 Log Out</button>
+    </aside>
+
+    <!-- Main content -->
+    <main>
+      <h1>Money Budget</h1>
+      <p class="subheading">Edit your money budget.</p>
+
+      <div class="edit-box">
+        <button class="back-btn">←</button>
+        <h2>Edit Money Budget</h2>
+
+        <div class="budget-input">
+          <label for="amount">Amount</label>
+          <div class="amount-box">
+            <span>RM</span>
+            <input type="text" id="amount" value="2,500.00" />
+          </div>
+          <small>The money budget limit is RM 2,500.00.</small>
+        </div>
+
+        <div class="month-select">
+          <select>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+          </select>
+          <small>This budget is for March only.</small>
+        </div>
+
+        <div class="buttons">
+          <button class="cancel-btn">CANCEL</button>
+          <button class="save-btn">SAVE</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

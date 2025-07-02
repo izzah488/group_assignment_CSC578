@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saving Form</title>
+  <link rel="stylesheet" href="new_saving.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-box">
+      <h2>SAVING</h2>
+      <img src="https://img.icons8.com/emoji/48/coin-emoji.png" alt="Saving Icon" class="icon" />
+
+      <form>
+        <label for="saving-for">SAVING FOR:</label>
+        <input type="text" id="saving-for" />
+
+        <label for="budget">BUDGET:</label>
+        <input type="number" id="budget" />
+
+        <label for="date-target">DATE TARGET:</label>
+        <div class="date-input-wrapper">
+          <input type="date" id="date-target" />
+          <span class="calendar-icon">📅</span>
+        </div>
+
+        <div class="buttons">
+          <button type="button" class="btn delete">Delete</button>
+          <button type="reset" class="btn cancel">Cancel</button>
+          <button type="submit" class="btn save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
