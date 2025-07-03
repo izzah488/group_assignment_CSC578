@@ -1,0 +1,14 @@
+/* style.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); /* Background gradient */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); /* Navbar gradient */
+}
