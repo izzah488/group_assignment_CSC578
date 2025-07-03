@@ -3,14 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Record</title>
+    <title>Budget</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="profile.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .sidebar {
+            background-color: #ffffff;
+            border-top-right-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+        }
+        .menu-btn {
+            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .nav-links a {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            color: #4a00e0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .nav-links a.active,
+        .nav-links a:hover {
+            background-color: #e0b0ff; /* Light purple for active/hover */
+        }
+        .logout {
+            background-color: #fbd38d; /* Light orange */
+            color: #c05621; /* Darker orange text */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .logout:hover {
+            background-color: #f6ad55; /* Slightly darker orange on hover */
+        }
+        .new-expenses-btn {
+            background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+        }
+        .new-expenses-btn:hover {
+            filter: brightness(1.1);
+        }
+    </style>
 </head>
 <body class="flex min-h-screen">
     <!-- Sidebar -->
@@ -21,115 +76,155 @@
                 <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3">
                 <div>
                     <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+                    <p class="text-xs text-gray-500">Premium User</p>
                 </div>
             </div>
-
-            <!-- Navigation Menu -->
-            <nav>
-                <ul>
-                    <li class="mb-2">
-                        <a href="dashboard.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                            <i class="fas fa-th-large mr-3 text-lg"></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="savings.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                            <i class="fas fa-star mr-3 text-lg"></i>
-                            Savings
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="profile.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                            <i class="fas fa-user mr-3 text-lg"></i>
-                            Profile
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="statistics.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                            <i class="fas fa-chart-line mr-3 text-lg"></i>
-                            Statistics
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="budget.html" class="flex items-center p-3 bg-black text-white rounded-lg shadow-md">
-                            <i class="fas fa-wallet mr-3 text-lg"></i>
-                            Budget
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="expenses.html" class="flex items-center p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200">
-                            <i class="fas fa-arrow-up mr-3 text-lg"></i>
-                            Expenses
-                        </a>
-                    </li>
-                </ul>
+            <!-- Dashboard Button -->
+            <button onclick="location.href='dashbord.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
+            <!-- Navigation Links -->
+            <nav class="nav-links flex flex-col space-y-2">
+                <!-- Updated Sidebar Links -->
+                <a href="dashbord.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
+                <a href="editprofile.html">👤 Profile</a>
+                <a href="dashbord.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
+                <a href="budget.html" class="active">⬇ Budget</a>
+                <a href="expenses.html">⬆ Expenses</a>
             </nav>
         </div>
-
-        <!-- Log Out Button -->
-        <div class="mt-auto">
-            <button class="w-full bg-red-500 text-white py-3 px-4 rounded-xl shadow-lg hover:bg-red-600 transition-colors duration-200 flex items-center justify-center">
-                <i class="fas fa-sign-out-alt mr-2 text-lg"></i>
-                Log Out
-            </button>
-        </div>
+        <!-- Logout Button -->
+        <button onclick="location.href='home.html'" class="logout w-full">⏻ Log Out</button>
     </aside>
 
-<!-- Main Content Area -->
+    <!-- Main Content -->
     <main class="flex-1 p-8">
-        <div class="flex items-center mb-6">
-            <a href="#" class="text-gray-500 hover:text-gray-700 mr-4">
-                <i class="fas fa-arrow-left text-xl"></i>
-            </a>
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
-                <h1 class="text-3xl font-semibold text-gray-800">Budget Record</h1>
-                <p class="text-gray-600">View past budget.</p>
+                <h1 class="text-3xl font-bold text-gray-900">Budget</h1>
+                <p class="text-gray-600">Plan and track your monthly budget.</p>
             </div>
-        </div>
-
-        <!-- Budget Record Table -->
-        <div class="bg-pink-50 p-6 rounded-2xl shadow-lg max-w-xl mx-auto">
-            <div class="grid grid-cols-2 gap-y-3 text-gray-800 font-medium">
-                <div class="col-span-1">March</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">February</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">January</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">December</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">November</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">October</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">September</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">August</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">July</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">June</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">May</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
-
-                <div class="col-span-1">April</div>
-                <div class="col-span-1 text-right">RM 2000.00</div>
+            <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <span class="text-gray-700 font-medium">March 2025</span>
+                <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-calendar-alt text-xl"></i>
+                </button>
             </div>
-        </div>
+        </header>
 
-        <p class="text-gray-500 text-sm mt-6 text-center max-w-xl mx-auto">Record will permanently erased after 12 months.</p>
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Total Budget Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Budget</h2>
+                    <p class="text-3xl font-bold text-purple-600">RM 2,500</p>
+                    <p class="text-sm text-gray-500 mt-2">Overall monthly limit</p>
+                </div>
+                <!-- Updated Edit Budget Button -->
+                <button onclick="location.href='edit_money_budget.html'" class="text-purple-500 hover:text-purple-700 transition-colors duration-200">
+                    <i class="fas fa-edit text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Budget Used Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Budget Used</h2>
+                    <p class="text-3xl font-bold text-red-600">RM 1,800</p>
+                    <p class="text-sm text-gray-500 mt-2">Spent this month</p>
+                </div>
+                <i class="fas fa-chart-line text-4xl text-red-400"></i>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Categories</h2>
+            <div class="space-y-6">
+                <!-- Food Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Food</h3>
+                        <p class="text-sm text-gray-500">RM 300 / RM 500</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-purple-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-purple-500 text-lg cursor-pointer"></i>
+                </div>
+                <!-- Transport Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Transport</h3>
+                        <p class="text-sm text-gray-500">RM 100 / RM 200</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-yellow-500 text-lg cursor-pointer"></i>
+                </div>
+                <!-- Shopping Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Shopping</h3>
+                        <p class="text-sm text-gray-500">RM 200 / RM 400</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-pink-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-pink-500 text-lg cursor-pointer"></i>
+                </div>
+                <!-- Utilities Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Utilities</h3>
+                        <p class="text-sm text-gray-500">RM 400 / RM 500</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-blue-500 text-lg cursor-pointer"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Money Goal Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Goal</h2>
+                    <p class="text-lg font-bold text-gray-900">RM 2000</p>
+                    <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
+                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <i class="fas fa-plus-circle text-green-500 text-lg cursor-pointer"></i>
+            </div>
+
+            <!-- Money Balance Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
+                    <p class="text-lg font-bold text-gray-900">RM 500</p>
+                    <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
+                        <div class="bg-pink-500 h-2.5 rounded-full" style="width: 20%;"></div>
+                    </div>
+                </div>
+                <!-- No icon for balance in the image -->
+            </div>
+        </section>
+
+        <!-- New Expenses Button -->
+        <button onclick="location.href='add_money_expenses.html'" class="w-full py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 new-expenses-btn">
+            <i class="fas fa-plus-circle"></i>
+            <span>Add New Expenses</span>
+        </button>
+
+        <!-- Updated View Full Records Button -->
+        <button onclick="location.href='budget_record.html'" class="mt-4 w-full py-4 px-4 rounded-xl shadow-lg text-purple-700 font-semibold text-lg flex items-center justify-center space-x-2 bg-white border border-purple-300 hover:bg-purple-50 transition-colors duration-200">
+            <i class="fas fa-file-alt"></i>
+            <span>View Full Records</span>
+        </button>
     </main>
+
 </body>
 </html>
+
+
