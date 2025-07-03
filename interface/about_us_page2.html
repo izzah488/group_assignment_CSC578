@@ -7,196 +7,113 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Inter', sans-serif;
       background-color: #f0f2f5;
     }
+
     .navbar-gradient {
       background: linear-gradient(to right, #8e2de2, #4a00e0);
     }
+
     .signup-button-gradient {
       background: linear-gradient(to right, #e0b0ff, #b080ff);
     }
+
     .signup-button-gradient:hover {
       filter: brightness(1.05);
     }
+
     .card-border-gradient {
       background: linear-gradient(to bottom right, #e0b0ff, #b080ff);
       padding: 2px;
       border-radius: 1rem;
     }
+
     .card-content {
       background-color: white;
-      border-radius: 1rem;
-      padding: 1.5rem;
+      border-radius: 0.9rem;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
-    .scroll-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background-color: #4a00e0;
-      color: white;
-      padding: 0.75rem;
-      border-radius: 9999px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: none; /* Hidden by default */
-      transition: opacity 0.3s ease-in-out;
-      z-index: 1000;
-    }
-    .scroll-to-top.show {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+    .quote-font {
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      color: #4a00e0;
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
+
   <!-- Navbar -->
-  <nav class="navbar-gradient p-4 shadow-lg rounded-b-lg">
+  <nav class="navbar-gradient text-white p-4 shadow-lg">
     <div class="container mx-auto flex justify-between items-center">
-      <div class="text-white font-extrabold text-2xl">MoneyMate</div>
-      <div class="hidden md:flex space-x-6">
-        <!-- Updated Navbar Links -->
-        <a href="home.html" class="text-white hover:text-purple-200 transition duration-300">Home</a>
-        <a href="about_us_page2.html" class="text-white hover:text-purple-200 transition duration-300">About Us</a>
-        <a href="login.html" class="text-white hover:text-purple-200 transition duration-300">Login</a>
-      </div>
-      <div class="md:hidden">
-        <!-- Mobile menu button (Hamburger icon) -->
-        <button class="text-white focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <div class="bg-white rounded-full p-1">
+          <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 100-2 1 1 0 000 2zm-3 7a1 1 0 102 0 1 1 0 00-2 0zm-1-4a1 1 0 102 0 1 1 0 00-2 0zm5-1a1 1 0 102 0 1 1 0 00-2 0z" clip-rule="evenodd"></path>
+            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
           </svg>
-        </button>
+        </div>
+        <span class="text-2xl font-bold">Money Mate</span>
       </div>
-      <div class="hidden md:block">
-        <!-- Updated Sign Up Button -->
-        <button onclick="location.href='login.html'" class="signup-button-gradient bg-white text-purple-700 py-2 px-6 rounded-full font-bold shadow-md hover:brightness-110 transition duration-300">
-          SIGN UP
-        </button>
+
+      <!-- Links -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="#" class="hover:text-gray-200 transition duration-300 text-lg font-medium">HOME</a>
+        <a href="#" class="hover:text-gray-200 transition duration-300 text-lg font-medium">ABOUT US</a>
+        <a href="#" class="hover:text-gray-200 transition duration-300 text-lg font-medium">LOGIN</a>
+        <button class="signup-button-gradient text-white px-6 py-2 rounded-full shadow-md hover:shadow-lg transition duration-300 font-semibold">SIGN UP</button>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main class="flex-grow container mx-auto px-4 py-8 md:py-12">
-    <section class="text-center mb-12">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">About Us</h1>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-        MoneyMate is dedicated to helping you achieve financial clarity and control. Our mission is to provide an intuitive and powerful platform for tracking your income, expenses, and savings effortlessly.
+  <!-- Content -->
+  <main class="container mx-auto flex flex-col md:flex-row items-center justify-center flex-grow py-12 px-4 md:px-8">
+
+    <!-- Left Section -->
+    <section class="w-full md:w-1/2 p-4 md:pr-8 text-center">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-relaxed">
+        In <span class="text-purple-700">Money Mate</span>, we all come to work every day to enable people to make smart decisions about their money every day.
+      </h1>
+      <p class="text-gray-600 mb-4 leading-relaxed max-w-xl mx-auto">
+        What started as a simple expense tracker for a small group has grown into a personal finance app that brings beauty to finance for thousands of users worldwide.
       </p>
+      <p class="text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto">
+        We believe that managing finance should be as effortless as shopping online. It should be done anywhere, anytime, and in just a few clicks.
+      </p>
+      <button class="bg-purple-600 text-white px-8 py-3 rounded-full shadow-md hover:bg-purple-700 transition duration-300 text-lg font-medium">
+        GET IN TOUCH WITH US!
+      </button>
     </section>
 
-    <section class="mb-12">
-      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Our Mission</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Card 1 -->
-        <div class="card-border-gradient">
-          <div class="card-content">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3">Simplify Financial Tracking</h3>
-            <p class="text-gray-600">
-              We believe managing money shouldn't be complicated. Our app simplifies the process, making it easy for anyone to track their financial movements.
-            </p>
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="card-border-gradient">
-          <div class="card-content">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3">Empower Financial Decisions</h3>
-            <p class="text-gray-600">
-              With clear insights into your spending and saving habits, you can make informed decisions to reach your financial goals faster.
-            </p>
-          </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="card-border-gradient">
-          <div class="card-content">
-            <h3 class="text-xl font-semibold text-gray-800 mb-3">Promote Financial Wellness</h3>
-            <p class="text-gray-600">
-              Our goal is to foster a community where individuals feel confident and secure about their financial future.
-            </p>
-          </div>
+    <!-- Right Section -->
+    <section class="w-full md:w-1/2 p-4 md:pl-8 flex justify-center items-center">
+      <div class="card-border-gradient w-full max-w-md rounded-2xl shadow-2xl">
+        <div class="card-content flex flex-col items-center justify-between p-6 md:p-8">
+          <p class="quote-font text-2xl md:text-3xl text-center mb-6 leading-snug">
+            "helps people worldwide to get their money into shape."
+          </p>
+          <p class="text-lg md:text-xl font-semibold text-gray-700 text-center mb-8">
+            Track it. Save it. Master your money.
+          </p>
+          <img src="https://i.pinimg.com/736x/c2/54/1b/c2541b77149ed3683b936c4bb23f8f8a.jpg"
+               alt="Illustration of people managing money"
+               class="w-full h-auto rounded-lg shadow-md">
         </div>
       </div>
     </section>
-
-    <section class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">Meet Our Team</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <!-- Team Member 1 -->
-        <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
-          <img src="https://placehold.co/100x100/e0b0ff/4a00e0?text=F" alt="Farhana" class="w-24 h-24 rounded-full mb-4 object-cover">
-          <h3 class="text-xl font-semibold text-gray-800">Farhana</h3>
-          <p class="text-purple-600">CEO & Founder</p>
-          <p class="text-gray-600 text-sm mt-2">Visionary leader passionate about financial literacy.</p>
-        </div>
-        <!-- Team Member 2 -->
-        <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
-          <img src="https://placehold.co/100x100/b080ff/4a00e0?text=A" alt="Arissa" class="w-24 h-24 rounded-full mb-4 object-cover">
-          <h3 class="text-xl font-semibold text-gray-800">Arissa</h3>
-          <p class="text-purple-600">Head of Marketing</p>
-          <p class="text-gray-600 text-sm mt-2">Connecting MoneyMate with users worldwide.</p>
-        </div>
-        <!-- Team Member 3 -->
-        <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
-          <img src="https://placehold.co/100x100/8e2de2/ffffff?text=R" alt="Rebecca" class="w-24 h-24 rounded-full mb-4 object-cover">
-          <h3 class="text-xl font-semibold text-gray-800">Rebecca</h3>
-          <p class="text-purple-600">Lead Developer</p>
-          <p class="text-gray-600 text-sm mt-2">Crafting seamless and robust user experiences.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">Contact Us</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div>
-          <p class="font-semibold text-gray-700 mb-2">For Media & PR Opportunities</p>
-          <a href="mailto:media@moneyTracker.com" class="text-purple-600 hover:underline">media@moneyTracker.com</a>
-        </div>
-        <div>
-          <p class="font-semibold text-gray-700 mb-2">For Business Opportunities & Marketing Purposes,<br>contact Arissa</p>
-          <a href="mailto:Arissa@moneyTracker.com" class="text-purple-600 hover:underline">Arissa@moneyTracker.com</a>
-        </div>
-        <div>
-          <p class="font-semibold text-gray-700 mb-2">For Other Opportunities, contact<br>our CEO Farhana</p>
-          <a href="mailto:Farhana@moneyTracker.com" class="text-purple-600 hover:underline">Farhana@moneyTracker.com</a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- Scroll to Top Button -->
-  <button id="scrollToTopBtn" class="scroll-to-top">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+  <!-- Floating Arrow -->
+  <div class="fixed bottom-4 right-4 bg-white rounded-full p-3 shadow-lg cursor-pointer hover:bg-gray-100 transition duration-300">
+    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
     </svg>
-  </button>
+  </div>
 
-  <script>
-    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-    // Show/hide button based on scroll position
-    window.onscroll = function() {
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        scrollToTopBtn.classList.add("show");
-      } else {
-        scrollToTopBtn.classList.remove("show");
-      }
-    };
-
-    // Scroll to top when button is clicked
-    scrollToTopBtn.onclick = function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-  </script>
 </body>
 </html>
-
