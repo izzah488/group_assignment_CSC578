@@ -1,0 +1,12 @@
+body {
+            font-family: 'Inter', sans-serif;
+            /* Gradient background matching the image */
+            background: linear-gradient(to bottom right, #e0c3fc, #8ec5fc);
+            min-height: 100vh; /* Ensure it covers the full viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+        /* Custom gradient for the header */
+        .header-gradient {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+        }
