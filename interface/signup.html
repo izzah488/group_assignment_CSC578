@@ -22,9 +22,9 @@
             <span class="text-xl font-semibold">Money Mate</span>
         </div>
         <nav class="hidden md:flex space-x-6">
-            <a href="#" class="hover:text-gray-200 transition-colors duration-200">HOME</a>
-            <a href="#" class="hover:text-gray-200 transition-colors duration-200">ABOUT</a>
-            <a href="#" class="hover:text-gray-200 transition-colors duration-200">LOGIN</a>
+            <a href="home.html" class="hover:text-gray-200 transition-colors duration-200">HOME</a>
+            <a href="about_us_page2.html" class="hover:text-gray-200 transition-colors duration-200">ABOUT US</a>
+            <a href="login.html" class="hover:text-gray-200 transition-colors duration-200">LOGIN</a>
         </nav>
     </header>
 
