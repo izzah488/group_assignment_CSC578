@@ -65,26 +65,6 @@
         .new-expenses-btn:hover {
             filter: brightness(1.1);
         }
-        .card {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .progress-bar {
-            height: 0.5rem;
-            border-radius: 9999px;
-            background-color: #e2e8f0;
-        }
-        .progress-fill-purple {
-            background-color: #a78bfa; /* Purple-400 */
-        }
-        .progress-fill-green {
-            background-color: #4ade80; /* Green-400 */
-        }
-        .progress-fill-pink {
-            background-color: #f472b6; /* Pink-400 */
-        }
     </style>
 </head>
 <body class="flex min-h-screen">
@@ -100,76 +80,148 @@
                 </div>
             </div>
             <!-- Dashboard Button -->
-            <button onclick="window.location.href='dashbord.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
+            <button onclick="location.href='dashbord.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
             <!-- Navigation Links -->
             <nav class="nav-links flex flex-col space-y-2">
-                <a href="savings.html">⭐ Savings</a>
-                <a href="profile.html">👤 Profile</a>
-                <a href="statistics.html">📈 Statistics</a>
+                <!-- Updated Sidebar Links -->
+                <a href="dashbord.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
+                <a href="editprofile.html">👤 Profile</a>
+                <a href="dashbord.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
                 <a href="budget.html" class="active">⬇ Budget</a>
                 <a href="expenses.html">⬆ Expenses</a>
             </nav>
         </div>
         <!-- Logout Button -->
-        <button onclick="window.location.href='home.html'" class="logout w-full">⏻ Log Out</button>
+        <button onclick="location.href='home.html'" class="logout w-full">⏻ Log Out</button>
     </aside>
 
     <!-- Main Content -->
     <main class="flex-1 p-8">
-        <header class="flex items-center mb-8">
-            <button onclick="window.history.back()" class="text-gray-500 hover:text-gray-700 mr-4">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-            </button>
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Budget</h1>
-                <p class="text-gray-600">Take charge of your money by setting clear budgets.</p>
+                <p class="text-gray-600">Plan and track your monthly budget.</p>
+            </div>
+            <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                <span class="text-gray-700 font-medium">March 2025</span>
+                <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-calendar-alt text-xl"></i>
+                </button>
             </div>
         </header>
 
-        <section class="grid grid-cols-1 gap-6 mb-8">
-            <!-- Money Budget Card -->
-            <div class="card">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-xl font-semibold text-gray-800">Money Budget</h2>
-                    <i class="fas fa-edit text-gray-500 cursor-pointer" onclick="window.location.href='edit_money_budget.html'"></i>
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Total Budget Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Budget</h2>
+                    <p class="text-3xl font-bold text-purple-600">RM 2,500</p>
+                    <p class="text-sm text-gray-500 mt-2">Overall monthly limit</p>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">RM 0</p>
-                <div class="progress-bar mt-3">
-                    <div class="progress-fill-purple h-full" style="width: 0%;"></div>
-                </div>
+                <!-- Updated Edit Budget Button -->
+                <button onclick="location.href='edit_money_budget.html'" class="text-purple-500 hover:text-purple-700 transition-colors duration-200">
+                    <i class="fas fa-edit text-xl"></i>
+                </button>
             </div>
 
-            <!-- Money Expenses Card -->
-            <div class="card">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-xl font-semibold text-gray-800">Money Expenses</h2>
-                    <i class="fas fa-plus-circle text-gray-500 cursor-pointer" onclick="window.location.href='add_money_expenses.html'"></i>
+            <!-- Budget Used Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Budget Used</h2>
+                    <p class="text-3xl font-bold text-red-600">RM 1,800</p>
+                    <p class="text-sm text-gray-500 mt-2">Spent this month</p>
                 </div>
-                <p class="text-2xl font-bold text-gray-900">RM 0</p>
-                <div class="progress-bar mt-3">
-                    <div class="progress-fill-green h-full" style="width: 0%;"></div>
+                <i class="fas fa-chart-line text-4xl text-red-400"></i>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Categories</h2>
+            <div class="space-y-6">
+                <!-- Food Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Food</h3>
+                        <p class="text-sm text-gray-500">RM 300 / RM 500</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-purple-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-purple-500 text-lg cursor-pointer"></i>
                 </div>
+                <!-- Transport Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Transport</h3>
+                        <p class="text-sm text-gray-500">RM 100 / RM 200</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-yellow-500 text-lg cursor-pointer"></i>
+                </div>
+                <!-- Shopping Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Shopping</h3>
+                        <p class="text-sm text-gray-500">RM 200 / RM 400</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-pink-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-pink-500 text-lg cursor-pointer"></i>
+                </div>
+                <!-- Utilities Category -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Utilities</h3>
+                        <p class="text-sm text-gray-500">RM 400 / RM 500</p>
+                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
+                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <i class="fas fa-plus-circle text-blue-500 text-lg cursor-pointer"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Money Goal Card -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Goal</h2>
+                    <p class="text-lg font-bold text-gray-900">RM 2000</p>
+                    <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
+                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 80%;"></div>
+                    </div>
+                </div>
+                <i class="fas fa-plus-circle text-green-500 text-lg cursor-pointer"></i>
             </div>
 
             <!-- Money Balance Card -->
-            <div class="card">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
-                <p class="text-2xl font-bold text-gray-900">RM 0</p>
-                <div class="progress-bar mt-3">
-                    <div class="progress-fill-pink h-full" style="width: 0%;"></div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
+                    <p class="text-lg font-bold text-gray-900">RM 500</p>
+                    <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
+                        <div class="bg-pink-500 h-2.5 rounded-full" style="width: 20%;"></div>
+                    </div>
                 </div>
+                <!-- No icon for balance in the image -->
             </div>
         </section>
 
         <!-- New Expenses Button -->
-        <section class="flex justify-center mt-8">
-            <button onclick="window.location.href='add_money_expenses.html'" class="w-full max-w-md py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 new-expenses-btn">
-                <i class="fas fa-plus-circle"></i>
-                <span>New Expenses</span>
-            </button>
-        </section>
+        <button onclick="location.href='add_money_expenses.html'" class="w-full py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 new-expenses-btn">
+            <i class="fas fa-plus-circle"></i>
+            <span>Add New Expenses</span>
+        </button>
+
+        <!-- Updated View Full Records Button -->
+        <button onclick="location.href='budget_record.html'" class="mt-4 w-full py-4 px-4 rounded-xl shadow-lg text-purple-700 font-semibold text-lg flex items-center justify-center space-x-2 bg-white border border-purple-300 hover:bg-purple-50 transition-colors duration-200">
+            <i class="fas fa-file-alt"></i>
+            <span>View Full Records</span>
+        </button>
     </main>
 
 </body>
