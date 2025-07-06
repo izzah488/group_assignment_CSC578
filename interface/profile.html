@@ -4,19 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profile Page</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
   <style>
     body {
       font-family: 'Inter', sans-serif;
       background-color: #f0f2f5;
     }
-
     .sidebar {
       position: fixed;
       top: 0;
@@ -33,13 +28,11 @@
       flex-direction: column;
       justify-content: space-between;
     }
-
     .nav-links {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
-
     .nav-links a {
       padding: 0.75rem 1.5rem;
       border-radius: 0.75rem;
@@ -52,17 +45,14 @@
       width: 100%;
       text-align: left;
     }
-
     .nav-links a.active,
     .nav-links a:hover {
       background-color: #e0b0ff;
     }
-
     .main-content {
       margin-left: 16rem;
       padding: 2rem;
     }
-
     .profile-card {
       background-color: white;
       padding: 2rem;
@@ -73,18 +63,15 @@
       margin: 0 auto;
       text-align: left;
     }
-
     .profile-field {
       padding: 0.75rem 0;
       border-bottom: 1px solid #e2e8f0;
       margin-bottom: 1rem;
     }
-
     .profile-field:last-of-type {
       border-bottom: none;
       margin-bottom: 0;
     }
-
     .profile-field label {
       display: block;
       font-size: 0.875rem;
@@ -92,7 +79,6 @@
       color: #4a5568;
       margin-bottom: 0.25rem;
     }
-
     .profile-field input {
       width: 100%;
       padding: 0.5rem 0;
@@ -103,7 +89,6 @@
       background-color: transparent;
       outline: none;
     }
-
     .edit-profile-btn {
       background: linear-gradient(to right, #e0c3fc, #8ec5fc);
       color: #4B0082;
@@ -115,13 +100,11 @@
       width: fit-content;
       margin: 2rem auto 0;
     }
-
     .edit-profile-btn:hover {
       filter: brightness(1.05);
     }
   </style>
 </head>
-
 <body>
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -136,7 +119,7 @@
       </div>
 
       <!-- Dashboard Button -->
-      <button onclick="window.location.href='dashbord.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
+      <button onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
         ☰ Dashboard
       </button>
 

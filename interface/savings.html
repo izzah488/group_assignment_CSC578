@@ -108,13 +108,13 @@
       </div>
 
       <!-- Menu -->
-      <button onclick="window.location.href='dashbord.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
+      <button onclick="window.location.href='dashboard.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
 
       <!-- Navigation -->
       <nav class="nav-links">
         <a href="savings.html" class="active">⭐ Savings</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="statistic.html">📈 Statistics</a>
+        <a href="editprofile.html">👤 Profile</a>
+        <a href="statistics.html">📈 Statistics</a>
         <a href="budget.html">⬇ Budget</a>
         <a href="expenses.html">⬆ Expenses</a>
       </nav>
@@ -220,13 +220,13 @@
       }
 
       alert(`Saving goal "${savingFor}" of RM${amount} saved for ${targetDate}.`);
-
       toggleNewSavingModal();
 
-      // Clear fields
       document.getElementById("savingFor").value = "";
       document.getElementById("budgetAmount").value = "";
       document.getElementById("targetDate").value = "";
+
+      
     }
   </script>
 </body>

@@ -170,12 +170,12 @@
         <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="User Avatar" class="avatar">
         <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
       </div>
-      <button onclick="location.href='dashbord.html'" class="menu-btn">☰ Dashboard</button>
+      <button onclick="location.href='dashboard.html'" class="menu-btn">☰ Dashboard</button>
       <nav class="nav-links">
         <!-- Updated Sidebar Links -->
-        <a href="dashbord.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
+        <a href="dashboard.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
         <a href="editprofile.html">👤 Profile</a>
-        <a href="dashbord.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
+        <a href="dashboard.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
         <a href="budget.html">⬇ Budget</a>
         <a href="expenses.html" class="active">⬆ Expenses</a>
       </nav>
