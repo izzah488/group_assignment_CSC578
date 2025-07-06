@@ -80,13 +80,13 @@
                 </div>
             </div>
             <!-- Dashboard Button -->
-            <button onclick="location.href='dashbord.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
+            <button onclick="location.href='dashboard.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
             <!-- Navigation Links -->
             <nav class="nav-links flex flex-col space-y-2">
                 <!-- Updated Sidebar Links -->
-                <a href="dashbord.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
+                <a href="dashboard.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
                 <a href="editprofile.html">👤 Profile</a>
-                <a href="dashbord.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
+                <a href="dashboard.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
                 <a href="budget.html" class="active">⬇ Budget</a>
                 <a href="expenses.html">⬆ Expenses</a>
             </nav>

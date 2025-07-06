@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Budget & Expenses Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; }
+    .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 16rem; background-color: #fff; border-top-right-radius: 1.5rem; border-bottom-right-radius: 1.5rem; z-index: 10; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: space-between; }
+    .menu-btn { background: linear-gradient(to right, #8e2de2, #4a00e0); color: white; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .nav-links a { padding: 0.75rem 1.5rem; border-radius: 0.75rem; color: #4a00e0; font-weight: 500; display: flex; align-items: center; gap: 0.75rem; transition: background-color 0.2s ease-in-out; }
+    .nav-links a.active, .nav-links a:hover { background-color: #e0b0ff; }
+    .logout { background-color: #ef4444; color: white; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background-color 0.2s ease-in-out; }
+    .logout:hover { background-color: #dc2626; }
+    .primary-btn-gradient { background-image: linear-gradient(to right, #8e2de2, #4a00e0); }
+    .primary-btn-gradient:hover { filter: brightness(1.1); }
+    .chart-placeholder { width: 250px; height: 250px; background-color: #cbd5e1; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4a5568; font-size: 0.9rem; text-align: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="flex items-center mb-8">
+        <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Profile Picture" class="rounded-full mr-3" />
+        <div>
+          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+          <p class="text-xs text-gray-500">Premium User</p>
+        </div>
+      </div>
+      <button onclick="window.location.href='dashboard.html'" class="w-full menu-btn mb-4">☰ Dashboard</button>
+      <nav class="nav-links mb-auto">
+        <a href="savings.html">⭐ Savings</a>
+        <a href="profile.html">👤 Profile</a>
+        <a href="statistic.html">📈 Statistics</a>
+        <a href="budget.html">⬇ Budget</a>
+        <a href="expenses.html">⬆ Expenses</a>
+      </nav>
+      <button onclick="window.location.href='home.html'" class="logout w-full mt-10">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-64 p-8">
+    <header class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+        <p class="text-gray-600">Welcome back, Rebecca!</p>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-700 font-medium">March 2025</span>
+        <button class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-calendar-alt text-xl"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Cards Section -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Total Savings -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Savings</h2>
+          <p id="totalSavings" class="text-3xl font-bold text-green-600">RM 0.00</p>
+        </div>
+        <button onclick="window.location.href='savings.html'" class="text-green-500 hover:text-green-700">
+          <i class="fas fa-plus-circle text-4xl"></i>
+        </button>
+      </div>
+
+      <!-- Total Expenses -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
+          <p id="totalExpenses" class="text-3xl font-bold text-red-600">RM 0.00</p>
+        </div>
+        <i class="fas fa-money-bill-wave text-4xl text-red-400"></i>
+      </div>
+
+      <!-- Budget -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Set Monthly Budget</h2>
+        <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
+        <button onclick="toggleEditBudgetModal()" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
+          Set Budget
+        </button>
+      </div>
+    </section>
+
+    <!-- Recent Expenses -->
+    <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
+      <ul id="recentExpensesList" class="space-y-3 text-gray-700 text-sm"></ul>
+      <button onclick="location.href='expenses.html'" class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient">
+        <i class="fas fa-plus-circle"></i><span>Add New Expenses</span>
+      </button>
+    </section>
+
+    <!-- Expenses Chart Placeholder -->
+    <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Expenses Chart (March)</h2>
+      <div class="chart-placeholder">No data to display.</div>
+    </section>
+  </main>
+
+  <!-- Script -->
+  <script>
+    async function loadDashboardData() {
+      try {
+        // Load expenses
+        const expenseRes = await fetch("http://localhost:5000/api/transactions");
+        const expenses = await expenseRes.json();
+
+        let totalExpenses = 0;
+        expenses.forEach(e => totalExpenses += e.amount);
+        document.getElementById("totalExpenses").textContent = "RM " + totalExpenses.toFixed(2);
+
+        const recentList = document.getElementById("recentExpensesList");
+        if (expenses.length === 0) {
+          recentList.innerHTML = `<p class="text-center text-gray-500 italic">No expenses yet.</p>`;
+        } else {
+          const recent = expenses.slice(-5).reverse();
+          recentList.innerHTML = recent.map(item => `
+            <li class="flex justify-between border-b pb-1">
+              <span>${item.title}</span>
+              <span class="text-red-500">RM ${item.amount.toFixed(2)}</span>
+            </li>
+          `).join('');
+        }
+
+        // Load savings
+        const savingRes = await fetch("http://localhost:5000/api/savings");
+        const savings = await savingRes.json();
+
+        let totalSavings = 0;
+        savings.forEach(s => totalSavings += s.amount);
+        document.getElementById("totalSavings").textContent = "RM " + totalSavings.toFixed(2);
+
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", loadDashboardData);
+  </script>
+</body>
+</html>

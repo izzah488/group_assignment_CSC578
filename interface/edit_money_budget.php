@@ -18,6 +18,11 @@
             background-color: #ffffff;
             border-top-right-radius: 1.5rem;
             border-bottom-right-radius: 1.5rem;
+            position: fixed; /* Make sidebar fixed */
+            top: 0;
+            left: 0;
+            height: 100vh; /* Full viewport height */
+            z-index: 10; /* Ensure it stays on top */
         }
         .menu-btn {
             background: linear-gradient(to right, #8e2de2, #4a00e0);
@@ -30,7 +35,12 @@
             justify-content: center;
             gap: 0.5rem;
         }
-        .nav-links a {
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem; /* Consistent spacing for nav links */
+        }
+        .nav-links a, .nav-links button.logout-link { /* Apply styles to both a and the new button */
             padding: 0.75rem 1.5rem;
             border-radius: 0.75rem;
             color: #4a00e0;
@@ -39,25 +49,26 @@
             align-items: center;
             gap: 0.75rem;
             transition: background-color 0.2s ease-in-out;
+            width: 100%; /* Ensure full width for consistency */
+            text-align: left; /* Align text to left */
         }
         .nav-links a.active,
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links button.logout-link:hover {
             background-color: #e0b0ff; /* Light purple for active/hover */
         }
-        .logout {
+        .logout-link { /* Specific styles for the logout button when inside nav-links */
             background-color: #fbd38d; /* Light orange */
             color: #c05621; /* Darker orange text */
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: background-color 0.2s ease-in-out;
+            margin-top: 1rem; /* Add some space above logout button */
         }
-        .logout:hover {
+        .logout-link:hover {
             background-color: #f6ad55; /* Slightly darker orange on hover */
+        }
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            margin-left: 16rem; /* Adjust for fixed sidebar width */
         }
         .form-card {
             background-color: white;
@@ -83,22 +94,21 @@
                 </div>
             </div>
             <!-- Dashboard Button -->
-            <button onclick="window.location.href='dashbord.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
+            <button onclick="window.location.href='dashboard.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
             <!-- Navigation Links -->
             <nav class="nav-links flex flex-col space-y-2">
                 <a href="savings.html">⭐ Savings</a>
                 <a href="editprofile.html">👤 Profile</a>
-                <a href="statistics.html">📈 Statistics</a>
+                <a href="statistic.html">📈 Statistic</a>
                 <a href="budget.html" class="active">⬇ Budget</a>
                 <a href="expenses.html">⬆ Expenses</a>
+                <button onclick="window.location.href='home.html'" class="logout-link">⏻ Log Out</button>
             </nav>
         </div>
-        <!-- Logout Button -->
-        <button onclick="window.location.href='home.html'" class="logout w-full">⏻ Log Out</button>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-8">
+    <main class="main-content">
         <header class="flex items-center mb-8">
             <button onclick="window.history.back()" class="text-gray-500 hover:text-gray-700 mr-4">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -120,9 +130,9 @@
                     <label for="budgetLimit" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
-                        <input type="number" id="budgetLimit" value="2500.00"
+                        <input type="number" id="budgetLimit" value="0"
                                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-medium text-lg"
-                               placeholder="Enter amount" readonly>
+                               placeholder="Enter amount">
                     </div>
                     <p class="mt-2 text-sm text-gray-500">The money budget limit is RM 2,500.00.</p>
                 </div>
@@ -131,10 +141,19 @@
                 <div>
                     <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
                     <select id="month"
-                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800" disabled>
+                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800">
+                        <option value="january">January</option>
+                        <option value="february">February</option>
                         <option value="march" selected>March</option>
                         <option value="april">April</option>
                         <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="august">August</option>
+                        <option value="september">September</option>
+                        <option value="october">October</option>
+                        <option value="november">November</option>
+                        <option value="december">December</option>
                     </select>
                     <p class="mt-2 text-sm text-gray-500">This budget is for March only.</p>
                 </div>
@@ -154,64 +173,4 @@
 
 </body>
 </html>
-
-edit profie
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edit Profile</title>
-  <link rel="stylesheet" href="editprofile.css" />
-</head>
-<body>
-  <div class="container">
-    <aside class="sidebar">
-      <div class="user-info">
-        <img src="avatar.png" alt="User Avatar" class="avatar">
-        <p>Hi, Rebecca!</p>
-      </div>
-      <button class="menu-btn">☰ Dashboard</button>
-      <nav class="nav-links">
-        <a href="#">⭐ Savings</a>
-        <a class="active" href="#">👤 Profile</a>
-        <a href="#">📈 Statistics</a>
-        <a href="#">⬇ Budget</a>
-        <a href="#">⬆ Expenses</a>
-      </nav>
-      <button class="logout">⏻ Log Out</button>
-    </aside>
-
-    <main class="main-content">
-      <h1>Edit Profile</h1>
-      <p class="subtitle">View and edit your profile, change settings, and manage your data.</p>
-
-      <form class="profile-form">
-        <label>First Name:
-          <input type="text" value="Rebecca" />
-        </label>
-        <label>Last Name:
-          <input type="text" value="Louis" />
-        </label>
-        <label>Email:
-          <input type="email" value="rebecca@gmail.com" />
-        </label>
-        <label>Current Password:
-          <input type="password" value="********" />
-        </label>
-        <label>New Password:
-          <input type="password" />
-        </label>
-        <label>Confirm Password:
-          <input type="password" />
-        </label>
-
-        <div class="form-buttons">
-          <button type="button" class="cancel-btn">Cancel</button>
-          <button type="submit" class="save-btn" onclick="showSuccessModal()">Save</button>
-        </div>
-      </form>
-    </main>
-  </div>
-</body>
-</html>
+<!-- End of code snippet -->
