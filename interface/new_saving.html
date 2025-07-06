@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Saving</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f2f5;
+    }
+  </style>
+</head>
+<body class="flex min-h-screen">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-2xl shadow-lg fixed top-0 left-0 h-full">
+    <div>
+      <div class="flex items-center mb-8">
+        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile" class="rounded-full mr-3">
+        <div>
+          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+          <p class="text-xs text-gray-500">Premium User</p>
+        </div>
+      </div>
+      <button onclick="window.location.href='dashboard.html'" class="menu-btn w-full mb-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-lg py-2 font-semibold">
+        ☰ Dashboard
+      </button>
+      <nav class="flex flex-col gap-2">
+        <a href="savings.html" class="bg-purple-100 text-purple-800 rounded-lg py-2 px-4 font-medium">⭐ Savings</a>
+        <a href="editprofile.html" class="py-2 px-4 rounded-lg text-purple-800">👤 Profile</a>
+        <a href="statistics.html" class="py-2 px-4 rounded-lg text-purple-800">📈 Statistics</a>
+        <a href="budget.html" class="py-2 px-4 rounded-lg text-purple-800">⬇ Budget</a>
+        <a href="expenses.html" class="py-2 px-4 rounded-lg text-purple-800">⬆ Expenses</a>
+        <button onclick="window.location.href='home.html'" class="logout-link bg-yellow-100 text-yellow-800 rounded-lg py-2 px-4 mt-4">⏻ Log Out</button>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content flex-1 ml-64 p-8">
+    <header class="flex items-center mb-8">
+      <button onclick="window.history.back()" class="text-gray-500 hover:text-gray-700 mr-4">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+      </button>
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">New Saving</h1>
+        <p class="text-gray-600">Create a new saving goal.</p>
+      </div>
+    </header>
+
+    <div class="bg-white rounded-2xl shadow-lg p-8 max-w-xl mx-auto">
+      <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Add Saving Goal</h2>
+
+      <div class="space-y-6">
+        <!-- Saving For -->
+        <div>
+          <label for="savingFor" class="block text-sm font-medium text-gray-700 mb-1">Saving For</label>
+          <input type="text" id="savingFor" placeholder="e.g., New Laptop" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+        </div>
+
+        <!-- Budget Amount -->
+        <div>
+          <label for="budgetAmount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
+            <input type="number" id="budgetAmount" placeholder="0.00" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800 font-medium text-lg">
+          </div>
+        </div>
+
+        <!-- Target Date -->
+        <div>
+          <label for="targetDate" class="block text-sm font-medium text-gray-700 mb-1">Target Date</label>
+          <input type="date" id="targetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="window.location.href='savings.html'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
+          CANCEL
+        </button>
+        <button onclick="saveSaving()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+          SAVE
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function saveSaving() {
+      const savingFor = document.getElementById("savingFor").value;
+      const amount = document.getElementById("budgetAmount").value;
+      const targetDate = document.getElementById("targetDate").value;
+
+      if (!savingFor || !amount || !targetDate) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Simulate saving (replace with backend code if needed)
+      alert("Saving goal added successfully!");
+
+      // Redirect back to savings page
+      window.location.href = "savings.html";
+    }
+  </script>
+</body>
+</html>
