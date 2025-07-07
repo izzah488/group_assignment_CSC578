@@ -1,14 +1,3 @@
-<?php
-$success = false;
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = htmlspecialchars($_POST['title'] ?? '');
-    $amount = htmlspecialchars($_POST['amount'] ?? '');
-    $category = htmlspecialchars($_POST['category'] ?? '');
-    $date = htmlspecialchars($_POST['date'] ?? '');
-    // Here you would normally save to a database
-    $success = true;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,11 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .scroll-top-btn:hover {
       background: #6a11cb;
     }
-    .contact-form { background: #f9f9ff; border-radius: 1.5rem; padding: 2rem; box-shadow: 0 4px 16px 0 rgba(138,43,226,0.08); max-width: 400px; margin: 2rem auto; }
-    .contact-form input, .contact-form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 0.7rem; border: 1px solid #e0b0ff; }
-    .contact-form button { background: linear-gradient(90deg, #a259ff 0%, #6a11cb 100%); color: #fff; font-weight: 600; border-radius: 1rem; padding: 0.7rem 2rem; transition: filter 0.2s; }
-    .contact-form button:hover { filter: brightness(1.08); }
-    .success-msg { background: #d1fae5; color: #065f46; border-radius: 0.7rem; padding: 1rem; text-align: center; margin-bottom: 1rem; }
     @media (max-width: 1024px) {
       .main-content {
         flex-direction: column;
@@ -213,22 +197,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <section class="py-12 px-4 max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
       <div class="team-card">
-        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Farhana" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=F';" />
+        <img src="images/farhana.jpg" alt="Farhana" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=F';" />
         <div class="text-lg font-semibold mt-2 mb-1">FARHANA</div>
         <div class="text-gray-700 text-sm font-medium">CEO & FOUNDER</div>
       </div>
       <div class="team-card">
-        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Huwayda" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=H';" />
+        <img src="images/huwayda.jpg" alt="Huwayda" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=H';" />
         <div class="text-lg font-semibold mt-2 mb-1">HUWAYDA</div>
         <div class="text-gray-700 text-sm font-medium">CSO & CO FOUNDER</div>
       </div>
       <div class="team-card">
-        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Arissa" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=A';" />
+        <img src="images/arissa.jpg" alt="Arissa" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=A';" />
         <div class="text-lg font-semibold mt-2 mb-1">ARISSA</div>
         <div class="text-gray-700 text-sm font-medium">COO</div>
       </div>
       <div class="team-card">
-        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Izzah" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=I';" />
+        <img src="images/izzah.jpg" alt="Izzah" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=I';" />
         <div class="text-lg font-semibold mt-2 mb-1">IZZAH</div>
         <div class="text-gray-700 text-sm font-medium">CTO</div>
       </div>
@@ -238,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <!-- Contact Section (from about_us_page2.html) -->
   <section id="contact-section" class="py-12 px-4 max-w-5xl mx-auto">
     <h2 class="text-5xl font-extrabold text-center mb-2 contact-gradient">CONTACT US</h2>
-    <p class="text-center text-gray-500 text-lg mb-10">If you want to get in touch with us, use these e-mails or the form below.</p>
+    <p class="text-center text-gray-500 text-lg mb-10">If you want to get in touch with us, use these e-mails.</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base text-gray-800">
       <div>
         <div class="mb-6">
@@ -259,33 +243,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <span class="font-semibold">For Other Opportunities, contact our CEO Farhana</span><br/>
           <a href="mailto:Farhana@moneyTracker.com" class="underline">Farhana@moneyTracker.com</a>
         </div>
+        </div>
       </div>
-    </div>
-    <?php if ($success): ?>
-      <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
-        Expense added successfully!
-      </div>
-    <?php endif; ?>
-    <form method="POST" action="">
-      <input type="text" name="title" placeholder="Title" class="input" required>
-      <input type="number" name="amount" placeholder="RM" class="input" required>
-      <select name="category" class="input" required>
-        <option disabled selected value="">Category</option>
-        <option>Food</option>
-        <option>Transport</option>
-        <option>Shopping</option>
-        <option>Utilities</option>
-        <option>Bill</option>
-        <option>Top Up</option>
-        <option>Entertainment</option>
-      </select>
-      <input type="date" name="date" class="input" required>
-      <div class="btn-group">
-        <button type="reset">CANCEL</button>
-        <button type="submit">ADD</button>
-      </div>
-    </form>
-  </section>
+    </section>
 
   <!-- Scroll to Contact Button -->
   <button class="scroll-down-btn" onclick="document.getElementById('contact-section').scrollIntoView({behavior: 'smooth'});" aria-label="Scroll to contact section" style="position: fixed; bottom: 4.5rem; right: 2rem; background: #a259ff; color: #fff; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 4px 16px 0 rgba(138,43,226,0.15); cursor: pointer; z-index: 51; transition: background 0.2s;">

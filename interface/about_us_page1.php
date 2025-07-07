@@ -1,13 +1,3 @@
-<?php
-$success = false;
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = htmlspecialchars($_POST['name'] ?? '');
-    $email = htmlspecialchars($_POST['email'] ?? '');
-    $message = htmlspecialchars($_POST['message'] ?? '');
-    // Here you would normally save to a database or send an email
-    $success = true;
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,11 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .scroll-top:hover {
             background: #6a11cb;
         }
-        .contact-form { background: #f9f9ff; border-radius: 1.5rem; padding: 2rem; box-shadow: 0 4px 16px 0 rgba(138,43,226,0.08); max-width: 400px; margin: 2rem auto; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border-radius: 0.7rem; border: 1px solid #e0b0ff; }
-        .contact-form button { background: linear-gradient(90deg, #a259ff 0%, #6a11cb 100%); color: #fff; font-weight: 600; border-radius: 1rem; padding: 0.7rem 2rem; transition: filter 0.2s; }
-        .contact-form button:hover { filter: brightness(1.08); }
-        .success-msg { background: #d1fae5; color: #065f46; border-radius: 0.7rem; padding: 1rem; text-align: center; margin-bottom: 1rem; }
         @media (max-width: 1024px) {
             .main-content {
                 flex-direction: column;
@@ -176,17 +161,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="https://img.freepik.com/vetores-gratis/ilustracao-do-conceito-de-discussao-em-grupo_114360-4716.jpg" alt="Team Illustration" class="w-full max-w-xs mt-2 rounded-xl shadow-md" style="background:#fff;">
             </div>
         </div>
-    </div>
-    <div class="contact-form">
-        <?php if ($success): ?>
-            <div class="success-msg">Thank you for contacting us, <?php echo $name; ?>! We will get back to you soon.</div>
-        <?php endif; ?>
-        <form method="POST" action="">
-            <input type="text" name="name" placeholder="Your Name" required />
-            <input type="email" name="email" placeholder="Your Email" required />
-            <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
     </div>
     <!-- Scroll to Top Button -->
     <div class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">

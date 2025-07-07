@@ -120,110 +120,97 @@
   </style>
 </head>
 
-<body>
+<body class="bg-gray-100">
   <!-- Sidebar -->
   <aside class="sidebar">
-  <!-- Top: user info + nav -->
-  <div class="flex flex-col justify-start h-full">
-    <!-- User Info -->
-    <div class="flex items-center mb-8">
-      <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
+    <div class="flex flex-col justify-between h-full">
       <div>
-        <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-        <p class="text-xs text-gray-500">Premium User</p>
+        <div class="flex items-center mb-8">
+          <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Profile Picture" class="rounded-full mr-3" />
+          <div>
+            <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+            <p class="text-xs text-gray-500">Premium User</p>
+          </div>
+        </div>
+        <button onclick="window.location.href='dashbord.html'" class="w-full menu-btn mb-4">☰ Dashboard</button>
+        <nav class="nav-links mb-auto">
+          <a href="savings.html">⭐️ Savings</a>
+          <a href="profile.html">👤 Profile</a>
+          <a href="statistic.html" class="active">📈 Statistics</a>
+          <a href="budget.html">⬇️ Budget</a>
+          <a href="expenses.html">⬆️ Expenses</a>
+        </nav>
       </div>
+      <button onclick="window.location.href='home.html'" class="logout w-full mt-10">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </button>
     </div>
-
-    <!-- Dashboard Button -->
-    <button onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
-      ☰ Dashboard
-    </button>
-
-    <!-- Nav Links -->
-    <nav class="nav-links mb-auto">
-      <a href="savings.html">⭐ Savings</a>
-      <a href="profile.html">👤 Profile</a>
-      <a href="statistics.html" class="active">📈 Statistics</a>
-      <a href="budget.html">⬇ Budget</a>
-      <a href="expenses.html">⬆ Expenses</a>
-    </nav>
-
-    <!-- Logout Button at the very bottom -->
-    <button onclick="window.location.href='home.html'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
-      <i class="fas fa-sign-out-alt"></i> Log Out
-    </button>
-  </div>
-</aside>
-
-
+  </aside>
   <!-- Main Content -->
-  <div class="main-content">
-    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-      <div>
-        <h1 class="text-3xl font-bold text-gray-900">Statistics</h1>
-        <p class="text-gray-600">Track your monthly budget, expenses and balance.</p>
-      </div>
-      <div class="flex items-center space-x-4 mt-4 md:mt-0">
-        <span class="text-gray-700 font-medium">March 2025</span>
-        <button class="text-gray-500 hover:text-gray-700">
-          <i class="fas fa-calendar-alt text-xl"></i>
-        </button>
-      </div>
-    </header>
-
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <!-- Overview Cards -->
-      <div class="space-y-6">
-        <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h2 class="text-xl font-semibold text-gray-800">Money Budget</h2>
-            <i class="fas fa-edit text-gray-500 cursor-pointer"></i>
+  <main class="ml-64 min-h-screen flex flex-col items-center justify-start p-8">
+    <div class="w-full max-w-5xl">
+      <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">Statistics</h1>
+          <p class="text-gray-600">Track your monthly budget, expenses and balance.</p>
+        </div>
+        <div class="flex items-center space-x-4 mt-4 md:mt-0">
+          <span class="text-gray-700 font-medium">March 2025</span>
+          <button class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-calendar-alt text-xl"></i>
+          </button>
+        </div>
+      </header>
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Overview Cards -->
+        <div class="space-y-6">
+          <div class="bg-white p-6 rounded-2xl shadow-lg mb-2">
+            <div class="flex justify-between items-center mb-2">
+              <h2 class="text-xl font-semibold text-gray-800">Money Budget</h2>
+              <i class="fas fa-edit text-gray-500 cursor-pointer"></i>
+            </div>
+            <p class="text-2xl font-bold text-gray-900">RM 0</p>
+            <div class="w-full h-2.5 bg-gray-200 rounded-full mt-3">
+              <div class="bg-purple-500 h-2.5 rounded-full" style="width: 0%;"></div>
+            </div>
           </div>
-          <p class="text-2xl font-bold text-gray-900">RM 0</p>
-          <div class="progress-bar mt-3">
-            <div class="progress-fill-purple h-full" style="width: 0%;"></div>
+          <div class="bg-white p-6 rounded-2xl shadow-lg mb-2">
+            <div class="flex justify-between items-center mb-2">
+              <h2 class="text-xl font-semibold text-gray-800">Money Expenses</h2>
+              <i class="fas fa-plus-circle text-gray-500 cursor-pointer"></i>
+            </div>
+            <p class="text-2xl font-bold text-gray-900">RM 0</p>
+            <div class="w-full h-2.5 bg-gray-200 rounded-full mt-3">
+              <div class="bg-green-500 h-2.5 rounded-full" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-lg mb-2">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
+            <p class="text-2xl font-bold text-gray-900">RM 0</p>
+            <div class="w-full h-2.5 bg-gray-200 rounded-full mt-3">
+              <div class="bg-pink-500 h-2.5 rounded-full" style="width: 0%;"></div>
+            </div>
           </div>
         </div>
-
-        <div class="card">
-          <div class="flex justify-between items-center mb-2">
-            <h2 class="text-xl font-semibold text-gray-800">Money Expenses</h2>
-            <i class="fas fa-plus-circle text-gray-500 cursor-pointer"></i>
+        <!-- Charts and Top Expenses -->
+        <div class="space-y-6">
+          <div class="bg-white p-6 rounded-2xl shadow-lg mb-2">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Spends</h2>
+            <div class="w-full h-48 bg-gray-200 rounded-xl flex items-center justify-center text-gray-500">No data to display for monthly spends.</div>
           </div>
-          <p class="text-2xl font-bold text-gray-900">RM 0</p>
-          <div class="progress-bar mt-3">
-            <div class="progress-fill-green h-full" style="width: 0%;"></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
-          <p class="text-2xl font-bold text-gray-900">RM 0</p>
-          <div class="progress-bar mt-3">
-            <div class="progress-fill-pink h-full" style="width: 0%;"></div>
+          <div class="bg-white p-6 rounded-2xl shadow-lg mb-2">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Top Money Expenses</h2>
+            <ul class="divide-y divide-gray-200">
+              <li class="flex justify-between py-2"><span>Food</span><span>RM 0</span></li>
+              <li class="flex justify-between py-2"><span>Bills</span><span>RM 0</span></li>
+              <li class="flex justify-between py-2"><span>Transport</span><span>RM 0</span></li>
+              <li class="flex justify-between py-2"><span>Top Up</span><span>RM 0</span></li>
+              <li class="flex justify-between py-2"><span>Entertainment</span><span>RM 0</span></li>
+            </ul>
           </div>
         </div>
-      </div>
-
-      <!-- Charts and Top Expenses -->
-      <div class="space-y-6">
-        <div class="card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Spends</h2>
-          <div class="chart-placeholder">No data to display for monthly spends.</div>
-        </div>
-
-        <div class="card">
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Top Money Expenses</h2>
-          <ul class="top-expenses-list">
-            <li class="top-expenses-item"><span>Food</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Bills</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Transport</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Top Up</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Entertainment</span><span>RM 0</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </main>
 </body>
 </html>
