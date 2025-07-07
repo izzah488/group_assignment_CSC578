@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <aside class="sidebar">
     <div>
       <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile" class="rounded-full mr-3">
+        <img src="https://img.icons8.com/color/48/000000/combo-chart--v2.png" alt="Profile" class="rounded-full mr-3">
         <div>
           <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
           <p class="text-xs text-gray-500">Premium User</p>

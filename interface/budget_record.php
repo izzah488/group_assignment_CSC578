@@ -109,7 +109,7 @@
             <p class="text-xs text-gray-500">Premium User</p>
           </div>
         </div>
-        <button onclick="window.location.href='dashbord.html'" class="w-full menu-btn mb-4">☰ Dashboard</button>
+        <button onclick="window.location.href='dashboard.html'" class="w-full menu-btn mb-4">☰ Dashboard</button>
         <nav class="nav-links mb-auto">
           <a href="savings.html">⭐️ Savings</a>
           <a href="profile.html">👤 Profile</a>
