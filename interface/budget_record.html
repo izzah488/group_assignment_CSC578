@@ -7,223 +7,350 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         .sidebar {
-            background-color: #ffffff;
-            border-top-right-radius: 1.5rem;
-            border-bottom-right-radius: 1.5rem;
+            background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+            width: 17rem;
+            padding: 2rem 1.5rem 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-top-right-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        .avatar {
+            width: 2.7rem;
+            height: 2.7rem;
+            border-radius: 9999px;
+            margin-right: 1rem;
+            object-fit: cover;
+            background-color: #cbd5e1;
+            border: 2px solid #e0b0ff;
         }
         .menu-btn {
-            background: linear-gradient(to right, #8e2de2, #4a00e0);
+            background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.9rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            width: 100%;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+            transition: filter 0.2s;
+        }
+        .menu-btn:hover {
+            filter: brightness(1.08);
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
         .nav-links a {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
+            padding: 0.7rem 1.3rem;
+            border-radius: 0.8rem;
             color: #4a00e0;
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            transition: background-color 0.2s ease-in-out;
+            transition: background 0.2s, color 0.2s;
+            font-size: 1.05rem;
+            letter-spacing: 0.01em;
         }
         .nav-links a.active,
         .nav-links a:hover {
-            background-color: #e0b0ff; /* Light purple for active/hover */
+            background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+            color: #4a00e0;
         }
         .logout {
-            background-color: #fbd38d; /* Light orange */
-            color: #c05621; /* Darker orange text */
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
+            background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
+            color: #c05621;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.9rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            transition: background-color 0.2s ease-in-out;
+            width: 100%;
+            transition: filter 0.2s;
+            box-shadow: 0 2px 8px 0 rgba(251,211,141,0.10);
         }
         .logout:hover {
-            background-color: #f6ad55; /* Slightly darker orange on hover */
+            filter: brightness(1.08);
+        }
+        .main-content {
+            flex: 1;
+            padding: 3.5rem 2rem 2rem 2rem;
+            background: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .card {
+            background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+            padding: 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+            margin-bottom: 2rem;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .edit-btn {
+            color: #8e2de2;
+            background: #f3e8ff;
+            border-radius: 0.7rem;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            border: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .edit-btn:hover {
+            background: #e0b0ff;
+            color: #fff;
+        }
+        .progress-bar-bg {
+            background: #e5e7eb;
+            border-radius: 9999px;
+            height: 0.6rem;
+            width: 12rem;
+            margin-top: 0.5rem;
+        }
+        .progress-bar {
+            height: 0.6rem;
+            border-radius: 9999px;
         }
         .new-expenses-btn {
-            background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+            background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 1rem;
+            padding: 1rem 0;
+            width: 100%;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            transition: filter 0.2s;
+            border: none;
         }
         .new-expenses-btn:hover {
-            filter: brightness(1.1);
+            filter: brightness(1.08);
+        }
+        .view-records-btn {
+            background: #fff;
+            color: #8e2de2;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 1rem;
+            padding: 1rem 0;
+            width: 100%;
+            border: 1.5px solid #e0b0ff;
+            box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .view-records-btn:hover {
+            background: #f3e8ff;
+            color: #4a00e0;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                flex-direction: row;
+                width: 100%;
+                border-radius: 0 0 2rem 2rem;
+                margin-bottom: 2rem;
+            }
+            .main-content {
+                padding: 2rem 1rem 1rem 1rem;
+            }
+            .card {
+                padding: 1.5rem 1rem;
+            }
         }
     </style>
 </head>
-<body class="flex min-h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-white p-6 flex flex-col justify-between rounded-r-2xl shadow-lg">
-        <div>
-            <!-- User Info -->
-            <div class="flex items-center mb-8">
-                <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3">
-                <div>
-                    <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-                    <p class="text-xs text-gray-500">Premium User</p>
-                </div>
-            </div>
-            <!-- Dashboard Button -->
-            <button onclick="location.href='dashboard.html'" class="menu-btn w-full mb-4">☰ Dashboard</button>
-            <!-- Navigation Links -->
-            <nav class="nav-links flex flex-col space-y-2">
-                <!-- Updated Sidebar Links -->
-                <a href="dashboard.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
-                <a href="editprofile.html">👤 Profile</a>
-                <a href="dashboard.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
-                <a href="budget.html" class="active">⬇ Budget</a>
-                <a href="expenses.html">⬆ Expenses</a>
-            </nav>
-        </div>
-        <!-- Logout Button -->
-        <button onclick="location.href='home.html'" class="logout w-full">⏻ Log Out</button>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-8">
-        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+<body>
+    <div class="container flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="sidebar">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Budget</h1>
-                <p class="text-gray-600">Plan and track your monthly budget.</p>
-            </div>
-            <div class="flex items-center space-x-4 mt-4 md:mt-0">
-                <span class="text-gray-700 font-medium">March 2025</span>
-                <button class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-calendar-alt text-xl"></i>
-                </button>
-            </div>
-        </header>
-
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- Total Budget Card -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Budget</h2>
-                    <p class="text-3xl font-bold text-purple-600">RM 2,500</p>
-                    <p class="text-sm text-gray-500 mt-2">Overall monthly limit</p>
-                </div>
-                <!-- Updated Edit Budget Button -->
-                <button onclick="location.href='edit_money_budget.html'" class="text-purple-500 hover:text-purple-700 transition-colors duration-200">
-                    <i class="fas fa-edit text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Budget Used Card -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Budget Used</h2>
-                    <p class="text-3xl font-bold text-red-600">RM 1,800</p>
-                    <p class="text-sm text-gray-500 mt-2">Spent this month</p>
-                </div>
-                <i class="fas fa-chart-line text-4xl text-red-400"></i>
-            </div>
-        </section>
-
-        <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Categories</h2>
-            <div class="space-y-6">
-                <!-- Food Category -->
-                <div class="flex items-center justify-between">
+                <div class="user-info">
+                    <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="avatar">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Food</h3>
-                        <p class="text-sm text-gray-500">RM 300 / RM 500</p>
-                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-                            <div class="bg-purple-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                        <p class="text-base font-semibold text-gray-700">Hi, Rebecca!</p>
+                        <p class="text-xs text-gray-500">Premium User</p>
+                    </div>
+                </div>
+                <button onclick="location.href='dashboard.html'" class="menu-btn">☰ Dashboard</button>
+                <nav class="nav-links">
+                    <a href="dashboard.html">⭐ Savings</a>
+                    <a href="editprofile.html">👤 Profile</a>
+                    <a href="dashboard.html">📈 Statistics</a>
+                    <a href="budget.html" class="active">⬇ Budget</a>
+                    <a href="expenses.html">⬆ Expenses</a>
+                </nav>
+            </div>
+            <button onclick="location.href='home.html'" class="logout">⏻ Log Out</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content flex-1">
+            <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 w-full">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-gray-900 mb-1 tracking-tight">Budget</h1>
+                    <p class="text-gray-600 text-lg">Plan and track your monthly budget.</p>
+                </div>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <span class="text-gray-700 font-medium">March 2025</span>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 w-full">
+                <!-- Total Budget Card -->
+                <div class="card flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Budget</h2>
+                        <p class="text-3xl font-bold text-purple-600">RM 2,500</p>
+                        <p class="text-sm text-gray-500 mt-2">Overall monthly limit</p>
+                    </div>
+                    <button onclick="location.href='edit_money_budget.html'" class="edit-btn">
+                        Edit
+                    </button>
+                </div>
+
+                <!-- Budget Used Card -->
+                <div class="card flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">Budget Used</h2>
+                        <p class="text-3xl font-bold text-red-600">RM 1,800</p>
+                        <p class="text-sm text-gray-500 mt-2">Spent this month</p>
+                    </div>
+                    <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h2a4 4 0 014 4v2m-6 4h6a2 2 0 002-2v-5a2 2 0 00-2-2h-6a2 2 0 00-2 2v5a2 2 0 002 2z" />
+                    </svg>
+                </div>
+            </section>
+
+            <section class="card w-full mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Categories</h2>
+                <div class="space-y-6">
+                    <!-- Food Category -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Food</h3>
+                            <p class="text-sm text-gray-500">RM 300 / RM 500</p>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar" style="width: 60%; background: #8e2de2;"></div>
+                            </div>
+                        </div>
+                        <button class="edit-btn" style="background: #e0b0ff; color: #8e2de2;">Add</button>
+                    </div>
+                    <!-- Transport Category -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Transport</h3>
+                            <p class="text-sm text-gray-500">RM 100 / RM 200</p>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar" style="width: 50%; background: #fbbf24;"></div>
+                            </div>
+                        </div>
+                        <button class="edit-btn" style="background: #f3e8ff; color: #fbbf24;">Add</button>
+                    </div>
+                    <!-- Shopping Category -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Shopping</h3>
+                            <p class="text-sm text-gray-500">RM 200 / RM 400</p>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar" style="width: 50%; background: #ec4899;"></div>
+                            </div>
+                        </div>
+                        <button class="edit-btn" style="background: #f3e8ff; color: #ec4899;">Add</button>
+                    </div>
+                    <!-- Utilities Category -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700">Utilities</h3>
+                            <p class="text-sm text-gray-500">RM 400 / RM 500</p>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar" style="width: 80%; background: #3b82f6;"></div>
+                            </div>
+                        </div>
+                        <button class="edit-btn" style="background: #f3e8ff; color: #3b82f6;">Add</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 w-full">
+                <!-- Money Goal Card -->
+                <div class="card flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Goal</h2>
+                        <p class="text-lg font-bold text-gray-900">RM 2000</p>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar" style="width: 80%; background: #22c55e;"></div>
                         </div>
                     </div>
-                    <i class="fas fa-plus-circle text-purple-500 text-lg cursor-pointer"></i>
+                    <button class="edit-btn" style="background: #f3e8ff; color: #22c55e;">Add</button>
                 </div>
-                <!-- Transport Category -->
-                <div class="flex items-center justify-between">
+
+                <!-- Money Balance Card -->
+                <div class="card flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Transport</h3>
-                        <p class="text-sm text-gray-500">RM 100 / RM 200</p>
-                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-                            <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 50%;"></div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
+                        <p class="text-lg font-bold text-gray-900">RM 500</p>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar" style="width: 20%; background: #ec4899;"></div>
                         </div>
                     </div>
-                    <i class="fas fa-plus-circle text-yellow-500 text-lg cursor-pointer"></i>
                 </div>
-                <!-- Shopping Category -->
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Shopping</h3>
-                        <p class="text-sm text-gray-500">RM 200 / RM 400</p>
-                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-                            <div class="bg-pink-500 h-2.5 rounded-full" style="width: 50%;"></div>
-                        </div>
-                    </div>
-                    <i class="fas fa-plus-circle text-pink-500 text-lg cursor-pointer"></i>
-                </div>
-                <!-- Utilities Category -->
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700">Utilities</h3>
-                        <p class="text-sm text-gray-500">RM 400 / RM 500</p>
-                        <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 80%;"></div>
-                        </div>
-                    </div>
-                    <i class="fas fa-plus-circle text-blue-500 text-lg cursor-pointer"></i>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <!-- Money Goal Card -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Goal</h2>
-                    <p class="text-lg font-bold text-gray-900">RM 2000</p>
-                    <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
-                        <div class="bg-green-500 h-2.5 rounded-full" style="width: 80%;"></div>
-                    </div>
-                </div>
-                <i class="fas fa-plus-circle text-green-500 text-lg cursor-pointer"></i>
-            </div>
+            <button onclick="location.href='add_money_expenses.html'" class="new-expenses-btn">
+                + Add New Expenses
+            </button>
 
-            <!-- Money Balance Card -->
-            <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
-                    <p class="text-lg font-bold text-gray-900">RM 500</p>
-                    <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
-                        <div class="bg-pink-500 h-2.5 rounded-full" style="width: 20%;"></div>
-                    </div>
-                </div>
-                <!-- No icon for balance in the image -->
-            </div>
-        </section>
-
-        <!-- New Expenses Button -->
-        <button onclick="location.href='add_money_expenses.html'" class="w-full py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 new-expenses-btn">
-            <i class="fas fa-plus-circle"></i>
-            <span>Add New Expenses</span>
-        </button>
-
-        <!-- Updated View Full Records Button -->
-        <button onclick="location.href='budget_record.html'" class="mt-4 w-full py-4 px-4 rounded-xl shadow-lg text-purple-700 font-semibold text-lg flex items-center justify-center space-x-2 bg-white border border-purple-300 hover:bg-purple-50 transition-colors duration-200">
-            <i class="fas fa-file-alt"></i>
-            <span>View Full Records</span>
-        </button>
-    </main>
-
+            <button onclick="location.href='budget_record.html'" class="view-records-btn">
+                View Full Records
+            </button>
+        </main>
+    </div>
 </body>
 </html>
 

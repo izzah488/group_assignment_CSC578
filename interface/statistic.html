@@ -14,55 +14,60 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-
     .sidebar {
+      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+      width: 17rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
       position: fixed;
       top: 0;
       left: 0;
       height: 100vh;
-      width: 16rem; /* Tailwind w-64 */
-      background-color: #ffffff;
-      border-top-right-radius: 1.5rem;
-      border-bottom-right-radius: 1.5rem;
       z-index: 10;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
-
     .nav-links {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
-
     .nav-links a {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      padding: 0.7rem 1.3rem;
+      border-radius: 0.8rem;
       color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      transition: background-color 0.2s ease-in-out;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
       width: 100%;
       text-align: left;
     }
-
     .nav-links a.active,
     .nav-links a:hover {
-      background-color: #e0b0ff;
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #4a00e0;
     }
-
+    .main-content {
+      margin-left: 17rem;
+      padding: 3.5rem 2rem 2rem 2rem;
+    }
     .card {
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+      padding: 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      margin-bottom: 2rem;
     }
 
     .progress-bar {
@@ -111,11 +116,6 @@
 
     .top-expenses-item:last-child {
       border-bottom: none;
-    }
-
-    .main-content {
-      margin-left: 16rem; /* Sidebar width */
-      padding: 2rem;
     }
   </style>
 </head>

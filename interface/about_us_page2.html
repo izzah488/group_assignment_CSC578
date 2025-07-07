@@ -3,193 +3,255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Money Mate - About Us</title>
-  <!-- Tailwind CSS CDN -->
+  <title>About Us - Money Mate</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background: #fafbfc;
       min-height: 100vh;
+      overflow-x: hidden;
     }
-
     .navbar-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      backdrop-filter: blur(10px);
+      background: linear-gradient(90deg, #a259ff 0%, #6a11cb 100%);
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
     }
-
-    .signup-button-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .nav-link {
+      position: relative;
       transition: all 0.3s ease;
-    }
-
-    .signup-button-gradient:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-    }
-
-    .card-border-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 3px;
       border-radius: 1.5rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem 1.5rem;
+      font-weight: 500;
     }
-
-    .card-content {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 1.3rem;
-      height: 100%;
-      backdrop-filter: blur(10px);
+    .nav-link.active, .nav-link:hover {
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #6a11cb !important;
     }
-
-    .quote-font {
-      font-family: 'Georgia', serif;
+    .cta-btn {
+      background: #c299fc;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 1.5rem;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+      transition: filter 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover {
+      filter: brightness(1.08);
+      background: #a259ff;
+      color: #fff;
+      transform: scale(1.04);
+    }
+    .quote-card {
+      background: #f9d6f7;
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem 2rem 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .quote-text {
+      color: #a259ff;
       font-style: italic;
-      color: #667eea;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      font-size: 1.4rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
-
-    .floating-arrow {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      transition: all 0.3s ease;
+    .quote-btn {
+      background: #b57be4;
+      color: #fff;
+      font-weight: 500;
+      border-radius: 1rem;
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+      transition: filter 0.2s, transform 0.2s;
     }
-
-    .floating-arrow:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    .quote-btn:hover {
+      filter: brightness(1.08);
+      background: #a259ff;
+      color: #fff;
+      transform: scale(1.04);
     }
-
-    .text-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .team-card {
+      background: #e5e7eb;
+      border-radius: 2rem;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 16px 0 rgba(138,43,226,0.08);
+      min-width: 220px;
+    }
+    .team-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1.2rem;
+      border: 4px solid #fff;
+      box-shadow: 0 2px 8px rgba(138,43,226,0.10);
+    }
+    .contact-gradient {
+      background: linear-gradient(90deg, #a259ff 0%, #f472b6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-fill-color: transparent;
+      font-weight: 800;
     }
-
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, #667eea 50%, transparent 100%);
-      margin: 2rem 0;
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #111;
+      color: #fff;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12);
+      cursor: pointer;
+      z-index: 50;
+      transition: background 0.2s;
+    }
+    .scroll-top-btn:hover {
+      background: #6a11cb;
+    }
+    @media (max-width: 1024px) {
+      .main-content {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .left, .right {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+    @media (max-width: 640px) {
+      .main-content {
+        padding: 1rem;
+      }
+      .quote-card {
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
   <!-- Navbar -->
-  <nav class="navbar-gradient text-white p-6 shadow-xl">
-    <div class="container mx-auto flex justify-between items-center max-w-7xl">
-      <!-- Logo -->
-      <div class="flex items-center space-x-3">
-        <div class="bg-white rounded-full p-2 shadow-lg">
-          <svg class="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 100-2 1 1 0 000 2zm-3 7a1 1 0 102 0 1 1 0 00-2 0zm-1-4a1 1 0 102 0 1 1 0 00-2 0zm5-1a1 1 0 102 0 1 1 0 00-2 0z" clip-rule="evenodd"></path>
-            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-          </svg>
+  <nav class="navbar-gradient text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <div class="bg-white rounded-full p-2 shadow-xl">
+          <img src="https://svgshare.com/i/14bA.svg" alt="Logo" class="w-10 h-10" onerror="this.onerror=null;this.src='https://placehold.co/40x40/E0E0E0/333333?text=MM';" />
         </div>
-        <span class="text-3xl font-bold tracking-wide">Money Mate</span>
+        <span class="text-2xl font-bold tracking-wider">Money Mate</span>
       </div>
-
-<<<<<<< HEAD
-      <!-- Navigation Links -->
-      <div class="hidden md:flex items-center space-x-8">
-        <a href="home.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium hover:scale-105 transform">HOME</a>
-        <a href="about_us_page2.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium hover:scale-105 transform border-b-2 border-white">ABOUT US</a>
-        <a href="login.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium hover:scale-105 transform">LOGIN</a>
-        <button class="signup-button-gradient text-white px-8 py-3 rounded-full shadow-lg font-semibold text-lg">
-          <a href="signup.html">SIGN UP</a>
-        </button>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button class="text-white hover:text-gray-200">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-=======
-      <!-- Links -->
-      <div class="hidden md:flex items-center space-x-6">
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <a href="about_us_page2.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium">HOME</a>
-        <a href="#" class="hover:text-gray-200 transition duration-300 text-lg font-medium">ABOUT US</a>
-        <a href="#" class="hover:text-gray-200 transition duration-300 text-lg font-medium">LOGIN</a>
-        <button class="signup-button-gradient text-white px-6 py-2 rounded-full shadow-md hover:shadow-lg transition duration-300 font-semibold">SIGN UP</button>
-=======
-=======
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
-        <a href="home.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium">HOME</a>
-        <a href="about_us_page2.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium">ABOUT US</a>
-        <a href="login.html" class="hover:text-gray-200 transition duration-300 text-lg font-medium">LOGIN</a>
-        <button><a href="signup.html" class="signup-button-gradient text-white px-6 py-2 rounded-full shadow-md hover:shadow-lg transition duration-300 font-semibold">SIGN UP</a></button>
-<<<<<<< HEAD
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
-=======
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
->>>>>>> 614960544b03b73fb8c063aed84cf27b6e085cfc
+      <div class="flex items-center space-x-6">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about_us_page2.html" class="nav-link active">ABOUT US</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="signup.html" class="ml-2 px-6 py-2 bg-white text-purple-700 font-semibold rounded-full shadow-md nav-link" style="background: #fff; color: #6a11cb;">SIGN UP</a>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main class="container mx-auto flex flex-col lg:flex-row items-center justify-center flex-grow py-16 px-6 max-w-7xl">
-    
-    <!-- Left Section - Mission Statement -->
-    <section class="w-full lg:w-1/2 p-6 lg:pr-12 text-center lg:text-left mb-12 lg:mb-0">
-      <div class="max-w-2xl mx-auto lg:mx-0">
-        <h1 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-800 mb-8 leading-tight">
-          In <span class="text-gradient">Money Mate</span>, we all come to work every day to enable people to make smart decisions about their money every day.
-        </h1>
-        
-        <div class="section-divider"></div>
-        
-        <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
-          <p class="mb-6">
-            What started as a simple expense tracker for a small group has grown into a personal finance app that brings beauty to finance for thousands of users worldwide.
-          </p>
-          <p class="mb-8">
-            We believe that managing finance should be as effortless as shopping online. It should be done anywhere, anytime, and in just a few clicks.
-          </p>
-        </div>
-        
-        <button class="signup-button-gradient text-white px-10 py-4 rounded-full shadow-xl hover:shadow-2xl transition duration-300 text-xl font-semibold transform hover:scale-105">
-          GET IN TOUCH WITH US!
-        </button>
+  <!-- Intro & Mission Section (from about_us_page1.html) -->
+  <div class="main-content flex flex-row gap-8 justify-between items-start max-w-6xl mx-auto mt-10 px-8">
+    <!-- Left Section -->
+    <div class="left flex-1 max-w-xl">
+      <p class="text-lg mb-6" style="line-height:1.7">
+        In <span style="color:#a259ff;font-style:italic;font-weight:600;">Money Mate</span>, we all come to work every day to enable people make smart decisions about their money every day.
+      </p>
+      <p class="mb-6" style="line-height:1.7">
+        What started as a simple expense tracker for a small group of people has grown into personal finance app that brings beauty to finance of hundreds of thousands users from almost every country in the world.
+      </p>
+      <p class="mb-8" style="line-height:1.7">
+        We believe that managing finance should be as effortless as shopping online. It should be done anytime, anywhere and in few clicks.
+      </p>
+      <button class="cta-btn" onclick="document.getElementById('contact-section').scrollIntoView({behavior: 'smooth'});">GET IN TOUCH WITH US!</button>
+    </div>
+    <!-- Right Section -->
+    <div class="right flex-1 flex flex-col items-center">
+      <div class="quote-card w-full">
+        <div class="quote-text mb-4">“<span style="font-family: 'Inter', cursive;">helps people worldwide to get their money into shape.</span>”</div>
+        <button class="quote-btn">Track it. Save it. Master your money.</button>
+        <!-- Group Discussion Illustration -->
+        <img src="https://img.freepik.com/vetores-gratis/ilustracao-do-conceito-de-discussao-em-grupo_114360-4716.jpg" alt="Team Illustration" class="w-full max-w-xs mt-2 rounded-xl shadow-md" style="background:#fff;">
       </div>
-    </section>
-
-    <!-- Right Section - Featured Card -->
-    <section class="w-full lg:w-1/2 p-6 lg:pl-12 flex justify-center items-center">
-      <div class="card-border-gradient w-full max-w-lg rounded-3xl">
-        <div class="card-content flex flex-col items-center justify-between p-8 lg:p-10">
-          <div class="text-center mb-8">
-            <p class="quote-font text-2xl lg:text-3xl xl:text-4xl mb-6 leading-relaxed">
-              "helps people worldwide to get their money into shape."
-            </p>
-            <p class="text-xl lg:text-2xl font-semibold text-gray-700 leading-relaxed">
-              Track it. Save it. Master your money.
-            </p>
-          </div>
-          
-          <div class="w-full">
-            <img src="https://i.pinimg.com/736x/c2/54/1b/c2541b77149ed3683b936c4bb23f8f8a.jpg"
-                 alt="Illustration of people managing money"
-                 class="w-full h-auto rounded-2xl shadow-2xl transform hover:scale-105 transition duration-500">
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Floating Scroll to Top Arrow -->
-  <div class="floating-arrow fixed bottom-8 right-8 rounded-full p-4 shadow-2xl cursor-pointer z-50">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-    </svg>
+    </div>
   </div>
 
+  <!-- Team Section (from about_us_page2.html) -->
+  <section class="py-12 px-4 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+      <div class="team-card">
+        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Farhana" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=F';" />
+        <div class="text-lg font-semibold mt-2 mb-1">FARHANA</div>
+        <div class="text-gray-700 text-sm font-medium">CEO & FOUNDER</div>
+      </div>
+      <div class="team-card">
+        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Huwayda" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=H';" />
+        <div class="text-lg font-semibold mt-2 mb-1">HUWAYDA</div>
+        <div class="text-gray-700 text-sm font-medium">CSO & CO FOUNDER</div>
+      </div>
+      <div class="team-card">
+        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Arissa" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=A';" />
+        <div class="text-lg font-semibold mt-2 mb-1">ARISSA</div>
+        <div class="text-gray-700 text-sm font-medium">COO</div>
+      </div>
+      <div class="team-card">
+        <img src="https://i.ibb.co/6b6Q7Qk/farhana.jpg" alt="Izzah" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=I';" />
+        <div class="text-lg font-semibold mt-2 mb-1">IZZAH</div>
+        <div class="text-gray-700 text-sm font-medium">CTO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section (from about_us_page2.html) -->
+  <section id="contact-section" class="py-12 px-4 max-w-5xl mx-auto">
+    <h2 class="text-5xl font-extrabold text-center mb-2 contact-gradient">CONTACT US</h2>
+    <p class="text-center text-gray-500 text-lg mb-10">If you want to get in touch with us, use these e-mails.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base text-gray-800">
+      <div>
+        <div class="mb-6">
+          <span class="font-semibold">For Support</span><br/>
+          <a href="mailto:hello@moneyTracker.com" class="underline">hello@moneyTracker.com</a>
+        </div>
+        <div>
+          <span class="font-semibold">For Business Opportunities & Marketing Purposes, contact Arissa</span><br/>
+          <a href="mailto:Arissa@moneyTracker.com" class="underline">Arissa@moneyTracker.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="mb-6">
+          <span class="font-semibold">For Media & PR Opportunities</span><br/>
+          <a href="mailto:media@moneyTracker.com" class="underline">media@moneyTracker.com</a>
+        </div>
+        <div>
+          <span class="font-semibold">For Other Opportunities, contact our CEO Farhana</span><br/>
+          <a href="mailto:Farhana@moneyTracker.com" class="underline">Farhana@moneyTracker.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scroll to Contact Button -->
+  <button class="scroll-down-btn" onclick="document.getElementById('contact-section').scrollIntoView({behavior: 'smooth'});" aria-label="Scroll to contact section" style="position: fixed; bottom: 4.5rem; right: 2rem; background: #a259ff; color: #fff; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 4px 16px 0 rgba(138,43,226,0.15); cursor: pointer; z-index: 51; transition: background 0.2s;">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
 </body>
 </html>

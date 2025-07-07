@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <meta charset="UTF-8">
-  <title>Home Page</title>
-  <link rel="stylesheet" href="home.css">
-=======
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
-=======
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Money Mate - Smart Financial Management</title>
@@ -23,7 +14,7 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
       min-height: 100vh;
       overflow-x: hidden;
     }
@@ -47,9 +38,13 @@
     }
 
     .cta-button {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(135deg, #a259ff 0%, #6a11cb 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.15rem;
+      border-radius: 9999px;
+      box-shadow: 0 4px 16px 0 rgba(138,43,226,0.10);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
     }
@@ -61,7 +56,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
       transition: left 0.5s;
     }
 
@@ -70,8 +65,8 @@
     }
 
     .cta-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 24px rgba(138,43,226,0.18);
     }
 
     .nav-link {
@@ -90,10 +85,7 @@
       transition: width 0.3s ease;
     }
 
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
+    .nav-link:hover::after,
     .nav-link.active::after {
       width: 100%;
     }
@@ -196,75 +188,11 @@
     }
   </style>
 </head>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<body>
-  <nav class="navbar">
-    <div class="logo">MyWebsite</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="login.html">Sign In</a></li>
-      <li><a href="register.html">Sign Up</a></li>
-    </ul>
 <body class="min-h-screen flex flex-col">
 
   <!-- Navbar -->
-<<<<<<< HEAD
-  <nav class="navbar-gradient text-white p-6 shadow-2xl">
-    <div class="container mx-auto flex justify-between items-center max-w-7xl">
-=======
-  <nav class="navbar-gradient p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Logo and Name -->
-      <div class="flex items-center space-x-2">
-        <div class="bg-white text-purple-700 rounded-full w-9 h-9 flex items-center justify-center font-bold text-lg">S</div>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-500 text-xl font-bold">
-          Money Mate
-        </span>
-      </div>
-
-      <!-- Menu -->
-      <<!-- Menu -->
-<div class="hidden md:flex space-x-6 text-lg">
-  <a href="home.html" class="text-violet-100 hover:text-white font-semibold transition duration-300">Home</a>
-  <a href="about_us_page2.html" class="text-violet-100 hover:text-white font-semibold transition duration-300">About Us</a>
-  <a href="login.html" class="text-violet-100 hover:text-white font-semibold transition duration-300">Login</a>
-  <button class="bg-gradient-to-r from-pink-400 to-purple-600 text-white px-6 py-2 rounded-full font-bold shadow-md hover:brightness-110 transition duration-300">
-    Sign Up
-  </button>
-</div>
-
-      </div>
-    </div>
-  </nav>
-
-  <section class="hero">
-    <h1>Welcome to MyWebsite</h1>
-    <p>Your simple, clean, responsive homepage</p>
-  </section>
-  <!-- Hero Section -->
-  <main class="flex-grow flex items-center justify-center px-4 py-20 bg-white">
-    <div class="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between gap-12 max-w-6xl">
-
-      <!-- Left Side: Text -->
-      <div class="text-center md:text-left md:w-1/2">
-        <h1 class="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-black leading-tight mb-2">
-  Manage your money with
-</h1>
-
-=======
-<body class="min-h-screen flex flex-col">
-
-  <!-- Navbar -->
-=======
-<body class="min-h-screen flex flex-col">
-
-  <!-- Navbar -->
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
   <nav class="navbar-gradient text-white p-4 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
->>>>>>> 614960544b03b73fb8c063aed84cf27b6e085cfc
       <!-- Logo and Name -->
       <div class="flex items-center space-x-4">
         <div class="logo-container bg-white rounded-full p-3 shadow-xl">
@@ -307,30 +235,15 @@
           Manage your money with
         </h1>
 
-<<<<<<< HEAD
-        <h2 class="hero-text-gradient text-5xl sm:text-6xl lg:text-8xl font-bold leading-none mb-8">
-          confidence
-=======
-      <!-- Left Side: Text -->
-      <div class="text-center md:text-left md:w-1/2">
-        <h1 class="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-black leading-tight mb-2">
-  Manage your money with
-</h1>
-
-<<<<<<< HEAD
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
-=======
->>>>>>> f71bd02e63be08633389cb86b6c7373cb1c4d953
         <h2 class="hero-text-gradient text-5xl sm:text-6xl font-extrabold leading-none mb-4">
           us
->>>>>>> 614960544b03b73fb8c063aed84cf27b6e085cfc
         </h2>
         
         <p class="text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
           Track your income, expenses, and savings — all in one simple and beautiful platform designed for modern financial management.
         </p>
         
-        <button class="cta-button font-bold py-4 px-10 rounded-full shadow-xl text-lg">
+        <button class="cta-button font-bold py-4 px-10 rounded-full shadow-xl text-lg" onclick="window.location.href='about_us_page2.html'">
           Read More
         </button>
 
