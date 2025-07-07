@@ -14,151 +14,196 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     .container {
       display: flex;
       min-height: 100vh;
     }
     .sidebar {
-      background-color: #ffffff;
-      width: 16rem; /* w-64 */
-      padding: 1.5rem; /* p-6 */
+      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+      width: 17rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      border-top-right-radius: 1.5rem; /* rounded-r-3xl */
-      border-bottom-right-radius: 1.5rem; /* rounded-r-3xl */
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
     }
     .user-info {
       display: flex;
       align-items: center;
-      margin-bottom: 2rem; /* mb-8 */
+      margin-bottom: 2.5rem;
     }
     .avatar {
-      width: 2.5rem; /* w-10 */
-      height: 2.5rem; /* h-10 */
-      border-radius: 9999px; /* rounded-full */
-      margin-right: 0.75rem; /* mr-3 */
+      width: 2.7rem;
+      height: 2.7rem;
+      border-radius: 9999px;
+      margin-right: 1rem;
       object-fit: cover;
-      background-color: #cbd5e1; /* placeholder background */
+      background-color: #cbd5e1;
+      border: 2px solid #e0b0ff;
     }
     .menu-btn {
-      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
       color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.9rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
       width: 100%;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+      transition: filter 0.2s;
+    }
+    .menu-btn:hover {
+      filter: brightness(1.08);
     }
     .nav-links {
       display: flex;
       flex-direction: column;
-      space-y: 0.5rem;
+      gap: 0.5rem;
     }
     .nav-links a {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      padding: 0.7rem 1.3rem;
+      border-radius: 0.8rem;
       color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      transition: background-color 0.2s ease-in-out;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
     }
     .nav-links a.active,
     .nav-links a:hover {
-      background-color: #e0b0ff; /* Light purple for active/hover */
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #4a00e0;
     }
     .logout {
-      background-color: #fbd38d; /* Light orange */
-      color: #c05621; /* Darker orange text */
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
+      color: #c05621;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.9rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
       width: 100%;
-      transition: background-color 0.2s ease-in-out;
+      transition: filter 0.2s;
+      box-shadow: 0 2px 8px 0 rgba(251,211,141,0.10);
     }
     .logout:hover {
-      background-color: #f6ad55; /* Slightly darker orange on hover */
+      filter: brightness(1.08);
     }
     .main-content {
       flex: 1;
-      padding: 2rem; /* p-8 */
+      padding: 3.5rem 2rem 2rem 2rem;
+      background: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
     .form-card {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      max-width: 36rem;
-      margin: 0 auto;
+      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      max-width: 32rem;
+      width: 100%;
       position: relative;
+      margin-top: 1.5rem;
     }
     .back-btn {
       position: absolute;
       top: 1.5rem;
       left: 1.5rem;
-      background-color: #e2e8f0;
-      color: #4a5568;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
+      background: #f3e8ff;
+      color: #4a00e0;
+      padding: 0.5rem 1.1rem;
+      border-radius: 0.7rem;
       font-weight: 500;
-      transition: background-color 0.2s ease-in-out;
+      font-size: 1.1rem;
+      border: none;
+      box-shadow: 0 1px 4px 0 rgba(138,43,226,0.08);
+      transition: background 0.2s, color 0.2s;
     }
     .back-btn:hover {
-      background-color: #cbd5e1;
+      background: #e0b0ff;
+      color: #fff;
     }
     .input {
       width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      background-color: #f8fafc;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.2rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 0.7rem;
+      background: #f8fafc;
+      font-size: 1.08rem;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .input:focus {
       border-color: #a78bfa;
-      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
       outline: none;
+      background: #fff;
     }
     .btn-group {
       display: flex;
       justify-content: space-between;
-      gap: 1rem;
-      margin-top: 1.5rem;
+      gap: 1.2rem;
+      margin-top: 2rem;
     }
     .btn-group button {
       flex: 1;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: 0.9rem;
       font-weight: 600;
-      transition: background-color 0.2s ease-in-out;
+      font-size: 1.08rem;
+      transition: background 0.2s, color 0.2s, filter 0.2s;
+      border: none;
+      box-shadow: 0 1px 4px 0 rgba(138,43,226,0.08);
     }
     .btn-group button[type="reset"] {
-      background-color: #fbd38d;
+      background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
       color: #c05621;
     }
     .btn-group button[type="reset"]:hover {
-      background-color: #f6ad55;
+      filter: brightness(1.08);
+      color: #fff;
     }
     .btn-group button[type="submit"] {
-      background: linear-gradient(to right, #8e2de2, #4a00e0);
-      color: white;
+      background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
+      color: #fff;
     }
     .btn-group button[type="submit"]:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.08);
+    }
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        border-radius: 0 0 2rem 2rem;
+        margin-bottom: 2rem;
+      }
+      .main-content {
+        padding: 2rem 1rem 1rem 1rem;
+      }
+      .form-card {
+        padding: 2rem 1rem 1rem 1rem;
+      }
     }
   </style>
 </head>
@@ -168,14 +213,13 @@
     <aside class="sidebar">
       <div class="user-info">
         <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="User Avatar" class="avatar">
-        <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+        <p class="text-base font-semibold text-gray-700">Hi, Rebecca!</p>
       </div>
       <button onclick="location.href='dashboard.html'" class="menu-btn">☰ Dashboard</button>
       <nav class="nav-links">
-        <!-- Updated Sidebar Links -->
-        <a href="dashboard.html">⭐ Savings</a> <!-- Linking to dashboard as placeholder -->
+        <a href="dashboard.html">⭐ Savings</a>
         <a href="editprofile.html">👤 Profile</a>
-        <a href="dashboard.html">📈 Statistics</a> <!-- Linking to dashboard as placeholder -->
+        <a href="dashboard.html">📈 Statistics</a>
         <a href="budget.html">⬇ Budget</a>
         <a href="expenses.html" class="active">⬆ Expenses</a>
       </nav>
@@ -183,17 +227,16 @@
     </aside>
 
     <main class="main-content">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">Money Expenses</h1>
-      <p class="text-gray-600 mb-8">Add new money expenses.</p>
+      <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Money Expenses</h1>
+      <p class="text-gray-600 mb-8 text-lg">Add new money expenses.</p>
 
       <div class="form-card">
-        <!-- Updated Back Button -->
         <button onclick="location.href='expenses.html'" class="back-btn">←</button>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Money Expenses</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
         <form>
           <input type="text" placeholder="Title" class="input" required>
           <input type="text" placeholder="RM" class="input" required>
-          <select class="input">
+          <select class="input" required>
             <option disabled selected>Category</option>
             <option>Food</option>
             <option>Transport</option>
