@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Statistics</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f2f5;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 16rem; /* Tailwind w-64 */
+      background-color: #ffffff;
+      border-top-right-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      z-index: 10;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      color: #4a00e0;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: background-color 0.2s ease-in-out;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      background-color: #e0b0ff;
+    }
+
+    .card {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-bar {
+      height: 0.5rem;
+      border-radius: 9999px;
+      background-color: #e2e8f0;
+    }
+
+    .progress-fill-purple {
+      background-color: #a78bfa;
+    }
+
+    .progress-fill-green {
+      background-color: #4ade80;
+    }
+
+    .progress-fill-pink {
+      background-color: #f472b6;
+    }
+
+    .chart-placeholder {
+      width: 100%;
+      height: 200px;
+      background-color: #cbd5e1;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a5568;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .top-expenses-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .top-expenses-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .top-expenses-item:last-child {
+      border-bottom: none;
+    }
+
+    .main-content {
+      margin-left: 16rem; /* Sidebar width */
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+  <!-- Top: user info + nav -->
+  <div class="flex flex-col justify-start h-full">
+    <!-- User Info -->
+    <div class="flex items-center mb-8">
+      <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
+      <div>
+        <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+        <p class="text-xs text-gray-500">Premium User</p>
+      </div>
+    </div>
+
+    <!-- Dashboard Button -->
+    <button onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
+      ☰ Dashboard
+    </button>
+
+    <!-- Nav Links -->
+    <nav class="nav-links mb-auto">
+      <a href="savings.html">⭐ Savings</a>
+      <a href="profile.html">👤 Profile</a>
+      <a href="statistics.html" class="active">📈 Statistics</a>
+      <a href="budget.html">⬇ Budget</a>
+      <a href="expenses.html">⬆ Expenses</a>
+    </nav>
+
+    <!-- Logout Button at the very bottom -->
+    <button onclick="window.location.href='home.html'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
+      <i class="fas fa-sign-out-alt"></i> Log Out
+    </button>
+  </div>
+</aside>
+
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Statistics</h1>
+        <p class="text-gray-600">Track your monthly budget, expenses and balance.</p>
+      </div>
+      <div class="flex items-center space-x-4 mt-4 md:mt-0">
+        <span class="text-gray-700 font-medium">March 2025</span>
+        <button class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-calendar-alt text-xl"></i>
+        </button>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <!-- Overview Cards -->
+      <div class="space-y-6">
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h2 class="text-xl font-semibold text-gray-800">Money Budget</h2>
+            <i class="fas fa-edit text-gray-500 cursor-pointer"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-900">RM 0</p>
+          <div class="progress-bar mt-3">
+            <div class="progress-fill-purple h-full" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="flex justify-between items-center mb-2">
+            <h2 class="text-xl font-semibold text-gray-800">Money Expenses</h2>
+            <i class="fas fa-plus-circle text-gray-500 cursor-pointer"></i>
+          </div>
+          <p class="text-2xl font-bold text-gray-900">RM 0</p>
+          <div class="progress-bar mt-3">
+            <div class="progress-fill-green h-full" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
+          <p class="text-2xl font-bold text-gray-900">RM 0</p>
+          <div class="progress-bar mt-3">
+            <div class="progress-fill-pink h-full" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts and Top Expenses -->
+      <div class="space-y-6">
+        <div class="card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Spends</h2>
+          <div class="chart-placeholder">No data to display for monthly spends.</div>
+        </div>
+
+        <div class="card">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Top Money Expenses</h2>
+          <ul class="top-expenses-list">
+            <li class="top-expenses-item"><span>Food</span><span>RM 0</span></li>
+            <li class="top-expenses-item"><span>Bills</span><span>RM 0</span></li>
+            <li class="top-expenses-item"><span>Transport</span><span>RM 0</span></li>
+            <li class="top-expenses-item"><span>Top Up</span><span>RM 0</span></li>
+            <li class="top-expenses-item"><span>Entertainment</span><span>RM 0</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -66,11 +66,14 @@
                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
+                //kena add direction to database untuk add acc user 
+                <a href="dashbord.html">
                 <button type="submit"
                         class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg font-semibold shadow-md
                                hover:from-blue-600 hover:to-blue-800 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                     Sign-Up to Money Tracker
                 </button>
+                </a>
             </form>
         </div>
     </main>
