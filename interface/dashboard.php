@@ -59,7 +59,7 @@ $recentExpenses = [];
         <a href="budget.php">⬇ Budget</a>
         <a href="expenses.php">⬆ Expenses</a>
       </nav>
-      <button onclick="window.location.href='index.php'" class="logout w-full mt-10">
+      <button onclick="window.location.href='login.php'" class="logout w-full mt-10">
         <i class="fas fa-sign-out-alt"></i> Log Out
       </button>
     </div>

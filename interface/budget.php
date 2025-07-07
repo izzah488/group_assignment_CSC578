@@ -201,7 +201,7 @@ $moneyBalance = 0;
       </nav>
 
       <!-- Logout Button -->
-      <button onclick="location.href='index.php'" class="logout-btn font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
+      <button onclick="location.href='login.php'" class="logout-btn font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
         <i class="fas fa-sign-out-alt"></i> Log Out
       </button>
     </div>

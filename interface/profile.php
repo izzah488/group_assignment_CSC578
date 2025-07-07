@@ -146,7 +146,7 @@ $user = [
       </nav>
 
       <!-- Logout Button -->
-      <button onclick="window.location.href='index.php'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
+      <button onclick="window.location.href='login.php'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
         <i class="fas fa-sign-out-alt"></i> Log Out
       </button>
     </div>

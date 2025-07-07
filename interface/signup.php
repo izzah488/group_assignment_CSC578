@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <span class="text-xl font-semibold">Money Mate</span>
         </div>
         <nav class="hidden md:flex space-x-6">
-            <a href="index.php" class="hover:text-gray-200 transition-colors duration-200">HOME</a>
+            <a href="login.php" class="hover:text-gray-200 transition-colors duration-200">HOME</a>
             <a href="about_us_page2.php" class="hover:text-gray-200 transition-colors duration-200">ABOUT US</a>
             <a href="login.php" class="hover:text-gray-200 transition-colors duration-200">LOGIN</a>
         </nav>
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md">
             <!-- Back Arrow -->
             <div class="mb-4">
-                <button onclick="window.location.href='index.php'" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200">
+                <button onclick="window.location.href='login.php'" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-gray-700">
                         <path fill-rule="evenodd" d="M11.03 4.53a.75.75 0 0 0-1.06 0L3.47 10.03a.75.75 0 0 0 0 1.06l6.5 6.5a.75.75 0 1 0 1.06-1.06L5.81 11.5H20.25a.75.75 0 0 0 0-1.5H5.81l5.22-5.22a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd" />
                     </svg>

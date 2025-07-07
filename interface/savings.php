@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Logout button at the bottom -->
     <div>
-      <button onclick="window.location.href='index.php'" class="logout-link">⏻ Log Out</button>
+      <button onclick="window.location.href='login.php'" class="logout-link">⏻ Log Out</button>
     </div>
   </aside>
 

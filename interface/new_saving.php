@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="statistic.php" class="py-2 px-4 rounded-lg text-purple-800">📈 Statistics</a>
         <a href="budget.php" class="py-2 px-4 rounded-lg text-purple-800">⬇ Budget</a>
         <a href="expenses.php" class="py-2 px-4 rounded-lg text-purple-800">⬆ Expenses</a>
-        <button onclick="window.location.href='index.php'" class="logout-link bg-yellow-100 text-yellow-800 rounded-lg py-2 px-4 mt-4">⏻ Log Out</button>
+        <button onclick="window.location.href='login.php'" class="logout-link bg-yellow-100 text-yellow-800 rounded-lg py-2 px-4 mt-4">⏻ Log Out</button>
       </nav>
     </div>
   </aside>

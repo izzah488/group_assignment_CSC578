@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span class="text-2xl font-bold tracking-wider">Money Mate</span>
       </div>
       <div class="flex items-center space-x-6">
-        <a href="index.html" class="nav-link">HOME</a>
+        <a href="login.html" class="nav-link">HOME</a>
         <a href="about_us_page2.html" class="nav-link active">ABOUT US</a>
         <a href="login.html" class="nav-link">LOGIN</a>
         <a href="signup.html" class="ml-2 px-6 py-2 bg-white text-purple-700 font-semibold rounded-full shadow-md nav-link" style="background: #fff; color: #6a11cb;">SIGN UP</a>

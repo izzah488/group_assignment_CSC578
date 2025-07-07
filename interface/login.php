@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="text-white text-2xl font-semibold">Money Mate</span>
             </div>
             <div class="flex space-x-6">
-                <a href="index.php" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">HOME</a>
+                <a href="login.php" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">HOME</a>
                 <a href="about_us_page2.php" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">ABOUT US</a>
                 <a href="login.php" class="bg-white text-[#a259ff] px-6 py-2 rounded-full font-semibold shadow-md hover:bg-gray-100 transition-colors duration-200">LOGIN</a>
             </div>
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-card">
         <form method="POST" action="">
             <div class="flex items-center mb-6">
-                <button type="button" onclick="window.location.href='index.php'" class="p-2 rounded-full back-btn mr-4">
+                <button type="button" onclick="window.location.href='login.php'" class="p-2 rounded-full back-btn mr-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>

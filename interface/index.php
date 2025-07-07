@@ -181,7 +181,7 @@
 
       <!-- Navigation Menu -->
       <div class="hidden md:flex items-center space-x-10">
-        <a href="index.php" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
+        <a href="login.php" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
         <a href="about_us_page2.php" class="nav-link hover:text-gray-200 text-lg font-medium">ABOUT US</a>
         <a href="login.php" class="nav-link hover:text-gray-200 text-lg font-medium">LOGIN</a>
         <button class="cta-button px-10 py-3 rounded-full shadow-xl font-semibold text-lg">

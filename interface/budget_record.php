@@ -246,7 +246,7 @@ $moneyBalance = 500;
                     <a href="expenses.php">⬆ Expenses</a>
                 </nav>
             </div>
-            <button onclick="location.href='index.php'" class="logout">⏻ Log Out</button>
+            <button onclick="location.href='login.php'" class="logout">⏻ Log Out</button>
         </aside>
 
         <!-- Main Content -->
