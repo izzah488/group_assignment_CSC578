@@ -1,29 +1,22 @@
 <?php
-$success = false;
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = htmlspecialchars($_POST['title'] ?? '');
-    $amount = htmlspecialchars($_POST['amount'] ?? '');
-    $category = htmlspecialchars($_POST['category'] ?? '');
-    $date = htmlspecialchars($_POST['date'] ?? '');
-    // TODO: Save to database
-    $success = true;
-}
+// Start session and include database connection if needed in the future
+// session_start();
+// include '../backend/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Money Expenses</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expenses Chart</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-color: #f0f2f5;
     }
     .container { display: flex; min-height: 100vh; }
     .sidebar {
@@ -138,67 +131,101 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .btn-group button:hover { filter: brightness(1.1); }
   </style>
 </head>
-<body>
-  <div class="container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div>
-        <div class="flex items-center mb-8">
-          <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
-          <div>
-            <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-            <p class="text-xs text-gray-500">Premium User</p>
-          </div>
+<body class="bg-gray-100 flex">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="flex flex-col justify-start h-full">
+      <div class="flex items-center mb-8">
+        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" class="rounded-full mr-3" />
+        <div>
+          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+          <p class="text-xs text-gray-500">Premium User</p>
         </div>
-        <button onclick="window.location.href='dashboard.php'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
-          <i class="fas fa-bars"></i> Dashboard
-        </button>
-        <nav class="nav-links mb-auto">
-          <a href="savings.php"><i class="fas fa-star"></i> Savings</a>
-          <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
-          <a href="statistic.php"><i class="fas fa-chart-line"></i> Statistics</a>
-          <a href="budget.php"><i class="fas fa-arrow-down"></i> Budget</a>
-          <a href="expenses.php" class="active"><i class="fas fa-arrow-up"></i> Expenses</a>
-        </nav>
       </div>
-      <button onclick="window.location.href='index.php'" class="bg-gradient-to-r from-yellow-300 to-yellow-500 text-orange-800 font-semibold py-2 px-4 rounded-lg flex items-center gap-2 mt-10">
-        <i class="fas fa-sign-out-alt"></i> Log Out
+      <button onclick="window.location.href='dashbord.php'" class="menu-btn w-full mb-4">
+        ☰ Dashboard
       </button>
-    </aside>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">Money Expenses</h1>
-      <p class="text-gray-600 mb-8">Add new money expenses.</p>
+      <nav class="nav-links mb-auto">
+        <a href="savings.php">⭐️ Savings</a>
+        <a href="profile.php">👤 Profile</a>
+        <a href="statistic.php">📈 Statistics</a>
+        <a href="budget.php">⬇️ Budget</a>
+        <a href="expenses.php" class="active">⬆️ Expenses</a>
+      </nav>
 
-      <div class="form-card">
-        <button onclick="location.href='expenses.php'" class="back-btn">←</button>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Money Expenses</h2>
-        <?php if ($success): ?>
-          <p class="text-center text-green-600 mt-4 font-medium">Expense added successfully!</p>
-        <?php endif; ?>
-        <form method="POST" action="">
-          <input type="text" name="title" placeholder="Title" class="input" required />
-          <input type="number" name="amount" placeholder="RM" class="input" required />
-          <select name="category" class="input" required>
-            <option disabled selected value="">Category</option>
-            <option>Food</option>
-            <option>Transport</option>
-            <option>Shopping</option>
-            <option>Utilities</option>
-            <option>Bill</option>
-            <option>Top Up</option>
-            <option>Entertainment</option>
-          </select>
-          <input type="date" name="date" class="input" required />
+      <button onclick="window.location.href='logout.php'" class="logout w-full mt-10">
+        ⏻ Log Out
+      </button>
+    </div>
+  </aside>
 
-          <div class="btn-group">
-            <button type="reset">CANCEL</button>
-            <button type="submit">ADD</button>
-          </div>
-        </form>
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Expenses Chart</h1>
+        <p class="text-gray-600">Visualize your monthly commitments at a glance.</p>
       </div>
-    </main>
-  </div>
+      <div class="flex items-center space-x-4 mt-4 md:mt-0">
+        <span class="text-gray-700 font-medium">March 2025</span>
+        <button class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-calendar-alt text-xl"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chart Section -->
+    <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Expenses Chart (March)</h2>
+      <div class="flex flex-col md:flex-row items-center justify-around">
+        <div class="chart-placeholder mb-6 md:mb-0">No data to display.</div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-food"></span>Food</div>
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-transport"></span>Transport</div>
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-bill"></span>Bill</div>
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-topup"></span>Top Up</div>
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-entertainment"></span>Entertainment</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Expense Categories</h2>
+
+      <div class="expense-category-header bg-purple-500 text-white shadow-md">Food</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
+
+      <div class="expense-category-header bg-yellow-500 text-gray-800 shadow-md">Transport</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
+
+      <div class="expense-category-header bg-teal-500 text-white shadow-md">Bill</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
+
+      <div class="expense-category-header bg-green-500 text-white shadow-md">Top Up</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
+
+      <div class="expense-category-header bg-blue-500 text-white shadow-md">Entertainment</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg">
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
+    </section>
+
+    <!-- Add Expenses Button -->
+    <button onclick="window.location.href='add_money_expenses.php'" class="w-full py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 add-expenses-btn">
+      <i class="fas fa-plus-circle"></i>
+      <span>Add New Expenses</span>
+    </button>
+  </main>
 </body>
 </html>
