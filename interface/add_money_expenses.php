@@ -1,11 +1,10 @@
 <?php
 $success = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = htmlspecialchars($_POST['title'] ?? '');
-    $amount = htmlspecialchars($_POST['amount'] ?? '');
     $category = htmlspecialchars($_POST['category'] ?? '');
+    $amount = htmlspecialchars($_POST['amount'] ?? '');
     $date = htmlspecialchars($_POST['date'] ?? '');
-    // TODO: Save to database
+    // Here you would normally save to a database
     $success = true;
 }
 ?>
@@ -15,9 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Money Expenses</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -25,7 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       min-height: 100vh;
       overflow-x: hidden;
     }
-    .container { display: flex; min-height: 100vh; }
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
     .sidebar {
       background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
       width: 17rem;
@@ -43,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       margin-bottom: 2.5rem;
     }
     .avatar {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.7rem;
+      height: 2.7rem;
       border-radius: 9999px;
       margin-right: 1rem;
       object-fit: cover;
@@ -127,59 +130,124 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       position: relative;
       margin-top: 1.5rem;
     }
-    .back-btn { position: absolute; top: 1.5rem; left: 1.5rem; background-color: #e2e8f0; color: #4a5568; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; }
-    .back-btn:hover { background-color: #cbd5e1; }
-    .input { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #f8fafc; }
-    .input:focus { border-color: #a78bfa; box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3); outline: none; }
-    .btn-group { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
-    .btn-group button { flex: 1; padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; }
-    .btn-group button[type="reset"] { background-color: #fbd38d; color: #c05621; }
-    .btn-group button[type="submit"] { background: linear-gradient(to right, #8e2de2, #4a00e0); color: white; }
-    .btn-group button:hover { filter: brightness(1.1); }
+    .back-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: #f3e8ff;
+      color: #4a00e0;
+      padding: 0.5rem 1.1rem;
+      border-radius: 0.7rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      border: none;
+      box-shadow: 0 1px 4px 0 rgba(138,43,226,0.08);
+      transition: background 0.2s, color 0.2s;
+    }
+    .back-btn:hover {
+      background: #e0b0ff;
+      color: #fff;
+    }
+    .input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.2rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 0.7rem;
+      background: #f8fafc;
+      font-size: 1.08rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input:focus {
+      border-color: #a78bfa;
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+      outline: none;
+      background: #fff;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .btn-group button {
+      flex: 1;
+      padding: 0.85rem 1.5rem;
+      border-radius: 0.9rem;
+      font-weight: 600;
+      font-size: 1.08rem;
+      transition: background 0.2s, color 0.2s, filter 0.2s;
+      border: none;
+      box-shadow: 0 1px 4px 0 rgba(138,43,226,0.08);
+    }
+    .btn-group button[type="reset"] {
+      background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
+      color: #c05621;
+    }
+    .btn-group button[type="reset"]:hover {
+      filter: brightness(1.08);
+      color: #fff;
+    }
+    .btn-group button[type="submit"] {
+      background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
+      color: #fff;
+    }
+    .btn-group button[type="submit"]:hover {
+      filter: brightness(1.08);
+    }
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        flex-direction: row;
+        width: 100%;
+        border-radius: 0 0 2rem 2rem;
+        margin-bottom: 2rem;
+      }
+      .main-content {
+        padding: 2rem 1rem 1rem 1rem;
+      }
+      .form-card {
+        padding: 2rem 1rem 1rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Sidebar -->
     <aside class="sidebar">
-      <div>
-        <div class="flex items-center mb-8">
-          <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
-          <div>
-            <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-            <p class="text-xs text-gray-500">Premium User</p>
-          </div>
-        </div>
-        <button onclick="window.location.href='dashboard.php'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
-          <i class="fas fa-bars"></i> Dashboard
-        </button>
-        <nav class="nav-links mb-auto">
-          <a href="savings.php"><i class="fas fa-star"></i> Savings</a>
-          <a href="profile.php"><i class="fas fa-user"></i> Profile</a>
-          <a href="statistic.php"><i class="fas fa-chart-line"></i> Statistics</a>
-          <a href="budget.php"><i class="fas fa-arrow-down"></i> Budget</a>
-          <a href="expenses.php" class="active"><i class="fas fa-arrow-up"></i> Expenses</a>
-        </nav>
+      <div class="user-info">
+        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="User Avatar" class="avatar">
+        <p class="text-base font-semibold text-gray-700">Hi, Rebecca!</p>
       </div>
-      <button onclick="window.location.href='index.php'" class="bg-gradient-to-r from-yellow-300 to-yellow-500 text-orange-800 font-semibold py-2 px-4 rounded-lg flex items-center gap-2 mt-10">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </button>
+      <button onclick="location.href='dashboard.html'" class="menu-btn">☰ Dashboard</button>
+      <nav class="nav-links">
+        <a href="dashboard.html">⭐ Savings</a>
+        <a href="editprofile.html">👤 Profile</a>
+        <a href="dashboard.html">📈 Statistics</a>
+        <a href="budget.html">⬇ Budget</a>
+        <a href="expenses.html" class="active">⬆ Expenses</a>
+      </nav>
+      <button onclick="location.href='home.html'" class="logout">⏻ Log Out</button>
     </aside>
 
-    <!-- Main Content -->
     <main class="main-content">
-      <h1 class="text-3xl font-bold text-gray-900 mb-2">Money Expenses</h1>
-      <p class="text-gray-600 mb-8">Add new money expenses.</p>
+      <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Money Expenses</h1>
+      <p class="text-gray-600 mb-8 text-lg">Add new money expenses.</p>
 
       <div class="form-card">
-        <button onclick="location.href='expenses.php'" class="back-btn">←</button>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Money Expenses</h2>
+        <button onclick="location.href='expenses.html'" class="back-btn">←</button>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
         <?php if ($success): ?>
-          <p class="text-center text-green-600 mt-4 font-medium">Expense added successfully!</p>
+          <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
+            Expense added successfully!
+          </div>
         <?php endif; ?>
         <form method="POST" action="">
-          <input type="text" name="title" placeholder="Title" class="input" required />
-          <input type="number" name="amount" placeholder="RM" class="input" required />
+          <input type="text" name="title" placeholder="Title" class="input" required>
+          <input type="number" name="amount" placeholder="RM" class="input" required>
           <select name="category" class="input" required>
             <option disabled selected value="">Category</option>
             <option>Food</option>
@@ -190,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <option>Top Up</option>
             <option>Entertainment</option>
           </select>
-          <input type="date" name="date" class="input" required />
+          <input type="date" name="date" class="input" required>
 
           <div class="btn-group">
             <button type="reset">CANCEL</button>
@@ -202,3 +270,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 </body>
 </html>
+

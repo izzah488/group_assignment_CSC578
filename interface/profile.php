@@ -1,3 +1,12 @@
+<?php
+// TODO: Fetch user data from database
+$user = [
+    'first_name' => 'Rebecca',
+    'last_name' => 'Louis',
+    'email' => 'rebecca@gmail.com',
+    'type' => 'Premium User',
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,23 +19,25 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     .sidebar {
+      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+      width: 17rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
       position: fixed;
       top: 0;
       left: 0;
       height: 100vh;
-      width: 16rem;
-      background-color: #ffffff;
-      border-top-right-radius: 1.5rem;
-      border-bottom-right-radius: 1.5rem;
       z-index: 10;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
     .nav-links {
       display: flex;
@@ -34,32 +45,34 @@
       gap: 0.5rem;
     }
     .nav-links a {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      padding: 0.7rem 1.3rem;
+      border-radius: 0.8rem;
       color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      transition: background-color 0.2s ease-in-out;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
       width: 100%;
       text-align: left;
     }
     .nav-links a.active,
     .nav-links a:hover {
-      background-color: #e0b0ff;
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #4a00e0;
     }
     .main-content {
-      margin-left: 16rem;
-      padding: 2rem;
+      margin-left: 17rem;
+      padding: 3.5rem 2rem 2rem 2rem;
     }
     .profile-card {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-                  0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      max-width: 36rem;
+      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      max-width: 32rem;
       margin: 0 auto;
       text-align: left;
     }
@@ -111,29 +124,29 @@
     <div class="flex flex-col justify-start h-full">
       <!-- User Info -->
       <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Rebecca" class="rounded-full mr-3" />
+        <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="<?php echo htmlspecialchars($user['first_name']); ?>" class="rounded-full mr-3" />
         <div>
-          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
+          <p class="text-sm font-medium text-gray-700">Hi, <?php echo htmlspecialchars($user['first_name']); ?>!</p>
+          <p class="text-xs text-gray-500"><?php echo htmlspecialchars($user['type']); ?></p>
         </div>
       </div>
 
       <!-- Dashboard Button -->
-      <button onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
+      <button onclick="window.location.href='dashboard.php'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
         ☰ Dashboard
       </button>
 
       <!-- Navigation Links -->
       <nav class="nav-links mb-auto">
-        <a href="savings.html">⭐ Savings</a>
-        <a href="profile.html" class="active">👤 Profile</a>
-        <a href="statistic.html">📈 Statistics</a>
-        <a href="budget.html">⬇ Budget</a>
-        <a href="expenses.html">⬆ Expenses</a>
+        <a href="savings.php">⭐ Savings</a>
+        <a href="profile.php" class="active">👤 Profile</a>
+        <a href="statistic.php">📈 Statistics</a>
+        <a href="budget.php">⬇ Budget</a>
+        <a href="expenses.php">⬆ Expenses</a>
       </nav>
 
       <!-- Logout Button -->
-      <button onclick="window.location.href='home.html'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
+      <button onclick="window.location.href='index.php'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
         <i class="fas fa-sign-out-alt"></i> Log Out
       </button>
     </div>
@@ -147,15 +160,15 @@
     <div class="profile-card">
       <div class="profile-field">
         <label for="firstName">First Name</label>
-        <input type="text" id="firstName" value="Rebecca" readonly />
+        <input type="text" id="firstName" value="<?php echo htmlspecialchars($user['first_name']); ?>" readonly />
       </div>
       <div class="profile-field">
         <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" value="Louis" readonly />
+        <input type="text" id="lastName" value="<?php echo htmlspecialchars($user['last_name']); ?>" readonly />
       </div>
       <div class="profile-field">
         <label for="email">Email</label>
-        <input type="email" id="email" value="rebecca@gmail.com" readonly />
+        <input type="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly />
       </div>
       <div class="profile-field flex justify-between items-center">
         <div class="flex-grow">
@@ -165,7 +178,7 @@
         <i class="fas fa-eye-slash text-gray-500 cursor-pointer ml-4"></i>
       </div>
 
-      <button onclick="window.location.href='editprofile.html'" class="edit-profile-btn">Edit Profile</button>
+      <button onclick="window.location.href='editprofile.php'" class="edit-profile-btn">Edit Profile</button>
     </div>
   </main>
 </body>

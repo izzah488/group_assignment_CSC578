@@ -1,3 +1,20 @@
+<?php
+// TODO: Fetch user and statistics data from database
+$user = [
+    'first_name' => 'Rebecca',
+    'type' => 'Premium User',
+];
+$budget = 0;
+$expenses = 0;
+$balance = 0;
+$top_expenses = [
+    ['category' => 'Food', 'amount' => 0],
+    ['category' => 'Bills', 'amount' => 0],
+    ['category' => 'Transport', 'amount' => 0],
+    ['category' => 'Top Up', 'amount' => 0],
+    ['category' => 'Entertainment', 'amount' => 0],
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,55 +31,60 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-
     .sidebar {
+      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+      width: 17rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
       position: fixed;
       top: 0;
       left: 0;
       height: 100vh;
-      width: 16rem; /* Tailwind w-64 */
-      background-color: #ffffff;
-      border-top-right-radius: 1.5rem;
-      border-bottom-right-radius: 1.5rem;
       z-index: 10;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
-
     .nav-links {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
-
     .nav-links a {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+      padding: 0.7rem 1.3rem;
+      border-radius: 0.8rem;
       color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      transition: background-color 0.2s ease-in-out;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
       width: 100%;
       text-align: left;
     }
-
     .nav-links a.active,
     .nav-links a:hover {
-      background-color: #e0b0ff;
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #4a00e0;
     }
-
+    .main-content {
+      margin-left: 17rem;
+      padding: 3.5rem 2rem 2rem 2rem;
+    }
     .card {
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+      padding: 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      margin-bottom: 2rem;
     }
 
     .progress-bar {
@@ -112,11 +134,6 @@
     .top-expenses-item:last-child {
       border-bottom: none;
     }
-
-    .main-content {
-      margin-left: 16rem; /* Sidebar width */
-      padding: 2rem;
-    }
   </style>
 </head>
 
@@ -129,27 +146,27 @@
     <div class="flex items-center mb-8">
       <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
       <div>
-        <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-        <p class="text-xs text-gray-500">Premium User</p>
+        <p class="text-sm font-medium text-gray-700">Hi, <?php echo htmlspecialchars($user['first_name']); ?>!</p>
+        <p class="text-xs text-gray-500"><?php echo htmlspecialchars($user['type']); ?></p>
       </div>
     </div>
 
     <!-- Dashboard Button -->
-    <button onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
+    <button onclick="window.location.href='dashboard.php'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
       ☰ Dashboard
     </button>
 
     <!-- Nav Links -->
     <nav class="nav-links mb-auto">
-      <a href="savings.html">⭐ Savings</a>
-      <a href="profile.html">👤 Profile</a>
-      <a href="statistics.html" class="active">📈 Statistics</a>
-      <a href="budget.html">⬇ Budget</a>
-      <a href="expenses.html">⬆ Expenses</a>
+      <a href="savings.php">⭐ Savings</a>
+      <a href="profile.php">👤 Profile</a>
+      <a href="statistic.php" class="active">📈 Statistics</a>
+      <a href="budget.php">⬇ Budget</a>
+      <a href="expenses.php">⬆ Expenses</a>
     </nav>
 
     <!-- Logout Button at the very bottom -->
-    <button onclick="window.location.href='home.html'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
+    <button onclick="window.location.href='index.php'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
       <i class="fas fa-sign-out-alt"></i> Log Out
     </button>
   </div>
@@ -164,7 +181,7 @@
         <p class="text-gray-600">Track your monthly budget, expenses and balance.</p>
       </div>
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
-        <span class="text-gray-700 font-medium">March 2025</span>
+        <span class="text-gray-700 font-medium"><?php echo date('F Y'); ?></span>
         <button class="text-gray-500 hover:text-gray-700">
           <i class="fas fa-calendar-alt text-xl"></i>
         </button>
@@ -179,9 +196,9 @@
             <h2 class="text-xl font-semibold text-gray-800">Money Budget</h2>
             <i class="fas fa-edit text-gray-500 cursor-pointer"></i>
           </div>
-          <p class="text-2xl font-bold text-gray-900">RM 0</p>
+          <p class="text-2xl font-bold text-gray-900">RM <?php echo number_format($budget, 2); ?></p>
           <div class="progress-bar mt-3">
-            <div class="progress-fill-purple h-full" style="width: 0%;"></div>
+            <div class="progress-fill-purple h-full" style="width: <?php echo ($budget > 0 ? 100 : 0); ?>%;"></div>
           </div>
         </div>
 
@@ -190,17 +207,17 @@
             <h2 class="text-xl font-semibold text-gray-800">Money Expenses</h2>
             <i class="fas fa-plus-circle text-gray-500 cursor-pointer"></i>
           </div>
-          <p class="text-2xl font-bold text-gray-900">RM 0</p>
+          <p class="text-2xl font-bold text-gray-900">RM <?php echo number_format($expenses, 2); ?></p>
           <div class="progress-bar mt-3">
-            <div class="progress-fill-green h-full" style="width: 0%;"></div>
+            <div class="progress-fill-green h-full" style="width: <?php echo ($budget > 0 ? min(100, ($expenses/$budget)*100) : 0); ?>%;"></div>
           </div>
         </div>
 
         <div class="card">
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
-          <p class="text-2xl font-bold text-gray-900">RM 0</p>
+          <p class="text-2xl font-bold text-gray-900">RM <?php echo number_format($balance, 2); ?></p>
           <div class="progress-bar mt-3">
-            <div class="progress-fill-pink h-full" style="width: 0%;"></div>
+            <div class="progress-fill-pink h-full" style="width: <?php echo ($budget > 0 ? min(100, ($balance/$budget)*100) : 0); ?>%;"></div>
           </div>
         </div>
       </div>
@@ -215,11 +232,12 @@
         <div class="card">
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Top Money Expenses</h2>
           <ul class="top-expenses-list">
-            <li class="top-expenses-item"><span>Food</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Bills</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Transport</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Top Up</span><span>RM 0</span></li>
-            <li class="top-expenses-item"><span>Entertainment</span><span>RM 0</span></li>
+            <?php foreach ($top_expenses as $expense): ?>
+              <li class="top-expenses-item">
+                <span><?php echo htmlspecialchars($expense['category']); ?></span>
+                <span>RM <?php echo number_format($expense['amount'], 2); ?></span>
+              </li>
+            <?php endforeach; ?>
           </ul>
         </div>
       </div>

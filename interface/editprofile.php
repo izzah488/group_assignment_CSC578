@@ -1,3 +1,24 @@
+<?php
+$success = false;
+// TODO: Fetch current user data from database
+$currentUser = [
+    'first_name' => 'Rebecca',
+    'last_name' => 'Louis',
+    'email' => 'rebecca@gmail.com',
+];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $first_name = htmlspecialchars($_POST['first_name'] ?? '');
+    $last_name = htmlspecialchars($_POST['last_name'] ?? '');
+    $email = htmlspecialchars($_POST['email'] ?? '');
+    $current_password = htmlspecialchars($_POST['current_password'] ?? '');
+    $new_password = htmlspecialchars($_POST['new_password'] ?? '');
+    // TODO: Update user in the database
+    $success = true;
+    $currentUser['first_name'] = $first_name;
+    $currentUser['last_name'] = $last_name;
+    $currentUser['email'] = $email;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,55 +31,81 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f0f2f5;
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-
-    .nav-link {
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
+    .sidebar {
+      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+      width: 17rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 10;
+    }
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .nav-links a {
+      padding: 0.7rem 1.3rem;
+      border-radius: 0.8rem;
+      color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      color: #4a00e0;
-      transition: background-color 0.2s;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      background-color: #e0b0ff;
-    }
-
-    .logout-link {
-      background-color: #f56565;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
       width: 100%;
       text-align: left;
-      transition: background-color 0.2s ease-in-out;
     }
-
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #4a00e0;
+    }
+    .logout-link {
+      background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
+      color: #c05621;
+      font-weight: 600;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.9rem;
+      width: 100%;
+      transition: filter 0.2s;
+      box-shadow: 0 2px 8px 0 rgba(251,211,141,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
     .logout-link:hover {
-      background-color: #c53030;
+      filter: brightness(1.08);
     }
-
     .main-content {
-      margin-left: 16rem;
-      padding: 2rem;
+      margin-left: 17rem;
+      padding: 3.5rem 2rem 2rem 2rem;
       flex: 1;
     }
-
     .profile-form {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      max-width: 36rem;
+      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      max-width: 32rem;
       margin: 0 auto;
     }
-
     .profile-form label {
       display: block;
       margin-bottom: 1rem;
@@ -66,7 +113,6 @@
       font-weight: 500;
       color: #4a5568;
     }
-
     .profile-form input {
       width: 100%;
       padding: 0.75rem;
@@ -75,20 +121,17 @@
       border-radius: 0.5rem;
       background-color: #f8fafc;
     }
-
     .profile-form input:focus {
       border-color: #a78bfa;
       outline: none;
       box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
     }
-
     .form-buttons {
       display: flex;
       justify-content: flex-end;
       gap: 1rem;
       margin-top: 1.5rem;
     }
-
     .cancel-btn {
       background-color: #fbd38d;
       color: #c05621;
@@ -96,11 +139,9 @@
       border-radius: 0.75rem;
       font-weight: 600;
     }
-
     .cancel-btn:hover {
       background-color: #f6ad55;
     }
-
     .save-btn {
       background: linear-gradient(to right, #8e2de2, #4a00e0);
       color: white;
@@ -108,11 +149,9 @@
       border-radius: 0.75rem;
       font-weight: 600;
     }
-
     .save-btn:hover {
       filter: brightness(1.1);
     }
-
     .modal-overlay {
       background-color: rgba(0, 0, 0, 0.5);
       display: flex;
@@ -125,7 +164,6 @@
       height: 100%;
       z-index: 1000;
     }
-
     .modal-content {
       background-color: white;
       padding: 2rem;
@@ -134,13 +172,11 @@
       max-width: 20rem;
       width: 100%;
     }
-
     .modal-icon {
       color: #10b981;
       font-size: 3rem;
       margin-bottom: 1rem;
     }
-
     .modal-button {
       background-color: #e5e7eb;
       color: #374151;
@@ -148,7 +184,6 @@
       border-radius: 0.5rem;
       font-weight: 500;
     }
-
     .modal-button:hover {
       background-color: #d1d5db;
     }
@@ -157,35 +192,35 @@
 <body class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <aside class="fixed top-0 left-0 h-screen w-64 bg-white p-6 rounded-r-2xl shadow-lg flex flex-col justify-between z-10">
+  <aside class="sidebar">
     <div>
       <!-- User Info -->
       <div class="flex items-center mb-8">
         <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Profile Pic" class="w-10 h-10 rounded-full mr-3">
         <div>
-          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
+          <p class="text-sm font-medium text-gray-700">Hi, <?php echo htmlspecialchars($currentUser['first_name']); ?>!</p>
           <p class="text-xs text-gray-500">Premium User</p>
         </div>
       </div>
 
       <!-- Dashboard Button -->
-      <button onclick="window.location.href='dashboard.html'" class="menu-btn w-full mb-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-lg py-2 font-semibold flex items-center justify-center gap-2">
+      <button onclick="window.location.href='dashboard.php'" class="menu-btn w-full mb-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-lg py-2 font-semibold flex items-center justify-center gap-2">
         ☰ Dashboard
       </button>
 
       <!-- Navigation -->
-      <nav class="flex flex-col gap-2">
-        <a href="savings.html" class="nav-link">⭐ Savings</a>
-        <a href="editprofile.html" class="nav-link active">👤 Profile</a>
-        <a href="statistic.html" class="nav-link">📈 Statistics</a>
-        <a href="budget.html" class="nav-link">⬇ Budget</a>
-        <a href="expenses.html" class="nav-link">⬆ Expenses</a>
+      <nav class="nav-links">
+        <a href="savings.php" class="nav-link">⭐ Savings</a>
+        <a href="editprofile.php" class="nav-link active">👤 Profile</a>
+        <a href="statistic.php" class="nav-link">📈 Statistics</a>
+        <a href="budget.php" class="nav-link">⬇ Budget</a>
+        <a href="expenses.php" class="nav-link">⬆ Expenses</a>
       </nav>
     </div>
 
     <!-- Logout button at bottom -->
     <div class="mt-6">
-      <button onclick="window.location.href='home.html'" class="logout-link">⏻ Log Out</button>
+      <button onclick="window.location.href='index.php'" class="logout-link">⏻ Log Out</button>
     </div>
   </aside>
 
@@ -194,26 +229,17 @@
     <h1 class="text-3xl font-bold text-gray-900 mb-2">Edit Profile</h1>
     <p class="text-gray-600 mb-8">View and edit your profile, change settings, and manage your data.</p>
 
-    <form class="profile-form" onsubmit="event.preventDefault(); showSuccessModal();">
-      <label>First Name:
-        <input type="text" value="Rebecca" />
-      </label>
-      <label>Last Name:
-        <input type="text" value="Louis" />
-      </label>
-      <label>Email:
-        <input type="email" value="rebecca@gmail.com" />
-      </label>
-      <label>Current Password:
-        <input type="password" value="********" />
-      </label>
-      <label>New Password:
-        <input type="password" />
-      </label>
-      <label>Confirm Password:
-        <input type="password" />
-      </label>
-
+    <?php if ($success): ?>
+      <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
+        Profile updated successfully!
+      </div>
+    <?php endif; ?>
+    <form method="POST" action="" style="background:#f9f9ff; border-radius:1.5rem; padding:2rem; box-shadow:0 4px 16px 0 rgba(138,43,226,0.08); max-width:400px; margin:2rem auto;">
+      <input type="text" name="first_name" placeholder="First Name" required value="<?php echo htmlspecialchars($currentUser['first_name']); ?>" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
+      <input type="text" name="last_name" placeholder="Last Name" required value="<?php echo htmlspecialchars($currentUser['last_name']); ?>" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
+      <input type="email" name="email" placeholder="Email" required value="<?php echo htmlspecialchars($currentUser['email']); ?>" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
+      <input type="password" name="current_password" placeholder="Current Password" required style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
+      <input type="password" name="new_password" placeholder="New Password" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
       <div class="form-buttons">
         <button type="button" class="cancel-btn" onclick="window.history.back()">Cancel</button>
         <button type="submit" class="save-btn">Save</button>
