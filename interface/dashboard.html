@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,8 +108,6 @@
 </head>
 
 <body class="bg-gray-100">
-
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div>
       <div class="flex items-center mb-8">
@@ -134,7 +133,7 @@
       </button>
     </div>
   </aside>
-  <!-- Main Content -->
+
   <main class="ml-64 p-8">
     <header class="flex justify-between items-center mb-8">
       <div>
@@ -149,31 +148,32 @@
       </div>
     </header>
 
-    <!-- Cards Section -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <!-- Total Savings -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Savings</h2>
-          <p class="text-3xl font-bold text-green-600">RM 0</p>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Savings Count</h2>
+          <p id="totalSavingsCount" class="text-3xl font-bold text-green-600">0</p>
         </div>
-        <button class="text-green-500 hover:text-green-700">
-          <i class="fas fa-plus-circle text-4xl"></i>
-        </button>
       </div>
 
-      <!-- Total Expenses -->
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
-          <p class="text-3xl font-bold text-red-600">RM 0</p>
+          <p id="totalExpensesAmount" class="text-3xl font-bold text-red-600">RM 0.00</p>
         </div>
         <i class="fas fa-money-bill-wave text-4xl text-red-400"></i>
       </div>
 
-      <!-- Set Monthly Budget -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Balance</h2>
+          <p id="balanceAmount" class="text-3xl font-bold text-purple-600">RM 0.00</p>
+        </div>
+        <i class="fas fa-balance-scale text-4xl text-purple-400"></i>
+      </div>
+
       <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Set Monthly Budget</h2>
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Budget</h2>
         <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
         <button onclick="toggleEditBudgetModal()" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
           Set Budget
@@ -181,7 +181,6 @@
       </div>
     </section>
 
-    <!-- Edit Budget Modal -->
     <div id="editBudgetModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
       <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
         <button onclick="toggleEditBudgetModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
@@ -200,21 +199,19 @@
 
           <div>
             <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
-         <select id="month" class="...">
-  <option value="january">January</option>
-  <option value="february">February</option>
-  <option value="march" selected>March</option>
-  <option value="april">April</option>
-  <option value="may">May</option>
-  <option value="june">June</option>
-  <option value="july">July</option>
-  <option value="august">August</option>
-  <option value="september">September</option>
-  <option value="october">October</option>
-  <option value="november">November</option>
-  <option value="december">December</option>
-</select>
-
+            <select id="month" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march" selected>March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
             </select>
           </div>
         </div>
@@ -229,7 +226,6 @@
       </div>
     </div>
 
-    <!-- Budget Overview Section -->
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       <div class="bg-white p-6 rounded-2xl shadow-lg">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
@@ -250,7 +246,6 @@
       </div>
     </section>
 
-    <!-- Expenses Chart -->
     <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Expenses Chart (March)</h2>
       <div class="flex flex-col md:flex-row items-center justify-around">
@@ -266,17 +261,53 @@
     </section>
   </main>
 
-  <!-- JS -->
   <script>
+    let monthlyBudget = parseFloat(localStorage.getItem('monthlyBudget')) || 0; // Initialize with 0 or from localStorage
+    let totalExpenses = parseFloat(localStorage.getItem('totalExpenses')) || 0; // Initialize with 0 or from localStorage
+
     function toggleEditBudgetModal() {
       document.getElementById('editBudgetModal').classList.toggle('hidden');
+      if (!document.getElementById('editBudgetModal').classList.contains('hidden')) {
+        document.getElementById('budgetLimit').value = monthlyBudget.toFixed(2);
+      }
     }
 
     function saveBudget() {
-      const budgetValue = document.getElementById('budgetLimit').value;
-      document.getElementById('budgetAmountDisplay').textContent = "RM " + parseFloat(budgetValue).toFixed(2);
+      const budgetValue = parseFloat(document.getElementById('budgetLimit').value);
+      if (isNaN(budgetValue) || budgetValue < 0) {
+        alert("Please enter a valid positive number for the budget.");
+        return;
+      }
+      monthlyBudget = budgetValue;
+      localStorage.setItem('monthlyBudget', monthlyBudget);
+      updateDashboardValues();
       toggleEditBudgetModal();
     }
+
+    function updateDashboardSavingsCount() {
+      const savings = JSON.parse(localStorage.getItem('savings')) || [];
+      document.getElementById('totalSavingsCount').textContent = savings.length;
+    }
+
+    // Function to update all dashboard values
+    function updateDashboardValues() {
+      updateDashboardSavingsCount(); // Update savings count
+
+      // Update monthly budget display
+      document.getElementById('budgetAmountDisplay').textContent = `RM ${monthlyBudget.toFixed(2)}`;
+
+      // Update total expenses display
+      document.getElementById('totalExpensesAmount').textContent = `RM ${totalExpenses.toFixed(2)}`;
+
+      // Calculate and update balance
+      const balance = monthlyBudget - totalExpenses;
+      document.getElementById('balanceAmount').textContent = `RM ${balance.toFixed(2)}`;
+    }
+
+    window.onload = () => {
+      updateDashboardValues();
+    };
   </script>
 </body>
 </html>
+```
