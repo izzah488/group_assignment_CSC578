@@ -71,13 +71,13 @@
       <nav class="nav-links">
         <a href="savings.html" class="bg-purple-100">⭐️ Savings</a>
         <a href="profile.html">👤 Profile</a>
-        <a href="statistic.html">📈 Statistics</a>
+        <a href="statistics.html">📈 Statistics</a>
         <a href="budget.html">⬇️ Budget</a>
         <a href="expenses.html">⬆️ Expenses</a>
       </nav>
     </div>
     <div>
-      <button onclick="window.location.href='home.html'" class="logout-link">⏻ Log Out</button>
+      <button onclick="window.location.href='login.html'" class="logout-link">⏻ Log Out</button>
     </div>
   </aside>
 
@@ -109,7 +109,8 @@
       <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Saving Goal</h2>
       <div class="space-y-6">
         <input type="text" id="savingFor" placeholder="e.g., New Laptop" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
-        <input type="number" id="budgetAmount" placeholder="0.00" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="budgetAmount" placeholder="Target Amount (e.g., 5000.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="currentSavingsInitial" placeholder="Current Savings (optional, e.g., 1000.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
         <input type="date" id="targetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
       </div>
       <div class="mt-8 flex justify-between space-x-4">
@@ -119,32 +120,82 @@
     </div>
   </div>
 
+  <div id="editSavingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
+      <button onclick="toggleEditSavingModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Saving Goal</h2>
+      <div class="space-y-6">
+        <input type="text" id="editSavingFor" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="editBudgetAmount" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="editCurrentSavings" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="date" id="editTargetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+      </div>
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="toggleEditSavingModal()" class="flex-1 py-3 px-4 rounded-xl bg-red-400 text-white">CANCEL</button>
+        <button onclick="updateSaving()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">UPDATE</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="addCurrentSavingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full relative">
+      <button onclick="toggleAddCurrentSavingsModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Savings to Goal</h2>
+      <p class="text-center text-gray-600 mb-4" id="addSavingsGoalTitle"></p>
+      <div class="space-y-4">
+        <input type="number" id="amountToAdd" placeholder="Amount to add (e.g., 50.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+      </div>
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="toggleAddCurrentSavingsModal()" class="flex-1 py-3 px-4 rounded-xl bg-red-400 text-white">CANCEL</button>
+        <button onclick="addSavingsToGoal()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">ADD</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     let savings = JSON.parse(localStorage.getItem('savings')) || [];
-    let editIndex = null;
+    let editIndex = null; // Used for editing a goal
+    let addSavingsIndex = null; // Used for adding current savings to a specific goal
 
     function toggleNewSavingModal() {
       document.getElementById('newSavingModal').classList.toggle('hidden');
+      if (!document.getElementById('newSavingModal').classList.contains('hidden')) {
+        // Clear fields when opening for new saving
+        document.getElementById("savingFor").value = "";
+        document.getElementById("budgetAmount").value = "";
+        document.getElementById("currentSavingsInitial").value = ""; // Renamed this ID
+        document.getElementById("targetDate").value = "";
+      }
+    }
+
+    function toggleEditSavingModal() {
+      document.getElementById('editSavingModal').classList.toggle('hidden');
+    }
+
+    function toggleAddCurrentSavingsModal() {
+      document.getElementById('addCurrentSavingsModal').classList.toggle('hidden');
+      if (!document.getElementById('addCurrentSavingsModal').classList.contains('hidden')) {
+        document.getElementById("amountToAdd").value = ""; // Clear amount when opening
+      }
     }
 
     function saveSaving() {
       const savingFor = document.getElementById("savingFor").value.trim();
-      const amount = document.getElementById("budgetAmount").value.trim();
+      const budgetAmount = parseFloat(document.getElementById("budgetAmount").value.trim());
+      const currentSavingsInitial = parseFloat(document.getElementById("currentSavingsInitial").value.trim()) || 0; // New ID
       const targetDate = document.getElementById("targetDate").value;
 
-      if (!savingFor || !amount || !targetDate) {
-        alert("Please fill in all fields.");
+      if (!savingFor || isNaN(budgetAmount) || budgetAmount <= 0 || !targetDate) {
+        alert("Please fill in all fields correctly (Target Amount must be a positive number).");
+        return;
+      }
+      if (isNaN(currentSavingsInitial) || currentSavingsInitial < 0) {
+        alert("Current Savings must be a non-negative number.");
         return;
       }
 
-      const newSaving = { savingFor, amount, targetDate };
-
-      if (editIndex !== null) {
-        savings[editIndex] = newSaving;
-        editIndex = null;
-      } else {
-        savings.push(newSaving);
-      }
+      const newSaving = { savingFor, budgetAmount, currentSavings: currentSavingsInitial, targetDate }; // Use currentSavings for consistency
+      savings.push(newSaving);
 
       localStorage.setItem('savings', JSON.stringify(savings));
       toggleNewSavingModal();
@@ -156,20 +207,33 @@
       container.innerHTML = "";
 
       if (savings.length === 0) {
-        container.innerHTML = `<div class="col-span-3 text-center text-gray-500 italic py-10">No savings goals added yet.</div>`;
+        container.innerHTML = `<div class="col-span-full text-center text-gray-500 italic py-10">No savings goals added yet.</div>`;
         return;
       }
 
       savings.forEach((item, index) => {
+        // Ensure currentSavings is a number, default to 0 if not
+        item.currentSavings = parseFloat(item.currentSavings) || 0;
+        item.budgetAmount = parseFloat(item.budgetAmount) || 0;
+
+        const progress = (item.currentSavings / item.budgetAmount) * 100;
+        const progressBarWidth = Math.min(progress, 100); // Cap at 100%
+
         const card = document.createElement("div");
         card.className = "bg-white p-4 rounded-lg shadow";
         card.innerHTML = `
           <h3 class="text-xl font-semibold text-purple-700">${item.savingFor}</h3>
-          <p class="text-gray-700 mt-1">Amount: <strong>RM ${item.amount}</strong></p>
+          <p class="text-gray-700 mt-1">Target: <strong>RM ${item.budgetAmount.toFixed(2)}</strong></p>
+          <p class="text-gray-700">Current: <strong>RM ${item.currentSavings.toFixed(2)}</strong></p>
           <p class="text-gray-600 text-sm mb-4">Target Date: ${item.targetDate}</p>
-          <div class="flex space-x-2">
+          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+            <div class="bg-purple-600 h-2.5 rounded-full" style="width: ${progressBarWidth}%"></div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">${progressBarWidth.toFixed(1)}% complete</p>
+          <div class="flex flex-wrap gap-2">
             <button onclick="editSaving(${index})" class="bg-yellow-400 text-white px-3 py-1 rounded">Edit</button>
             <button onclick="deleteSaving(${index})" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+            <button onclick="openAddCurrentSavingsModal(${index})" class="bg-blue-500 text-white px-3 py-1 rounded">Add Savings</button>
           </div>
         `;
         container.appendChild(card);
@@ -177,12 +241,35 @@
     }
 
     function editSaving(index) {
-      const item = savings[index];
-      document.getElementById("savingFor").value = item.savingFor;
-      document.getElementById("budgetAmount").value = item.amount;
-      document.getElementById("targetDate").value = item.targetDate;
       editIndex = index;
-      toggleNewSavingModal();
+      const item = savings[index];
+      document.getElementById("editSavingFor").value = item.savingFor;
+      document.getElementById("editBudgetAmount").value = item.budgetAmount;
+      document.getElementById("editCurrentSavings").value = item.currentSavings;
+      document.getElementById("editTargetDate").value = item.targetDate;
+      toggleEditSavingModal();
+    }
+
+    function updateSaving() {
+      const savingFor = document.getElementById("editSavingFor").value.trim();
+      const budgetAmount = parseFloat(document.getElementById("editBudgetAmount").value.trim());
+      const currentSavings = parseFloat(document.getElementById("editCurrentSavings").value.trim());
+      const targetDate = document.getElementById("editTargetDate").value;
+
+      if (!savingFor || isNaN(budgetAmount) || budgetAmount <= 0 || !targetDate) {
+        alert("Please fill in all fields correctly (Target Amount must be a positive number).");
+        return;
+      }
+      if (isNaN(currentSavings) || currentSavings < 0) {
+        alert("Current Savings must be a non-negative number.");
+        return;
+      }
+
+      savings[editIndex] = { savingFor, budgetAmount, currentSavings, targetDate };
+      localStorage.setItem('savings', JSON.stringify(savings));
+      toggleEditSavingModal();
+      renderSavings();
+      editIndex = null; // Reset editIndex
     }
 
     function deleteSaving(index) {
@@ -191,6 +278,32 @@
         localStorage.setItem('savings', JSON.stringify(savings));
         renderSavings();
       }
+    }
+
+    function openAddCurrentSavingsModal(index) {
+      addSavingsIndex = index;
+      const item = savings[index];
+      document.getElementById("addSavingsGoalTitle").textContent = `Goal: ${item.savingFor}`;
+      toggleAddCurrentSavingsModal();
+    }
+
+    function addSavingsToGoal() {
+      const amountToAdd = parseFloat(document.getElementById("amountToAdd").value.trim());
+
+      if (isNaN(amountToAdd) || amountToAdd <= 0) {
+        alert("Please enter a valid positive amount to add.");
+        return;
+      }
+
+      if (addSavingsIndex !== null && savings[addSavingsIndex]) {
+        savings[addSavingsIndex].currentSavings += amountToAdd;
+        localStorage.setItem('savings', JSON.stringify(savings));
+        toggleAddCurrentSavingsModal();
+        renderSavings();
+      } else {
+        alert("Error: Could not find saving goal.");
+      }
+      addSavingsIndex = null; // Reset
     }
 
     window.onload = renderSavings;
