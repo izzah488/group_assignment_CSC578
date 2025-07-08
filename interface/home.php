@@ -171,17 +171,14 @@
       <!-- Logo and Name -->
       <div class="flex items-center space-x-4">
         <div class="logo-container bg-white rounded-full p-3 shadow-xl">
-          <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 100-2 1 1 0 000 2zm-3 7a1 1 0 102 0 1 1 0 00-2 0zm-1-4a1 1 0 102 0 1 1 0 00-2 0zm5-1a1 1 0 102 0 1 1 0 00-2 0z" clip-rule="evenodd"></path>
-            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-          </svg>
+          <img src="https://img.icons8.com/color/48/000000/combo-chart--v2.png" alt="Money Mate Logo" class="w-8 h-8">
         </div>
         <span class="text-3xl font-bold tracking-wider">Money Mate</span>
       </div>
 
       <!-- Navigation Menu -->
       <div class="hidden md:flex items-center space-x-10">
-        <a href="login.php" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
+        <a href="home.php" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
         <a href="about_us_page2.php" class="nav-link hover:text-gray-200 text-lg font-medium">ABOUT US</a>
         <a href="login.php" class="nav-link hover:text-gray-200 text-lg font-medium">LOGIN</a>
         <button class="cta-button px-10 py-3 rounded-full shadow-xl font-semibold text-lg">

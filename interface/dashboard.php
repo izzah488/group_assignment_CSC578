@@ -110,7 +110,7 @@
 
    <?include 'sidebar.php'; ?>
 
-   
+
   <!-- Main Content -->
   <main class="ml-64 p-8">
     <header class="flex justify-between items-center mb-8">
@@ -209,7 +209,7 @@
     <!-- Budget Overview Section -->
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
       <div class="bg-white p-6 rounded-2xl shadow-lg">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
         <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
         <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient">
           <i class="fas fa-plus-circle"></i>
@@ -223,7 +223,7 @@
         <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient">
           <i class="fas fa-chart-pie"></i>
           <span>Manage Budget</span>
-        </button>
+      </button>
       </div>
     </section>
 
@@ -231,7 +231,7 @@
     <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Expenses Chart (March)</h2>
       <div class="flex flex-col md:flex-row items-center justify-around">
-        <div class="chart-placeholder">No data to display.</div>
+      <div class="chart-placeholder">No data to display.</div>
         <div class="grid grid-cols-2 gap-4">
           <div class="flex items-center"><span class="w-4 h-4 bg-purple-700 rounded-full mr-2"></span>Food</div>
           <div class="flex items-center"><span class="w-4 h-4 bg-green-500 rounded-full mr-2"></span>Topup</div>
