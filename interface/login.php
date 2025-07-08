@@ -2,7 +2,9 @@
 // Start session to store user data upon successful login
 session_start();
 
-
+// Include your configuration file and database connection file
+// Assuming 'login.php' is in a subdirectory (e.g., 'interface/')
+// and 'config.php' and 'dbconnection.php' are in the parent directory (project root).
 require_once '../config.php';
 require_once '../dbconnection.php';
 
@@ -11,7 +13,7 @@ $login_error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize and get input from the form
     $email = htmlspecialchars($_POST['email'] ?? '');
-    $pw = htmlspecialchars($_POST['pw'] ?? '');
+    $plain_text_password_from_form = htmlspecialchars($_POST['pw'] ?? ''); // 'pw' because your HTML input name="pw"
 
     // Basic validation for empty fields
     if (empty($email) || empty($plain_text_password_from_form)) {
@@ -38,9 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($user) {
                 $hashed_password_from_db = $user['pw']; // 'pw' is the column name in your DB
 
-                // Verify the provided password against the hashed password from the database
-                // IMPORTANT: Use password_verify() for hashed passwords
-                if (password_verify($pw, $hashed_password)) {
+                // Verify the provided password (plain_text) against the hashed password from the database
+                if (password_verify($plain_text_password_from_form, $hashed_password_from_db)) {
                     // Password is correct, set session variables
                     $_SESSION['userID'] = $user['userID'];
                     // You might want to store other user data in the session, e.g., $_SESSION['email'] = $user['email'];
@@ -167,7 +168,6 @@ $dbh = null;
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
-<<<<<<< HEAD
     <nav class="navbar w-full fixed top-0 left-0 z-10 shadow-lg rounded-b-lg">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -183,9 +183,6 @@ $dbh = null;
             </div>
         </div>
     </nav>
-
-  <?php include 'navbar.php'; ?>
-
 
     <div class="login-card">
         <form method="POST" action="">

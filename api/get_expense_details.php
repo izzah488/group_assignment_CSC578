@@ -1,60 +1,45 @@
 <?php
+// File: public/api/get_detailed_expenses.php
+
 session_start();
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET');
-header('Access-Control-Allow-Headers: Content-Type');
 
-require_once '../config.php';
-require_once '../dbconnection.php';
-
-$response = ['data' => null, 'error' => null];
-
-if (!isset($_SESSION['userID'])) {
-    $userID = 1; // TEMPORARY
-    // $response['error'] = 'User not logged in.';
-    // echo json_encode($response); $dbh = null; exit();
-} else {
-    $userID = $_SESSION['userID'];
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    echo json_encode(['error' => 'Not authenticated']);
+    exit;
 }
 
-$expenseID = $_GET['expenseID'] ?? null;
+require_once __DIR__ . '/../../includes/config.php'; // Include config for LOG_FILE_PATH
+require_once __DIR__ . '/../../includes/dbconnection.php'; // Provides $dbh
 
-if (empty($expenseID) || !is_numeric($expenseID)) {
-    $response['error'] = 'Invalid expense ID.';
-    echo json_encode($response);
-    $dbh = null; exit();
-}
+global $dbh; // Access the global database handle
 
 try {
-    $stmt = $dbh->prepare("
-        SELECT 
-            exp.expenseID, 
-            exp.expTitle, 
-            exp.expAmount, 
-            exp.expDate, 
-            ecl.catName AS category_name,
-            ecl.catLookupID
-        FROM expenses exp
-        JOIN expCatLookup ecl ON exp.catLookupID = ecl.catLookupID
-        WHERE exp.expenseID = :expenseID AND exp.userID = :userID
-    ");
-    $stmt->bindParam(':expenseID', $expenseID, PDO::PARAM_INT);
-    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-    $stmt->execute();
-    $expense = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Fetch all expense transactions (amount < 0) for the logged-in user
+    // Ordered by date descending for "Recent Expenses" feel
+    // We'll also fetch expenseID for edit/delete operations
+    $sql = "SELECT expenseID AS id, expTitle AS title, expAmount AS amount, ecl.catName AS category, expDate AS transaction_date
+            FROM expenses exp
+            JOIN expCatLookup ecl ON exp.catLookupID = ecl.catLookupID
+            WHERE exp.userID = :userID
+            ORDER BY exp.expDate DESC, exp.expenseID DESC"; // Ensure you're filtering by user and linking to category name
 
-    if ($expense) {
-        $response['data'] = $expense;
-    } else {
-        $response['error'] = 'Expense not found or not authorized.';
+    $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(':userID', $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Format data: Convert amount to positive for display as expenses
+    $formatted_expenses = [];
+    foreach ($expenses as $expense) {
+        $expense['amount'] = abs($expense['amount']); // Convert to positive for display
+        $formatted_expenses[] = $expense;
     }
 
-} catch (PDOException $e) {
-    $response['error'] = 'Database query failed: ' . $e->getMessage();
-    error_log("API Error: get_expense_details.php - " . $e->getMessage());
-}
+    echo json_encode(['success' => true, 'data' => $formatted_expenses]);
 
-$dbh = null;
-echo json_encode($response['data'] ?: ['error' => $response['error']]); // Return data or error
+} catch (PDOException $e) {
+    error_log("API Error fetching detailed expenses: " . $e->getMessage(), 3, LOG_FILE_PATH);
+    echo json_encode(['success' => false, 'error' => 'Failed to retrieve expenses data.']);
+}
 ?>

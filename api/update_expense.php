@@ -8,25 +8,26 @@ header('Access-Control-Allow-Headers: Content-Type');
 require_once '../config.php';
 require_once '../dbconnection.php';
 
+global $dbh; // Access the global database handle
+
 $response = ['success' => false, 'message' => ''];
 
 if (!isset($_SESSION['userID'])) {
-    $userID = 1; // TEMPORARY
-    // $response['message'] = 'User not logged in.';
-    // echo json_encode($response); $dbh = null; exit();
+    $response['message'] = 'User not logged in.';
+    echo json_encode($response); $dbh = null; exit();
 } else {
     $userID = $_SESSION['userID'];
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
+$data = $_POST; // Using $_POST directly as the form sends FormData
 
 $expenseID = $data['expenseID'] ?? null;
 $expTitle = $data['expTitle'] ?? null;
-$expAmount = $data['expAmount'] ?? null;
+$expAmount = $data['expAmount'] ?? null; // This should be negative from JS
 $catLookupID = $data['catLookupID'] ?? null;
 $expDate = $data['expDate'] ?? null;
 
-if (empty($expenseID) || !is_numeric($expenseID) || empty($expTitle) || !is_numeric($expAmount) || $expAmount <= 0 || empty($catLookupID) || !is_numeric($catLookupID) || empty($expDate)) {
+if (empty($expenseID) || !is_numeric($expenseID) || empty($expTitle) || !is_numeric($expAmount) || $expAmount >= 0 || empty($catLookupID) || !is_numeric($catLookupID) || empty($expDate)) {
     $response['message'] = 'Invalid input data.';
     echo json_encode($response);
     $dbh = null; exit();
@@ -51,17 +52,21 @@ try {
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
-        $response['success'] = true;
-        $response['message'] = 'Expense updated successfully.';
+        if ($stmt->rowCount() > 0) {
+            $response['success'] = true;
+            $response['message'] = 'Expense updated successfully.';
+        } else {
+            $response['message'] = 'Expense not found or not authorized to update.';
+        }
     } else {
         $response['message'] = 'Failed to update expense.';
     }
 
 } catch (PDOException $e) {
     $response['message'] = 'Database error: ' . $e->getMessage();
-    error_log("API Error: update_expense.php - " . $e->getMessage());
+    error_log("Update Expense DB Error: " . $e->getMessage(), 3, LOG_FILE_PATH);
 }
 
-$dbh = null;
 echo json_encode($response);
+$dbh = null; exit();
 ?>

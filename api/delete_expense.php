@@ -8,17 +8,18 @@ header('Access-Control-Allow-Headers: Content-Type');
 require_once '../config.php';
 require_once '../dbconnection.php';
 
+global $dbh; // Access the global database handle
+
 $response = ['success' => false, 'message' => ''];
 
 if (!isset($_SESSION['userID'])) {
-    $userID = 1; // TEMPORARY
-    // $response['message'] = 'User not logged in.';
-    // echo json_encode($response); $dbh = null; exit();
+    $response['message'] = 'User not logged in.';
+    echo json_encode($response); $dbh = null; exit();
 } else {
     $userID = $_SESSION['userID'];
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
+$data = $_POST; // Using $_POST directly as the form sends FormData
 $expenseID = $data['expenseID'] ?? null;
 
 if (empty($expenseID) || !is_numeric($expenseID)) {
@@ -45,9 +46,9 @@ try {
 
 } catch (PDOException $e) {
     $response['message'] = 'Database error: ' . $e->getMessage();
-    error_log("API Error: delete_expense.php - " . $e->getMessage());
+    error_log("Delete Expense DB Error: " . $e->getMessage(), 3, LOG_FILE_PATH);
 }
 
-$dbh = null;
 echo json_encode($response);
+$dbh = null; exit();
 ?>

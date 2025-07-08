@@ -1,13 +1,27 @@
 <?php
+// File: public/add_money_expenses.php
+
 session_start();
-include '../dbconnection.php';
+
+// Check if the user is logged in. If not, redirect.
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+
+// Include the Database connection files
+require_once __DIR__ . '/../includes/config.php'; // Assuming config.php defines LOG_FILE_PATH etc.
+require_once __DIR__ . '/../includes/dbconnection.php'; // Assuming dbconnection.php provides $dbh
+
+// Get the PDO database connection instance (from dbconnection.php)
+global $dbh; // Access the global database handle
 
 $expense_error = '';
 $expense_success = '';
 
+// Handle form submission via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get userID from session if you use user accounts
-    $userID = $_SESSION['userID'] ?? null;
+    $userID = $_SESSION['id']; // Get userID from session
 
     $expTitle = trim($_POST['expTitle'] ?? '');
     $expAmount = floatval($_POST['expAmount'] ?? 0);
@@ -17,211 +31,118 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validation
     if (!$expTitle || !$expAmount || !$categoryName || !$expDate) {
         $expense_error = 'Please fill in all fields.';
-    } elseif ($expAmount <= 0) {
+    } elseif ($expAmount <= 0) { // Amount should be positive from form, converted to negative for DB
         $expense_error = 'Amount must be positive.';
     } else {
-        // First, get the category ID from the lookup table
-        $catStmt = $conn->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = ?");
-        $catStmt->bind_param("s", $categoryName);
-        $catStmt->execute();
-        $catResult = $catStmt->get_result();
-        
-        if ($catResult->num_rows > 0) {
-            $catRow = $catResult->fetch_assoc();
-            $catLookupID = $catRow['catLookupID'];
+        try {
+            // First, get the category ID from the lookup table
+            // Assuming expCatLookup table exists and has catName and catLookupID
+            $catStmt = $dbh->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = :categoryName");
+            $catStmt->bindParam(':categoryName', $categoryName, PDO::PARAM_STR);
+            $catStmt->execute();
+            $catRow = $catStmt->fetch(PDO::FETCH_ASSOC);
             
-            // Insert into database with correct column names
-            $stmt = $conn->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("isdis", $userID, $expTitle, $expAmount, $catLookupID, $expDate);
-            if ($stmt->execute()) {
-                $expense_success = 'Expense added successfully!';
+            if ($catRow) {
+                $catLookupID = $catRow['catLookupID'];
+                
+                // Insert into 'expenses' table (as per your uploaded PHP files)
+                // Note: The amount is stored as positive in the form, but for expenses,
+                // it should ideally be stored as negative in the 'transactions' table
+                // if you use a single 'transactions' table for both income and expenses.
+                // If you have a dedicated 'expenses' table, you store it as positive.
+                // Given your provided APIs use 'expAmount' and assume it's an expense,
+                // I will store it as a positive value in the 'expenses' table,
+                // but the D3.js chart will use abs() for visualization.
+                // If you are using the 'transactions' table with negative amounts for expenses,
+                // you would need to negate $expAmount here: $expAmount = -$expAmount;
+
+                // For consistency with your provided APIs, I'll assume insertion into 'expenses' table
+                // and that 'expAmount' is stored as a positive value.
+                $stmt = $dbh->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (:userID, :expTitle, :expAmount, :catLookupID, :expDate)");
+                $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+                $stmt->bindParam(':expTitle', $expTitle, PDO::PARAM_STR);
+                $stmt->bindParam(':expAmount', $expAmount, PDO::PARAM_STR); // Use STR for DECIMAL
+                $stmt->bindParam(':catLookupID', $catLookupID, PDO::PARAM_INT);
+                $stmt->bindParam(':expDate', $expDate, PDO::PARAM_STR);
+
+                if ($stmt->execute()) {
+                    $expense_success = 'Expense added successfully!';
+                    // Clear form fields after successful submission
+                    $_POST = array(); // Clear POST data to prevent re-submission on refresh
+                } else {
+                    $expense_error = 'Failed to add expense to the database.';
+                }
             } else {
-                $expense_error = 'Failed to add expense. Please try again.';
+                $expense_error = 'Invalid category selected.';
             }
-            $stmt->close();
-        } else {
-            $expense_error = 'Invalid category selected.';
+        } catch (PDOException $e) {
+            error_log("Add Expense DB Error: " . $e->getMessage(), 3, LOG_FILE_PATH);
+            $expense_error = 'A database error occurred. Please try again later.';
         }
-        $catStmt->close();
     }
-    $conn->close();
 }
+
+// Fetch categories for the dropdown
+$categories = [];
+try {
+    $catStmt = $dbh->query("SELECT catName FROM expCatLookup ORDER BY catName");
+    $categories = $catStmt->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    error_log("Error fetching categories: " . $e->getMessage(), 3, LOG_FILE_PATH);
+    // Handle error, perhaps set a default category or show an error message
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Money Expenses</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .container {
-      display: flex;
-      min-height: 100vh;
-    }
-    .sidebar {
-      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
-      width: 17rem;
-      padding: 2rem 1.5rem 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-top-right-radius: 2rem;
-      border-bottom-right-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-    }
-    .user-info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 2.5rem;
-    }
-    .avatar {
-      width: 2.7rem;
-      height: 2.7rem;
-      border-radius: 9999px;
-      margin-right: 1rem;
-      object-fit: cover;
-      background-color: #cbd5e1;
-      border: 2px solid #e0b0ff;
-    }
-    .menu-btn {
-      background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border-radius: 0.9rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      width: 100%;
-      margin-bottom: 1.2rem;
-      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
-      transition: filter 0.2s;
-    }
-    .menu-btn:hover {
-      filter: brightness(1.08);
-    }
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .nav-links a {
-      padding: 0.7rem 1.3rem;
-      border-radius: 0.8rem;
-      color: #4a00e0;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: background 0.2s, color 0.2s;
-      font-size: 1.05rem;
-      letter-spacing: 0.01em;
-    }
-    .nav-links a.active, .nav-links a:hover {
-      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
-      color: #4a00e0;
-    }
-    .logout {
-      background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border-radius: 0.9rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      width: 100%;
-      box-shadow: 0 2px 8px 0 rgba(239, 68, 68, 0.1);
-      transition: filter 0.2s;
-    }
-    .logout:hover {
-      filter: brightness(1.08);
-    }
-    .main-content {
-      flex-grow: 1;
-      padding: 2.5rem;
-    }
-    .form-card {
-      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
-      padding: 2.5rem;
-      border-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-      max-width: 30rem;
-      margin: 0 auto;
-      position: relative;
-    }
-    .input {
-      width: 100%;
-      padding: 0.9rem 1.2rem;
-      border-radius: 0.75rem;
-      border: 1px solid #e2e8f0;
-      background-color: #f8fafc;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      color: #334155;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .input:focus {
-      outline: none;
-      border-color: #a259ff;
-      box-shadow: 0 0 0 2px rgba(162, 89, 255, 0.2);
-    }
-    .add-btn {
-      background: linear-gradient(to right, #a259ff, #6a11cb);
-      color: white;
-      font-weight: 700;
-      border-radius: 1.2rem;
-      box-shadow: 0 2px 12px 0 rgba(138,43,226,0.13);
-      transition: filter 0.2s, transform 0.2s;
-      font-size: 1.15rem;
-      padding: 1rem 0;
-      width: 100%;
-    }
-    .add-btn:hover {
-      filter: brightness(1.08);
-      transform: scale(1.02);
-    }
-    .back-btn {
-      position: absolute;
-      top: 1.5rem;
-      left: 1.5rem;
-      background: #f3e8ff;
-      color: #a259ff;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .back-btn:hover {
-      background: #e0b0ff;
-      color: #6a11cb;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Money Expenses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        .input {
+            @apply w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-50 text-gray-800;
+        }
+        .btn-group {
+            @apply flex justify-between space-x-4 mt-6;
+        }
+        .btn-group button {
+            @apply flex-1 py-3 px-4 rounded-xl shadow-lg font-semibold text-lg transition-colors duration-200;
+        }
+        .btn-group button[type="reset"] {
+            @apply bg-gray-300 text-gray-800 hover:bg-gray-400;
+        }
+        .btn-group button[type="submit"] {
+            @apply bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700;
+        }
+        .back-btn {
+            @apply absolute top-4 left-4 text-gray-600 hover:text-gray-900 text-3xl font-bold;
+        }
+    </style>
 </head>
 <body>
-  <?php include 'sidebar.php'; ?>
-
-    <main class="main-content">
-      <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Money Expenses</h1>
-      <p class="text-gray-600 mb-8 text-lg">Add new money expenses.</p>
-
-      <div class="form-card">
-        <button onclick="location.href='expenses.php'" class="back-btn">←</button>
+    <div class="container">
+        <button onclick="window.history.back()" class="back-btn">←</button>
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
         <?php if ($expense_error): ?>
           <div class="mb-4 text-red-600 text-center font-semibold"><?= htmlspecialchars($expense_error) ?></div>
@@ -229,22 +150,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="mb-4 text-green-600 text-center font-semibold"><?= $expense_success ?></div>
         <?php endif; ?>
         <form id="addExpenseForm" method="POST">
-          <input type="text" id="expTitle" name="expTitle" placeholder="Title" class="input" required>
-          <input type="number" id="expAmount" name="expAmount" placeholder="RM" class="input" step="0.01" required>
+          <input type="text" id="expTitle" name="expTitle" placeholder="Title" class="input" value="<?= htmlspecialchars($_POST['expTitle'] ?? '') ?>" required>
+          <input type="number" id="expAmount" name="expAmount" placeholder="RM" class="input" step="0.01" value="<?= htmlspecialchars($_POST['expAmount'] ?? '') ?>" required>
           <select id="expenseCategory" name="expenseCategory" class="input" required>
             <option value="" disabled selected>Category</option>
-            <option value="Food">Food</option>
-            <option value="Transport">Transport</option>
-            <option value="Shopping">Shopping</option>
-            <option value="Utilities">Utilities</option>
-            <option value="Bill">Bill</option>
-            <option value="Top Up">Top Up</option>
-            <option value="Entertainment">Entertainment</option>
+            <?php foreach ($categories as $cat): ?>
+                <option value="<?= htmlspecialchars($cat) ?>" <?= (isset($_POST['expenseCategory']) && $_POST['expenseCategory'] == $cat) ? 'selected' : '' ?>><?= htmlspecialchars($cat) ?></option>
+            <?php endforeach; ?>
           </select>
-          <input type="date" id="expDate" name="expDate" class="input" required>
-          <button type="submit" class="add-btn">Add Expenses</button>
+          <input type="date" id="expDate" name="expDate" class="input" value="<?= htmlspecialchars($_POST['expDate'] ?? '') ?>" required>
+          <div class="btn-group">
+            <button type="reset">CANCEL</button>
+            <button type="submit">ADD</button>
+          </div>
         </form>
-      </div>
-    </main>
+    </div>
 </body>
 </html>
