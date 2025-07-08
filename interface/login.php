@@ -1,68 +1,52 @@
 <?php
-// Start session to store user data upon successful login
-session_start();
+session_start(); // Start the session at the very beginning of the script
 
-// Include your configuration file and database connection file
-// Assuming 'login.php' is in a subdirectory (e.g., 'interface/')
-// and 'config.php' and 'dbconnection.php' are in the parent directory (project root).
-require_once '../config.php';
-require_once '../dbconnection.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+/* --------- includes --------- */
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../dbconnection.php'; // creates $conn (PDO)
+
+/* --------- login logic --------- */
 $login_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and get input from the form
-    $email = htmlspecialchars($_POST['email'] ?? '');
-    $plain_text_password_from_form = htmlspecialchars($_POST['pw'] ?? ''); // 'pw' because your HTML input name="pw"
 
-    // Basic validation for empty fields
-    if (empty($email) || empty($plain_text_password_from_form)) {
+    $email    = trim($_POST['email'] ?? '');
+    $password = $_POST['pw'] ?? '';
+
+    if (!$email || !$password) {
         $login_error = 'Please enter both email and password.';
     } else {
-        // Prepare a SQL statement using PDO ($dbh)
-        $stmt = $dbh->prepare("SELECT userID, pw FROM users WHERE email = :email");
 
-        // Check if the statement preparation was successful
-        if ($stmt === false) {
-            $login_error = 'Database error: Unable to prepare statement.';
-            error_log("Database prepare error: " . implode(":", $dbh->errorInfo()));
-        } else {
-            // Bind the email parameter
-            $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        try {
+            /* Prepare and run query */
+            $stmt = $conn->prepare( // Use $conn as defined in dbconnection.php
+                'SELECT userID, pw FROM users WHERE email = :email'
+            );
+            $stmt->execute([':email' => $email]);
+            $user = $stmt->fetch(); // FETCH_ASSOC set in dbconnection.php
 
-            // Execute the statement
-            $stmt->execute();
-
-            // Fetch the user data. PDO::FETCH_ASSOC returns an associative array.
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            // Check if a user with that email exists
-            if ($user) {
-                $hashed_password_from_db = $user['pw']; // 'pw' is the column name in your DB
-
-                // Verify the provided password (plain_text) against the hashed password from the database
-                if (password_verify($plain_text_password_from_form, $hashed_password_from_db)) {
-                    // Password is correct, set session variables
-                    $_SESSION['userID'] = $user['userID'];
-                    // You might want to store other user data in the session, e.g., $_SESSION['email'] = $user['email'];
-
-                    // Redirect to the dashboard
-                    header('Location: dashboard.php');
-                    exit; // Always exit after a header redirect
-                } else {
-                    // Password does not match
-                    $login_error = 'Invalid email or password.';
-                }
-            } else {
-                // No user found with that email
-                $login_error = 'Invalid email or password.';
+            if ($user && password_verify($password, $user['pw'])) {
+                /* Success – set session and redirect */
+                $_SESSION['loggedin'] = true;
+                $_SESSION['id']       = $user['userID'];
+                header('Location: dashboard.php'); // Redirect to dashboard
+                exit; // Important: terminate script after redirection
             }
+            $login_error = 'Invalid email or password.';
+
+        } catch (PDOException $e) {
+            error_log('Login DB error: ' . $e->getMessage(), 3, LOG_FILE_PATH);
+            $login_error = 'A database error occurred. Please try again later.';
         }
     }
 }
 
-// Close the database connection at the end of the script (optional for simple scripts as PHP does this automatically)
-$dbh = null;
+// The database connection ($conn) will automatically close when the script finishes execution.
+// No need for $conn = null; here unless you have specific reasons for early closure.
 
 ?>
 <!DOCTYPE html>
@@ -200,7 +184,9 @@ $dbh = null;
             </p>
 
             <?php if ($login_error): ?>
-                <div class="mb-4 text-red-600 text-center font-semibold"><?php echo $login_error; ?></div>
+                <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-center font-semibold">
+                    <?php echo $login_error; ?>
+                </div>
             <?php endif; ?>
 
             <div class="mb-4">

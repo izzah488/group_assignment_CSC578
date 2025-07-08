@@ -1,24 +1,34 @@
 <?php
-// Database connection parameters
-$host = 'localhost'; // Your database host (often 'localhost')
-$dbname = 'money_mate_db'; // **CHANGE THIS to your actual database name**
-$username = 'root'; // **CHANGE THIS to your actual database username**
-$password = ''; // **CHANGE THIS to your actual database password**
+/** ---------------------------------------------------------
+ * File: includes/dbconnection.php
+ * Creates a single PDO connection in $conn.
+ * -------------------------------------------------------- */
 
-// Data Source Name (DSN)
-$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-
-require_once __DIR__ . '/config.php'; // Assuming config.php is in the same directory as dbconnection.php
-                                     // Or adjust path: e.g., '../config.php' if dbconnection.php is in 'includes/'
-                                     // and config.php is in the parent directory (project root)
+require_once __DIR__ . '/config.php';     // adjust path if needed
 
 try {
-    $dbh = new PDO(DB_DSN, DB_USER, DB_PASS);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    // Build DSN
+    $dsn = 'mysql:host=' . DB_HOST .
+           ';dbname=' . DB_NAME .
+           ';charset=utf8mb4';
+
+    // Recommended PDO options
+    $options = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // throw exceptions
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // associative arrays
+        PDO::ATTR_EMULATE_PREPARES   => false,                  // native prepares
+    ];
+
+    // Create the connection
+    $conn = new PDO($dsn, DB_USER, DB_PASS, $options);
 
 } catch (PDOException $e) {
-    // In development, let's temporarily show the full error for better debugging
-    die("ERROR: Database connection failed: " . $e->getMessage()); // This will stop execution and show details
+    // Log detailed error
+    error_log(
+        'Database connection error: ' . $e->getMessage(),
+        3,
+        LOG_FILE_PATH
+    );
+    // Show generic message to user
+    exit('Database connection failed. Please try again later.');
 }
-
