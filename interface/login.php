@@ -1,17 +1,73 @@
 <?php
+// Start session to store user data upon successful login
+session_start();
+
+// Include your database connection file
+// Make sure dbconnection.php is in the same directory or adjust the path
+include 'dbconnection.php';
+
 $login_error = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Sanitize and get input from the form
     $email = htmlspecialchars($_POST['email'] ?? '');
-    $password = htmlspecialchars($_POST['password'] ?? '');
-    // TODO: Authenticate user with database
-    // For now, just a placeholder check
-    if ($email === 'user@example.com' && $password === 'password') {
-        header('Location: dashboard.php');
-        exit;
+    $pw = htmlspecialchars($_POST['pw'] ?? '');
+
+    // Basic validation for empty fields
+    if (empty($email) || empty($pw)) {
+        $login_error = 'Please enter both email and password.';
     } else {
-        $login_error = 'Invalid email or password.';
+        // Prepare a SQL statement to prevent SQL injection
+        // Select the userID and the hashed password (pw) for the given email
+        $stmt = $conn->prepare("SELECT userID, pw FROM users WHERE email = ?");
+
+        // Check if the statement preparation was successful
+        if ($stmt === false) {
+            $login_error = 'Database error: Unable to prepare statement.';
+            error_log("Database error: " . $conn->error); // Log the actual error for debugging
+        } else {
+            // Bind the email parameter to the prepared statement
+            $stmt->bind_param("s", $email);
+
+            // Execute the statement
+            $stmt->execute();
+
+            // Get the result
+            $result = $stmt->get_result();
+
+            // Check if a user with that email exists
+            if ($result->num_rows === 1) {
+                $user = $result->fetch_assoc();
+                $hashed_password = $user['pw'];
+
+                // Verify the provided password against the hashed password from the database
+                // IMPORTANT: Use password_verify() for hashed passwords
+                if (password_verify($password, $hashed_password)) {
+                    // Password is correct, set session variables
+                    $_SESSION['userID'] = $user['userID'];
+                    // You might want to store other user data in the session, e.g., $_SESSION['email'] = $user['email'];
+
+                    // Redirect to the dashboard
+                    header('Location: dashboard.php');
+                    exit; // Always exit after a header redirect
+                } else { 
+                    // Password does not match
+                    $login_error = 'Invalid email or password.';
+                }
+            } else {
+                // No user found with that email
+                $login_error = 'Invalid email or password.';
+            }
+
+            // Close the statement
+            $stmt->close();
+        }
     }
 }
+
+// Close the database connection at the end of the script
+$conn->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
