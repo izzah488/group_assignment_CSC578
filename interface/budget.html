@@ -80,10 +80,8 @@
 </head>
 <body>
 
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="flex flex-col justify-start h-full">
-      <!-- User Info -->
       <div class="flex items-center mb-8">
         <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
         <div>
@@ -92,12 +90,10 @@
         </div>
       </div>
 
-      <!-- Dashboard Button -->
       <button onclick="location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
         ☰ Dashboard
       </button>
 
-      <!-- Nav Links -->
       <nav class="nav-links mb-auto">
         <a href="savings.html">⭐️ Savings</a>
         <a href="profile.html">👤 Profile</a>
@@ -106,14 +102,12 @@
         <a href="expenses.html">⬆️ Expenses</a>
       </nav>
 
-      <!-- Logout Button -->
       <button onclick="location.href='login.html'" class="logout-btn font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
         <i class="fas fa-sign-out-alt"></i> Log Out
       </button>
     </div>
   </aside>
 
-  <!-- Main Content -->
   <div class="main-content">
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
       <div>
@@ -127,12 +121,13 @@
         </button>
       </div>
     </header>
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Budget</h2>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Budget</h2>
+          <h3 class="text-sm text-gray-500 mb-2">Your budget for this month</h3>
           <p class="text-3xl font-bold text-purple-600">RM 0</p>
-          <p class="text-sm text-gray-500 mt-2">No budget set</p>
+          
         </div>
         <button onclick="location.href='edit_money_budget.html'" class="text-purple-500 hover:text-purple-700 transition-colors duration-200">
           <i class="fas fa-edit text-xl"></i>
@@ -141,76 +136,21 @@
 
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Budget Used</h2>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
+          <h3 class="text-sm text-gray-500 mb-2">Your total expenses this month</h3>
           <p class="text-3xl font-bold text-red-600">RM 0</p>
-          <p class="text-sm text-gray-500 mt-2">No spending data</p>
+
         </div>
         <i class="fas fa-chart-line text-4xl text-red-400"></i>
       </div>
-    </section>
-
-    <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Categories</h2>
-      <div class="space-y-6">
-        <!-- Repeated categories -->
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-700">Food</h3>
-            <p class="text-sm text-gray-500">RM 0 / RM 0</p>
-            <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-              <div class="progress-fill"></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-700">Transport</h3>
-            <p class="text-sm text-gray-500">RM 0 / RM 0</p>
-            <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-              <div class="progress-fill"></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-700">Shopping</h3>
-            <p class="text-sm text-gray-500">RM 0 / RM 0</p>
-            <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-              <div class="progress-fill"></div>
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-700">Utilities</h3>
-            <p class="text-sm text-gray-500">RM 0 / RM 0</p>
-            <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-2">
-              <div class="progress-fill"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
-        <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Goal</h2>
-          <p class="text-lg font-bold text-gray-900">RM 0</p>
-          <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
-            <div class="progress-fill"></div>
-          </div>
-        </div>
-      </div>
 
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Money Balance</h2>
-          <p class="text-lg font-bold text-gray-900">RM 0</p>
-          <div class="w-48 bg-gray-200 rounded-full h-2.5 mt-3">
-            <div class="progress-fill"></div>
-          </div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Current Balance</h2>
+          <h3 class="text-sm text-gray-500 mb-2">Your remaining balance</h3>
+          <p class="text-3xl font-bold text-green-600">RM 0</p>
         </div>
+        <i class="fas fa-wallet text-4xl text-green-400"></i>
       </div>
     </section>
 

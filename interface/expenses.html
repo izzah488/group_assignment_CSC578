@@ -148,8 +148,7 @@
 </head>
 <body class="bg-gray-100 flex">
 
-  <!--?include 'sidebar.php'; ?-->
-   <aside class="sidebar">
+    <aside class="sidebar">
     <div class="flex flex-col justify-start h-full">
       <div class="flex items-center mb-8">
         <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" class="rounded-full mr-3" />
@@ -233,11 +232,6 @@
         <div class="no-data-message">No expenses in this category yet.</div>
       </div>
     </section>
-
-    <button onclick="window.location.href='add_money_expenses.html'" class="w-full py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 add-expenses-btn">
-      <i class="fas fa-plus-circle"></i>
-      <span>Add New Expenses</span>
-    </button>
   </main>
 </body>
 <script>
@@ -264,16 +258,17 @@
             'Entertainment': document.getElementById('entertainmentExpensesList')
         };
 
-        // Clear existing list items and hide "No data" messages
+        // Clear existing expense list items and reset "No data" messages
         for (const category in categoryLists) {
             if (categoryLists[category]) {
-                // Clear all child nodes except the initial no-data-message (if it exists)
-                while (categoryLists[category].children.length > 1 || 
-                       (categoryLists[category].children.length === 1 && !categoryLists[category].children[0].classList.contains('no-data-message'))) {
-                    categoryLists[category].removeChild(categoryLists[category].lastChild);
-                }
+                // Remove all children except the one with 'no-data-message' class
+                Array.from(categoryLists[category].children).forEach(child => {
+                    if (!child.classList.contains('no-data-message')) {
+                        child.remove();
+                    }
+                });
                 const noDataMessage = categoryLists[category].querySelector('.no-data-message');
-                if (noDataMessage) noDataMessage.style.display = 'block';
+                if (noDataMessage) noDataMessage.style.display = 'block'; // Show no-data-message by default
             }
         }
 
@@ -296,7 +291,7 @@
                 const filteredExpenses = expenses.filter(exp => exp.category === category);
                 if (filteredExpenses.length > 0) {
                     const noDataMessage = categoryLists[category].querySelector('.no-data-message');
-                    if (noDataMessage) noDataMessage.style.display = 'none';
+                    if (noDataMessage) noDataMessage.style.display = 'none'; // Hide no-data-message if there's data
 
                     filteredExpenses.forEach(expense => {
                         const expenseItem = document.createElement('div');

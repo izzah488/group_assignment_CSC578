@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,6 +148,7 @@
     </header>
 
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Savings Count -->
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Savings Count</h2>
@@ -156,6 +156,16 @@
         </div>
       </div>
 
+      <!-- Monthly Budget -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Budget</h2>
+        <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
+        <button onclick="toggleEditBudgetModal()" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
+          Set Budget
+        </button>
+      </div>
+
+      <!-- Total Expenses -->
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
@@ -164,6 +174,7 @@
         <i class="fas fa-money-bill-wave text-4xl text-red-400"></i>
       </div>
 
+      <!-- Balance -->
       <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Balance</h2>
@@ -171,16 +182,9 @@
         </div>
         <i class="fas fa-balance-scale text-4xl text-purple-400"></i>
       </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Budget</h2>
-        <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
-        <button onclick="toggleEditBudgetModal()" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
-          Set Budget
-        </button>
-      </div>
     </section>
 
+    <!-- Edit Budget Modal -->
     <div id="editBudgetModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
       <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
         <button onclick="toggleEditBudgetModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
@@ -192,8 +196,8 @@
             <div class="relative">
               <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
               <input type="number" id="budgetLimit" value="2500.00"
-                     class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-medium text-lg"
-                     placeholder="Enter amount">
+                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-medium text-lg"
+                placeholder="Enter amount">
             </div>
           </div>
 
@@ -203,30 +207,25 @@
               <option value="january">January</option>
               <option value="february">February</option>
               <option value="march" selected>March</option>
-              <option value="april">April</option>
-              <option value="may">May</option>
-              <option value="june">June</option>
-              <option value="july">July</option>
-              <option value="august">August</option>
-              <option value="september">September</option>
-              <option value="october">October</option>
-              <option value="november">November</option>
-              <option value="december">December</option>
+              <!-- more months -->
             </select>
           </div>
         </div>
+
         <div class="mt-8 flex justify-between space-x-4">
-          <button onclick="toggleEditBudgetModal()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition-colors duration-200">
+          <button onclick="toggleEditBudgetModal()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500">
             CANCEL
           </button>
-          <button onclick="saveBudget()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-200">
+          <button onclick="saveBudget()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700">
             SAVE
           </button>
         </div>
       </div>
     </div>
 
+    <!-- Sections: Expenses, Budget, Chart -->
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <!-- Recent Expenses -->
       <div class="bg-white p-6 rounded-2xl shadow-lg">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
         <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
@@ -236,6 +235,7 @@
         </button>
       </div>
 
+      <!-- Budget Overview -->
       <div class="bg-white p-6 rounded-2xl shadow-lg">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Overview</h2>
         <div class="no-data-message">No budget categories set up yet.</div>
@@ -246,6 +246,7 @@
       </div>
     </section>
 
+    <!-- Expenses Chart -->
     <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Expenses Chart (March)</h2>
       <div class="flex flex-col md:flex-row items-center justify-around">
@@ -261,13 +262,15 @@
     </section>
   </main>
 
+  <!-- JavaScript -->
   <script>
-    let monthlyBudget = parseFloat(localStorage.getItem('monthlyBudget')) || 0; // Initialize with 0 or from localStorage
-    let totalExpenses = parseFloat(localStorage.getItem('totalExpenses')) || 0; // Initialize with 0 or from localStorage
+    let monthlyBudget = parseFloat(localStorage.getItem('monthlyBudget')) || 0;
+    let totalExpenses = parseFloat(localStorage.getItem('totalExpenses')) || 0;
 
     function toggleEditBudgetModal() {
-      document.getElementById('editBudgetModal').classList.toggle('hidden');
-      if (!document.getElementById('editBudgetModal').classList.contains('hidden')) {
+      const modal = document.getElementById('editBudgetModal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
         document.getElementById('budgetLimit').value = monthlyBudget.toFixed(2);
       }
     }
@@ -289,17 +292,10 @@
       document.getElementById('totalSavingsCount').textContent = savings.length;
     }
 
-    // Function to update all dashboard values
     function updateDashboardValues() {
-      updateDashboardSavingsCount(); // Update savings count
-
-      // Update monthly budget display
-      document.getElementById('-udgetAmountDisplay').textContent = `RM ${monthlyBudget.toFixed(2)}`;
-
-      // Update total expenses display
+      updateDashboardSavingsCount();
+      document.getElementById('budgetAmountDisplay').textContent = `RM ${monthlyBudget.toFixed(2)}`;
       document.getElementById('totalExpensesAmount').textContent = `RM ${totalExpenses.toFixed(2)}`;
-
-      // Calculate and update balance
       const balance = monthlyBudget - totalExpenses;
       document.getElementById('balanceAmount').textContent = `RM ${balance.toFixed(2)}`;
     }
@@ -310,4 +306,3 @@
   </script>
 </body>
 </html>
-```
