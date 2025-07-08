@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <script>
     // Profile picture preview
-    document.getElementById('profilePic').addEventListener('change', function (e) {
+    document.getElementById('proPic').addEventListener('change', function (e) {
       const file = e.target.files[0];
       const previewImage = document.getElementById('previewImage');
 
