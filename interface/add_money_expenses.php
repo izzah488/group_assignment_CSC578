@@ -173,7 +173,7 @@
       <p class="text-gray-600 mb-8 text-lg">Add new money expenses.</p>
 
       <div class="form-card">
-        <button onclick="location.href='expenses.html'" class="back-btn">←</button>
+        <button onclick="location.href='expenses.php'" class="back-btn">←</button>
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
         <form id="addExpenseForm">
           <input type="text" id="expenseTitle" placeholder="Title" class="input" required>
@@ -231,7 +231,7 @@
       localStorage.setItem('totalExpenses', totalExpenses.toFixed(2));
 
       alert("Expense added successfully!");
-      window.location.href = 'expenses.html'; // Redirect to expenses page
+      window.location.href = 'expenses.php'; // Redirect to expenses page
     });
   </script>
 </body>

@@ -4,14 +4,14 @@ session_start();
 
 // Include your database connection file
 // Make sure dbconnection.php is in the same directory or adjust the path
-include 'dbconnection.php';
+include '../dbconnection.php';
 
 $login_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize and get input from the form
     $email = htmlspecialchars($_POST['email'] ?? '');
-    $pw = htmlspecialchars($_POST['pw'] ?? '');
+    $pw = htmlspecialchars($_POST['password'] ?? '');
 
     // Basic validation for empty fields
     if (empty($email) || empty($pw)) {
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Verify the provided password against the hashed password from the database
                 // IMPORTANT: Use password_verify() for hashed passwords
-                if (password_verify($password, $hashed_password)) {
+                if (password_verify($pw, $hashed_password)) {
                     // Password is correct, set session variables
                     $_SESSION['userID'] = $user['userID'];
                     // You might want to store other user data in the session, e.g., $_SESSION['email'] = $user['email'];

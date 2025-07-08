@@ -159,7 +159,7 @@
         </div>
       </div>
 
-      <button onclick="window.location.href='editprofile.html'" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg mt-6 transition-colors duration-200">
+      <button onclick="window.location.href='editprofile.php'" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg mt-6 transition-colors duration-200">
         Edit Profile
       </button>
     </div>

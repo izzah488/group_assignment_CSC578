@@ -117,7 +117,7 @@
     <!-- Summary Cards -->
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <!-- Savings Count -->
-      <a href="savings.html" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
+      <a href="savings.php" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Savings Count</h2>
           <p id="totalSavingsCount" class="text-3xl font-bold text-green-600">0</p>
@@ -125,7 +125,7 @@
       </a>
 
       <!-- Monthly Budget -->
-      <a href="budget.html" class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+      <a href="budget.php" class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between hover:shadow-xl transition-all duration-300">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Budget</h2>
           <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
@@ -134,7 +134,7 @@
       </a>
 
       <!-- Total Expenses -->
-      <a href="budget.html" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
+      <a href="budget.php" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
           <p id="totalExpensesAmount" class="text-3xl font-bold text-red-600">RM 0.00</p>
@@ -143,7 +143,7 @@
       </a>
 
       <!-- Balance -->
-      <a href="budget.html" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
+      <a href="budget.php" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Balance</h2>
           <p id="balanceAmount" class="text-3xl font-bold text-purple-600">RM 0.00</p>
@@ -159,7 +159,7 @@
         <div id="recentExpensesList">
           <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
         </div>
-        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient" onclick="window.location.href='add_money_expenses.html'">
+        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient" onclick="window.location.href='add_money_expenses.php'">
           <i class="fas fa-plus-circle"></i>
           <span>Add New Expenses</span>
         </button>

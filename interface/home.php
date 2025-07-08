@@ -210,7 +210,7 @@
           Track your income, expenses, and savings — all in one simple and beautiful platform designed for modern financial management.
         </p>
         
-        <button class="cta-button font-bold py-4 px-10 rounded-full shadow-xl text-lg" onclick="window.location.href='about_us_page2.html'">
+        <button class="cta-button font-bold py-4 px-10 rounded-full shadow-xl text-lg" onclick="window.location.href='about_us_page2.php'">
           Read More
         </button>
 

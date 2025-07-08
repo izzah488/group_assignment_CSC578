@@ -14,22 +14,22 @@
     </div>
 
     <!-- Dashboard Button -->
-    <button onclick="window.location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
+    <button onclick="window.location.href='dashboard.php'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
       ☰ Dashboard
     </button>
 
     <!-- Nav Links -->
     <nav class="flex flex-col gap-2 mb-auto">
-      <a href="savings.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⭐️ Savings</a>
-      <a href="profile.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2 active">👤 Profile</a>
-      <a href="budget.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⬇️ Budget</a>
-      <a href="expenses.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⬆️ Expenses</a>
+      <a href="savings.php" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⭐️ Savings</a>
+      <a href="profile.php" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2 active">👤 Profile</a>
+      <a href="budget.php" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⬇️ Budget</a>
+      <a href="expenses.php" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⬆️ Expenses</a>
     </nav>
   </div>
 
   <!-- Logout Button -->
   <div>
-    <button onclick="window.location.href='login.html'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
+    <button onclick="window.location.href='login.php'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
       <i class="fas fa-sign-out-alt"></i> Log Out
     </button>
   </div>

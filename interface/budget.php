@@ -80,7 +80,7 @@
       <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
         <p id="totalExpensesAmount" class="text-3xl font-bold text-red-600 mb-4">RM 0.00</p>
-        <button onclick="location.href='add_money_expenses.html'" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
+        <button onclick="location.href='add_money_expenses.php'" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
           Add Expenses
         </button>
       </div>

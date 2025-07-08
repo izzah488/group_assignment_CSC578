@@ -132,7 +132,7 @@
 
       <!-- Action Buttons -->
       <div class="mt-8 flex justify-between space-x-4">
-        <button onclick="window.location.href='savings.html'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
+        <button onclick="window.location.href='savings.php'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
           CANCEL
         </button>
         <button onclick="saveSaving()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
@@ -157,7 +157,7 @@
       alert("Saving goal added successfully!");
 
       // Redirect back to savings page
-      window.location.href = "savings.html";
+      window.location.href = "savings.php";
     }
   </script>
 </body>

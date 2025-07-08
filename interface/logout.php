@@ -23,7 +23,7 @@ unset($_SESSION['cpmsaid']);
 session_destroy();
 
 // Redirect the user to the login page or home page
-header("location:home.html"); // Adjust this to your actual login/home page
+header("location:home.php"); // Adjust this to your actual login/home page
 exit(); // Always call exit() after a header redirect
 ?>
 

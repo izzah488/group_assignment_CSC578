@@ -140,7 +140,7 @@
 
             <!-- Action Buttons -->
             <div class="mt-8 flex justify-between space-x-4">
-                <button onclick="window.location.href='budget.html'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition-colors duration-200">
+                <button onclick="window.location.href='budget.php'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition-colors duration-200">
                     CANCEL
                 </button>
                 <button class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-200">

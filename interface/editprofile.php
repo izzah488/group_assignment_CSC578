@@ -50,7 +50,7 @@
       </div>
 
       <div class="flex justify-end space-x-4">
-        <button onclick="window.location.href='profile.html'" class="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition-colors duration-200">
+        <button onclick="window.location.href='profile.php'" class="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition-colors duration-200">
           CANCEL
         </button>
         <button onclick="showSuccessModal()" class="px-6 py-3 rounded-xl bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-colors duration-200">
@@ -102,7 +102,7 @@
 
     function hideSuccessModalAndRedirect() {
       document.getElementById('successModal').classList.add('hidden');
-      window.location.href = 'profile.html';
+      window.location.href = 'profile.php';
     }
 
     // Load sidebar info and profile data from localStorage
