@@ -121,6 +121,9 @@
     .color-bill { background-color: #2dd4bf; }
     .color-topup { background-color: #4ade80; }
     .color-entertainment { background-color: #60a5fa; }
+    .color-shopping { background-color: #f97316; } /* Added Shopping color */
+    .color-utilities { background-color: #ec4899; } /* Added Utilities color */
+
 
     .expense-category-header {
       padding: 1rem 1.5rem;
@@ -143,6 +146,31 @@
       color: #6b7280;
       font-style: italic;
       padding: 1rem;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .action-buttons button {
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    .action-buttons .edit-btn {
+      background-color: #3b82f6; /* blue-500 */
+      color: white;
+    }
+    .action-buttons .edit-btn:hover {
+      background-color: #2563eb; /* blue-600 */
+    }
+    .action-buttons .delete-btn {
+      background-color: #ef4444; /* red-500 */
+      color: white;
+    }
+    .action-buttons .delete-btn:hover {
+      background-color: #dc2626; /* red-600 */
     }
   </style>
 </head>
@@ -201,6 +229,8 @@
           <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-bill"></span>Bill</div>
           <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-topup"></span>Top Up</div>
           <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-entertainment"></span>Entertainment</div>
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-shopping"></span>Shopping</div>
+          <div class="pie-chart-legend-item"><span class="pie-chart-legend-color color-utilities"></span>Utilities</div>
         </div>
       </div>
     </section>
@@ -232,20 +262,64 @@
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="entertainmentExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
       </div>
-     
-      <div class="expense-category-header" style="background-color: #a78bfa; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">Shopping</div>
+      
+      <div class="expense-category-header" style="background-color: #f97316; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">Shopping</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="shoppingExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
       </div>
 
       <div class="expense-category-header bg-pink-500 text-white shadow-md">Utilities</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="utilitiesExpensesList">
-        <div class="no-data-message">No expenses in this category yet.</div>    
-     
-
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
     </section>
     </main>
-</body>
+
+    <!-- Edit Expense Modal -->
+    <div id="editExpenseModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+      <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
+        <button onclick="toggleEditExpenseModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Expense</h2>
+
+        <div class="space-y-6">
+          <div>
+            <label for="editExpenseTitle" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <input type="text" id="editExpenseTitle" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" required>
+          </div>
+          <div>
+            <label for="editExpenseAmount" class="block text-sm font-medium text-gray-700 mb-1">Amount (RM)</label>
+            <input type="number" id="editExpenseAmount" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" step="0.01" required>
+          </div>
+          <div>
+            <label for="editExpenseCategory" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+            <select id="editExpenseCategory" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" required>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Bill">Bill</option>
+              <option value="Top Up">Top Up</option>
+              <option value="Entertainment">Entertainment</option>
+            </select>
+          </div>
+          <div>
+            <label for="editExpenseDate" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <input type="date" id="editExpenseDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50" required>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-between space-x-4">
+          <button onclick="toggleEditExpenseModal()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500">
+            CANCEL
+          </button>
+          <button onclick="saveEditedExpense()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700">
+            SAVE CHANGES
+          </button>
+        </div>
+        <input type="hidden" id="editingExpenseIndex">
+      </div>
+    </div>
+
   <script>
     let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
@@ -254,10 +328,10 @@
             case 'Food': return '#a78bfa';
             case 'Transport': return '#fcd34d';
             case 'Bill': return '#2dd4bf';
-            case 'Top Up': return '#4ade80'; // Changed to 'Top Up' to match the HTML option value
+            case 'Top Up': return '#4ade80';
             case 'Entertainment': return '#60a5fa';
-            case 'Shopping': return '#f97316'; // Added Shopping color
-            case 'Utilities': return '#ec4899'; // Added Utilities color
+            case 'Shopping': return '#f97316';
+            case 'Utilities': return '#ec4899';
             default: return '#cbd5e1';
         }
     }
@@ -267,10 +341,10 @@
         const categoryLists = {
             'Food': document.getElementById('foodExpensesList'),
             'Transport': document.getElementById('transportExpensesList'),
-            'Shopping': document.getElementById('shoppingExpensesList'), // Added Shopping
-            'Utilities': document.getElementById('utilitiesExpensesList'), // Added Utilities
+            'Shopping': document.getElementById('shoppingExpensesList'),
+            'Utilities': document.getElementById('utilitiesExpensesList'),
             'Bill': document.getElementById('billExpensesList'),
-            'Top Up': document.getElementById('topupExpensesList'), // Note: "Top Up" has a space
+            'Top Up': document.getElementById('topupExpensesList'),
             'Entertainment': document.getElementById('entertainmentExpensesList')
         };
 
@@ -309,20 +383,78 @@
                     const noDataMessage = categoryLists[category].querySelector('.no-data-message');
                     if (noDataMessage) noDataMessage.style.display = 'none'; // Hide no-data-message if there's data
 
-                    filteredExpenses.forEach(expense => {
+                    filteredExpenses.forEach((expense, index) => { // Added index to loop
                         const expenseItem = document.createElement('div');
                         expenseItem.className = 'flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0';
                         expenseItem.innerHTML = `
                             <p class="text-gray-700 font-medium">${expense.date ? new Date(expense.date).toLocaleDateString() : 'No Date'}: ${expense.description || 'N/A'}</p>
-                            <p class="text-gray-900 font-semibold">RM ${expense.amount.toFixed(2)}</p>
+                            <div class="action-buttons">
+                                <button onclick="openEditExpenseModal(${expenses.indexOf(expense)})" class="edit-btn">Edit</button>
+                                <button onclick="deleteExpense(${expenses.indexOf(expense)})" class="delete-btn">Delete</button>
+                            </div>
                         `;
                         categoryLists[category].appendChild(expenseItem);
                     });
                 }
             }
         }
+        // Update total expenses in localStorage after any changes
+        localStorage.setItem('totalExpenses', expenses.reduce((sum, exp) => sum + exp.amount, 0).toFixed(2));
+    }
+
+    function toggleEditExpenseModal() {
+      document.getElementById('editExpenseModal').classList.toggle('hidden');
+    }
+
+    function openEditExpenseModal(index) {
+      const expense = expenses[index];
+      if (expense) {
+        document.getElementById('editExpenseTitle').value = expense.description;
+        document.getElementById('editExpenseAmount').value = expense.amount;
+        document.getElementById('editExpenseCategory').value = expense.category;
+        document.getElementById('editExpenseDate').value = expense.date;
+        document.getElementById('editingExpenseIndex').value = index; // Store index for saving
+        toggleEditExpenseModal();
+      }
+    }
+
+    function saveEditedExpense() {
+      const index = document.getElementById('editingExpenseIndex').value;
+      const title = document.getElementById('editExpenseTitle').value;
+      const amount = parseFloat(document.getElementById('editExpenseAmount').value);
+      const category = document.getElementById('editExpenseCategory').value;
+      const date = document.getElementById('editExpenseDate').value;
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid positive amount.");
+        return;
+      }
+      if (!category) {
+        alert("Please select a category.");
+        return;
+      }
+
+      expenses[index] = {
+        description: title,
+        amount: amount,
+        category: category,
+        date: date
+      };
+
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+      updateExpensesPage();
+      toggleEditExpenseModal();
+    }
+
+    function deleteExpense(index) {
+      if (confirm("Are you sure you want to delete this expense?")) { // Using confirm for simplicity
+        expenses.splice(index, 1); // Remove the expense at the given index
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        updateExpensesPage(); // Re-render the list
+      }
     }
 
     window.onload = updateExpensesPage;
   </script>
+</body>
 </html>

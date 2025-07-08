@@ -22,7 +22,6 @@
     <nav class="flex flex-col gap-2 mb-auto">
       <a href="savings.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⭐️ Savings</a>
       <a href="profile.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2 active">👤 Profile</a>
-      <a href="statistic.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">📈 Statistics</a>
       <a href="budget.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⬇️ Budget</a>
       <a href="expenses.html" class="py-2 px-4 rounded-lg text-purple-700 hover:bg-purple-100 flex items-center gap-2">⬆️ Expenses</a>
     </nav>

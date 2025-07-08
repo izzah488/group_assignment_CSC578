@@ -179,7 +179,9 @@
     <section class="grid grid-cols-1 gap-6 mb-8">
       <div class="bg-white p-6 rounded-2xl shadow-lg">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
-        <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
+        <div id="recentExpensesList">
+          <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
+        </div>
         <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient" onclick="window.location.href='add_money_expenses.html'">
           <i class="fas fa-plus-circle"></i>
           <span>Add New Expenses</span>
@@ -213,6 +215,41 @@
       document.getElementById('totalSavingsCount').textContent = savings.length;
     }
 
+    function updateRecentExpenses() {
+        const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        const recentExpensesList = document.getElementById('recentExpensesList');
+        
+        // Clear existing list items, but keep the 'no-data-message' if it exists
+        Array.from(recentExpensesList.children).forEach(child => {
+            if (!child.classList.contains('no-data-message')) {
+                child.remove();
+            }
+        });
+
+        const noDataMessage = recentExpensesList.querySelector('.no-data-message');
+
+        if (expenses.length === 0) {
+            if (noDataMessage) noDataMessage.style.display = 'block';
+        } else {
+            if (noDataMessage) noDataMessage.style.display = 'none';
+
+            // Sort expenses by date in descending order (most recent first)
+            const sortedExpenses = expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+            // Display only the latest 5 expenses
+            const latestExpenses = sortedExpenses.slice(0, 5);
+
+            latestExpenses.forEach(expense => {
+                const expenseItem = document.createElement('div');
+                expenseItem.className = 'flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0';
+                expenseItem.innerHTML = `
+                    <p class="text-gray-700 font-medium">${expense.date ? new Date(expense.date).toLocaleDateString() : 'N/A'}: ${expense.description || 'N/A'}</p>
+                    <p class="text-gray-900 font-semibold">RM ${expense.amount.toFixed(2)}</p>
+                `;
+                recentExpensesList.appendChild(expenseItem);
+            });
+        }
+    }
+
     function updateDashboardValues() {
       updateDashboardSavingsCount();
       document.getElementById('budgetAmountDisplay').textContent = `RM ${monthlyBudget.toFixed(2)}`;
@@ -225,6 +262,7 @@
       } else {
         document.getElementById('budgetStartDate').textContent = `Starts: --/--/----`;
       }
+      updateRecentExpenses(); // Call this function to update recent expenses
     }
 
     window.onload = () => {
