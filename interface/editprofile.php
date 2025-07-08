@@ -1,24 +1,4 @@
-<?php
-$success = false;
-// TODO: Fetch current user data from database
-$currentUser = [
-    'first_name' => 'Rebecca',
-    'last_name' => 'Louis',
-    'email' => 'rebecca@gmail.com',
-];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $first_name = htmlspecialchars($_POST['first_name'] ?? '');
-    $last_name = htmlspecialchars($_POST['last_name'] ?? '');
-    $email = htmlspecialchars($_POST['email'] ?? '');
-    $current_password = htmlspecialchars($_POST['current_password'] ?? '');
-    $new_password = htmlspecialchars($_POST['new_password'] ?? '');
-    // TODO: Update user in the database
-    $success = true;
-    $currentUser['first_name'] = $first_name;
-    $currentUser['last_name'] = $last_name;
-    $currentUser['email'] = $email;
-}
-?>
+<?php // editprofile.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,208 +8,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .sidebar {
-      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
-      width: 17rem;
-      padding: 2rem 1.5rem 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-top-right-radius: 2rem;
-      border-bottom-right-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      z-index: 10;
-    }
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .nav-links a {
-      padding: 0.7rem 1.3rem;
-      border-radius: 0.8rem;
-      color: #4a00e0;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      transition: background 0.2s, color 0.2s;
-      font-size: 1.05rem;
-      letter-spacing: 0.01em;
-      width: 100%;
-      text-align: left;
-    }
-    .nav-links a.active,
-    .nav-links a:hover {
-      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
-      color: #4a00e0;
-    }
-    .logout-link {
-      background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
-      color: #c05621;
-      font-weight: 600;
-      padding: 0.8rem 1.5rem;
-      border-radius: 0.9rem;
-      width: 100%;
-      transition: filter 0.2s;
-      box-shadow: 0 2px 8px 0 rgba(251,211,141,0.10);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .logout-link:hover {
-      filter: brightness(1.08);
-    }
-    .main-content {
-      margin-left: 17rem;
-      padding: 3.5rem 2rem 2rem 2rem;
-      flex: 1;
-    }
-    .profile-form {
-      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
-      padding: 2.5rem 2.5rem 2rem 2.5rem;
-      border-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-      max-width: 32rem;
-      margin: 0 auto;
-    }
-    .profile-form label {
-      display: block;
-      margin-bottom: 1rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #4a5568;
-    }
-    .profile-form input {
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.25rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 0.5rem;
-      background-color: #f8fafc;
-    }
-    .profile-form input:focus {
-      border-color: #a78bfa;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
-    }
-    .form-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .cancel-btn {
-      background-color: #fbd38d;
-      color: #c05621;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-    }
-    .cancel-btn:hover {
-      background-color: #f6ad55;
-    }
-    .save-btn {
-      background: linear-gradient(to right, #8e2de2, #4a00e0);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-    }
-    .save-btn:hover {
-      filter: brightness(1.1);
-    }
-    .modal-overlay {
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000;
-    }
-    .modal-content {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 0.75rem;
-      text-align: center;
-      max-width: 20rem;
-      width: 100%;
-    }
-    .modal-icon {
-      color: #10b981;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    .modal-button {
-      background-color: #e5e7eb;
-      color: #374151;
-      padding: 0.5rem 1.5rem;
-      border-radius: 0.5rem;
-      font-weight: 500;
-    }
-    .modal-button:hover {
-      background-color: #d1d5db;
-    }
-  </style>
 </head>
-<body class="flex min-h-screen">
-
-  <!-- Sidebar -->
-   <?include 'sidebar.php'; ?>
+<body class="flex min-h-screen bg-gradient-to-br from-gray-100 to-purple-100 font-[Inter]">
+  <?php include 'sidebar.php'; ?>
 
   <!-- Main Content -->
-  <main class="main-content">
-    <h1 class="text-3xl font-bold text-gray-900 mb-2">Edit Profile</h1>
-    <p class="text-gray-600 mb-8">View and edit your profile, change settings, and manage your data.</p>
+  <main class="flex-grow p-8 ml-72">
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-6">Edit Profile</h1>
+    <p class="text-gray-600 mb-8">Update your personal information and preferences here.</p>
 
-    <?php if ($success): ?>
-      <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
-        Profile updated successfully!
+    <div class="bg-white p-8 rounded-2xl shadow-xl max-w-2xl mx-auto">
+      <div class="flex flex-col items-center mb-8">
+        <label for="profileImageInput" class="cursor-pointer">
+          <img id="previewImage" src="https://placehold.co/100x100/cbd5e1/000000?text=P" alt="Profile Picture" class="w-28 h-28 rounded-full object-cover border-4 border-purple-400 shadow-lg mb-4" />
+          <span class="block text-center text-purple-600 hover:text-purple-800 font-medium">Change Profile Picture</span>
+        </label>
+        <input type="file" id="profileImageInput" accept="image/*" class="hidden" onchange="previewImage(event)">
       </div>
-    <?php endif; ?>
-    <form method="POST" action="" style="background:#f9f9ff; border-radius:1.5rem; padding:2rem; box-shadow:0 4px 16px 0 rgba(138,43,226,0.08); max-width:400px; margin:2rem auto;">
-      <input type="text" name="first_name" placeholder="First Name" required value="<?php echo htmlspecialchars($currentUser['first_name']); ?>" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
-      <input type="text" name="last_name" placeholder="Last Name" required value="<?php echo htmlspecialchars($currentUser['last_name']); ?>" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
-      <input type="email" name="email" placeholder="Email" required value="<?php echo htmlspecialchars($currentUser['email']); ?>" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
-      <input type="password" name="current_password" placeholder="Current Password" required style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
-      <input type="password" name="new_password" placeholder="New Password" style="width:100%;padding:0.75rem;margin-bottom:1rem;border-radius:0.7rem;border:1px solid #e0b0ff;">
-      <div class="form-buttons">
-        <button type="button" class="cancel-btn" onclick="window.history.back()">Cancel</button>
-        <button type="submit" class="save-btn">Save</button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div>
+          <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+          <input type="text" id="firstName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 transition-all duration-200" placeholder="Enter your first name">
+        </div>
+        <div>
+          <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+          <input type="text" id="lastName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 transition-all duration-200" placeholder="Enter your last name">
+        </div>
+        <div class="md:col-span-2">
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+          <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 transition-all duration-200" placeholder="you@example.com">
+        </div>
+        <div class="md:col-span-2">
+          <label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+          <input type="password" id="currentPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 transition-all duration-200" placeholder="Enter current password">
+        </div>
+        <div class="md:col-span-2">
+          <label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">New Password (optional)</label>
+          <input type="password" id="newPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 transition-all duration-200" placeholder="Enter new password (min 6 characters)">
+        </div>
       </div>
-    </form>
+
+      <div class="flex justify-end space-x-4">
+        <button onclick="window.location.href='profile.html'" class="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition-colors duration-200">
+          CANCEL
+        </button>
+        <button onclick="showSuccessModal()" class="px-6 py-3 rounded-xl bg-purple-600 text-white font-semibold hover:bg-purple-700 transition-colors duration-200">
+          SAVE CHANGES
+        </button>
+      </div>
+    </div>
   </main>
 
   <!-- Success Modal -->
-  <div id="successModal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <div class="flex justify-center mb-4">
-        <i class="fas fa-check-circle modal-icon"></i>
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+      <div class="text-green-500 text-6xl mb-4">
+        <i class="fas fa-check-circle"></i>
       </div>
-      <p class="text-xl font-semibold text-gray-800 mb-6">Saved successfully!</p>
-      <button onclick="hideSuccessModalAndRedirect()" class="modal-button">Done</button>
+      <p class="text-lg font-semibold text-gray-800 mb-4">Saved successfully!</p>
+      <button onclick="hideSuccessModalAndRedirect()" class="bg-gray-200 px-4 py-2 rounded-lg">Done</button>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const output = document.getElementById('previewImage');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
     function showSuccessModal() {
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const imageSrc = document.getElementById('previewImage').src;
+
+      // Save to localStorage
+      const userData = {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          profilePic: imageSrc
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
+
       document.getElementById('successModal').classList.remove('hidden');
     }
 
@@ -237,6 +104,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       document.getElementById('successModal').classList.add('hidden');
       window.location.href = 'profile.html';
     }
+
+    // Load sidebar info and profile data from localStorage
+    window.addEventListener('DOMContentLoaded', () => {
+      const userDataString = localStorage.getItem('userData');
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+
+        // Populate sidebar
+        document.getElementById('sidebarName').textContent = `Hi, ${userData.firstName}!`;
+        document.getElementById('sidebarProfilePic').src = userData.profilePic || "https://placehold.co/40x40/cbd5e1/000000?text=P";
+
+        // Populate edit profile form
+        document.getElementById('firstName').value = userData.firstName;
+        document.getElementById('lastName').value = userData.lastName;
+        document.getElementById('email').value = userData.email;
+        document.getElementById('previewImage').src = userData.profilePic || "https://placehold.co/100x100/cbd5e1/000000?text=P";
+      } else {
+        // Default values if no user data is found
+        document.getElementById('sidebarName').textContent = 'Hi, User!';
+        document.getElementById('sidebarProfilePic').src = "https://placehold.co/40x40/cbd5e1/000000?text=P";
+        document.getElementById('previewImage').src = "https://placehold.co/100x100/cbd5e1/000000?text=P";
+      }
+    });
   </script>
 </body>
 </html>

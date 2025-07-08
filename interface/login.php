@@ -166,6 +166,7 @@ $dbh = null;
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
+<<<<<<< HEAD
     <nav class="navbar w-full fixed top-0 left-0 z-10 shadow-lg rounded-b-lg">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -181,6 +182,9 @@ $dbh = null;
             </div>
         </div>
     </nav>
+
+  <?php include 'navbar.php'; ?>
+
 
     <div class="login-card">
         <form method="POST" action="">

@@ -1,13 +1,4 @@
-<?php
-$success = false;
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $saving_for = htmlspecialchars($_POST['saving_for'] ?? '');
-    $amount = htmlspecialchars($_POST['amount'] ?? '');
-    $target_date = htmlspecialchars($_POST['target_date'] ?? '');
-    // TODO: Save to database
-    $success = true;
-}
-?>
+<?php // new_saving.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,9 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </style>
 </head>
 <body class="flex min-h-screen">
-
-  <!-- Sidebar -->
-  <?include 'sidebar.php'; ?>
+  <?php include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <main class="main-content">
@@ -118,17 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-card">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Add Saving Goal</h2>
 
-      <?php if ($success): ?>
-        <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
-          Saving goal added successfully!
-        </div>
-      <?php endif; ?>
-
-      <form method="POST" action="" class="space-y-6">
+      <div class="space-y-6">
         <!-- Saving For -->
         <div>
           <label for="savingFor" class="block text-sm font-medium text-gray-700 mb-1">Saving For</label>
-          <input type="text" id="savingFor" name="saving_for" placeholder="e.g., New Laptop" required class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+          <input type="text" id="savingFor" placeholder="e.g., New Laptop" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
         </div>
 
         <!-- Budget Amount -->
@@ -136,27 +119,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label for="budgetAmount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
           <div class="relative">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
-            <input type="number" id="budgetAmount" name="amount" placeholder="0.00" required class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800 font-medium text-lg">
+            <input type="number" id="budgetAmount" placeholder="0.00" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800 font-medium text-lg">
           </div>
         </div>
 
         <!-- Target Date -->
         <div>
           <label for="targetDate" class="block text-sm font-medium text-gray-700 mb-1">Target Date</label>
-          <input type="date" id="targetDate" name="target_date" required class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+          <input type="date" id="targetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
         </div>
+      </div>
 
-        <!-- Action Buttons -->
-        <div class="mt-8 flex justify-between space-x-4">
-          <button type="button" onclick="window.location.href='savings.php'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
-            CANCEL
-          </button>
-          <button type="submit" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-            SAVE
-          </button>
-        </div>
-      </form>
+      <!-- Action Buttons -->
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="window.location.href='savings.html'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
+          CANCEL
+        </button>
+        <button onclick="saveSaving()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+          SAVE
+        </button>
+      </div>
     </div>
   </main>
+
+  <script>
+    function saveSaving() {
+      const savingFor = document.getElementById("savingFor").value;
+      const amount = document.getElementById("budgetAmount").value;
+      const targetDate = document.getElementById("targetDate").value;
+
+      if (!savingFor || !amount || !targetDate) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Simulate saving (replace with backend code if needed)
+      alert("Saving goal added successfully!");
+
+      // Redirect back to savings page
+      window.location.href = "savings.html";
+    }
+  </script>
 </body>
 </html>

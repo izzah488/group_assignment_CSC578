@@ -1,257 +1,238 @@
+<?php // add_money_expenses.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us - Money Mate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Money Expenses</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: #fafbfc;
+      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
       min-height: 100vh;
       overflow-x: hidden;
     }
-    .navbar-gradient {
-      background: linear-gradient(90deg, #a259ff 0%, #6a11cb 100%);
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
+      width: 17rem;
+      padding: 2rem 1.5rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top-right-radius: 2rem;
+      border-bottom-right-radius: 2rem;
       box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-      border-bottom-left-radius: 1.5rem;
-      border-bottom-right-radius: 1.5rem;
     }
-    .nav-link {
-      position: relative;
-      transition: all 0.3s ease;
-      border-radius: 1.5rem;
-      padding: 0.5rem 1.5rem;
-      font-weight: 500;
-    }
-    .nav-link.active, .nav-link:hover {
-      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
-      color: #6a11cb !important;
-    }
-    .cta-btn {
-      background: #c299fc;
-      color: #fff;
-      font-weight: 600;
-      border-radius: 1.5rem;
-      padding: 0.9rem 2.2rem;
-      font-size: 1.1rem;
-      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
-      transition: filter 0.2s, transform 0.2s;
-    }
-    .cta-btn:hover {
-      filter: brightness(1.08);
-      background: #a259ff;
-      color: #fff;
-      transform: scale(1.04);
-    }
-    .quote-card {
-      background: #f9d6f7;
-      border-radius: 1.5rem;
-      padding: 2.5rem 2rem 2rem 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10);
+    .user-info {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
     }
-    .quote-text {
-      color: #a259ff;
-      font-style: italic;
-      font-size: 1.4rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .quote-btn {
-      background: #b57be4;
-      color: #fff;
-      font-weight: 500;
-      border-radius: 1rem;
-      padding: 0.7rem 2rem;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
-      transition: filter 0.2s, transform 0.2s;
-    }
-    .quote-btn:hover {
-      filter: brightness(1.08);
-      background: #a259ff;
-      color: #fff;
-      transform: scale(1.04);
-    }
-    .team-card {
-      background: #e5e7eb;
-      border-radius: 2rem;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 4px 16px 0 rgba(138,43,226,0.08);
-      min-width: 220px;
-    }
-    .team-img {
-      width: 120px;
-      height: 120px;
+    .avatar {
+      width: 2.7rem;
+      height: 2.7rem;
+      border-radius: 9999px;
+      margin-right: 1rem;
       object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 1.2rem;
-      border: 4px solid #fff;
-      box-shadow: 0 2px 8px rgba(138,43,226,0.10);
+      background-color: #cbd5e1;
+      border: 2px solid #e0b0ff;
     }
-    .contact-gradient {
-      background: linear-gradient(90deg, #a259ff 0%, #f472b6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-fill-color: transparent;
-      font-weight: 800;
-    }
-    .scroll-top-btn {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: #111;
-      color: #fff;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
+    .menu-btn {
+      background: linear-gradient(90deg, #8e2de2 0%, #4a00e0 100%);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.9rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12);
-      cursor: pointer;
-      z-index: 50;
-      transition: background 0.2s;
+      gap: 0.5rem;
+      width: 100%;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 8px 0 rgba(138,43,226,0.10);
+      transition: filter 0.2s;
     }
-    .scroll-top-btn:hover {
-      background: #6a11cb;
+    .menu-btn:hover {
+      filter: brightness(1.08);
     }
-    @media (max-width: 1024px) {
-      .main-content {
-        flex-direction: column;
-        gap: 2rem;
-      }
-      .left, .right {
-        width: 100%;
-        max-width: 100%;
-      }
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
-    @media (max-width: 640px) {
-      .main-content {
-        padding: 1rem;
-      }
-      .quote-card {
-        padding: 1.2rem 0.7rem 1rem 0.7rem;
-      }
+    .nav-links a {
+      padding: 0.7rem 1.3rem;
+      border-radius: 0.8rem;
+      color: #4a00e0;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.05rem;
+      letter-spacing: 0.01em;
+    }
+    .nav-links a.active, .nav-links a:hover {
+      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+      color: #4a00e0;
+    }
+    .logout {
+      background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      box-shadow: 0 2px 8px 0 rgba(239, 68, 68, 0.1);
+      transition: filter 0.2s;
+    }
+    .logout:hover {
+      filter: brightness(1.08);
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 2.5rem;
+    }
+    .form-card {
+      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
+      padding: 2.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+      max-width: 30rem;
+      margin: 0 auto;
+      position: relative;
+    }
+    .input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 0.75rem;
+      border: 1px solid #e2e8f0;
+      background-color: #f8fafc;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #334155;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input:focus {
+      outline: none;
+      border-color: #a259ff;
+      box-shadow: 0 0 0 2px rgba(162, 89, 255, 0.2);
+    }
+    .add-btn {
+      background: linear-gradient(to right, #a259ff, #6a11cb);
+      color: white;
+      font-weight: 700;
+      border-radius: 1.2rem;
+      box-shadow: 0 2px 12px 0 rgba(138,43,226,0.13);
+      transition: filter 0.2s, transform 0.2s;
+      font-size: 1.15rem;
+      padding: 1rem 0;
+      width: 100%;
+    }
+    .add-btn:hover {
+      filter: brightness(1.08);
+      transform: scale(1.02);
+    }
+    .back-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: #f3e8ff;
+      color: #a259ff;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .back-btn:hover {
+      background: #e0b0ff;
+      color: #6a11cb;
     }
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar-gradient text-white p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <div class="bg-white rounded-full p-2 shadow-xl">
-          <img src="https://svgshare.com/i/14bA.svg" alt="Logo" class="w-10 h-10" onerror="this.onerror=null;this.src='https://placehold.co/40x40/E0E0E0/333333?text=MM';" />
-        </div>
-        <span class="text-2xl font-bold tracking-wider">Money Mate</span>
-      </div>
-      <div class="flex items-center space-x-6">
-        <a href="login.html" class="nav-link">HOME</a>
-        <a href="about_us_page2.html" class="nav-link active">ABOUT US</a>
-        <a href="login.html" class="nav-link">LOGIN</a>
-        <a href="signup.html" class="ml-2 px-6 py-2 bg-white text-purple-700 font-semibold rounded-full shadow-md nav-link" style="background: #fff; color: #6a11cb;">SIGN UP</a>
-      </div>
-    </div>
-  </nav>
+  <?php include 'sidebar.php'; ?>
 
-  <!-- Intro & Mission Section (from about_us_page1.html) -->
-  <div class="main-content flex flex-row gap-8 justify-between items-start max-w-6xl mx-auto mt-10 px-8">
-    <!-- Left Section -->
-    <div class="left flex-1 max-w-xl">
-      <p class="text-lg mb-6" style="line-height:1.7">
-        In <span style="color:#a259ff;font-style:italic;font-weight:600;">Money Mate</span>, we all come to work every day to enable people make smart decisions about their money every day.
-      </p>
-      <p class="mb-6" style="line-height:1.7">
-        What started as a simple expense tracker for a small group of people has grown into personal finance app that brings beauty to finance of hundreds of thousands users from almost every country in the world.
-      </p>
-      <p class="mb-8" style="line-height:1.7">
-        We believe that managing finance should be as effortless as shopping online. It should be done anytime, anywhere and in few clicks.
-      </p>
-      <button class="cta-btn" onclick="document.getElementById('contact-section').scrollIntoView({behavior: 'smooth'});">GET IN TOUCH WITH US!</button>
-    </div>
-    <!-- Right Section -->
-    <div class="right flex-1 flex flex-col items-center">
-      <div class="quote-card w-full">
-        <div class="quote-text mb-4">“<span style="font-family: 'Inter', cursive;">helps people worldwide to get their money into shape.</span>”</div>
-        <button class="quote-btn">Track it. Save it. Master your money.</button>
-        <!-- Group Discussion Illustration -->
-        <img src="https://img.freepik.com/vetores-gratis/ilustracao-do-conceito-de-discussao-em-grupo_114360-4716.jpg" alt="Team Illustration" class="w-full max-w-xs mt-2 rounded-xl shadow-md" style="background:#fff;">
+    <main class="main-content">
+      <h1 class="text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">Money Expenses</h1>
+      <p class="text-gray-600 mb-8 text-lg">Add new money expenses.</p>
+
+      <div class="form-card">
+        <button onclick="location.href='expenses.html'" class="back-btn">←</button>
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
+        <form id="addExpenseForm">
+          <input type="text" id="expenseTitle" placeholder="Title" class="input" required>
+          <input type="number" id="expenseAmount" placeholder="RM" class="input" step="0.01" required>
+          <select id="expenseCategory" class="input" required>
+            <option value="" disabled selected>Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Bill">Bill</option>
+            <option value="Top Up">Top Up</option>
+            <option value="Entertainment">Entertainment</option>
+          </select>
+          <input type="date" id="expenseDate" class="input" required>
+          <button type="submit" class="add-btn">Add Expenses</button>
+        </form>
       </div>
-    </div>
+    </main>
   </div>
 
-  <!-- Team Section (from about_us_page2.html) -->
-  <section class="py-12 px-4 max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
-      <div class="team-card">
-        <img src="images/farhana.jpg" alt="Farhana" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=F';" />
-        <div class="text-lg font-semibold mt-2 mb-1">FARHANA</div>
-        <div class="text-gray-700 text-sm font-medium">CEO & FOUNDER</div>
-      </div>
-      <div class="team-card">
-        <img src="images/huwayda.jpg" alt="Huwayda" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=H';" />
-        <div class="text-lg font-semibold mt-2 mb-1">HUWAYDA</div>
-        <div class="text-gray-700 text-sm font-medium">CSO & CO FOUNDER</div>
-      </div>
-      <div class="team-card">
-        <img src="images/arissa.jpg" alt="Arissa" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=A';" />
-        <div class="text-lg font-semibold mt-2 mb-1">ARISSA</div>
-        <div class="text-gray-700 text-sm font-medium">COO</div>
-      </div>
-      <div class="team-card">
-        <img src="images/izzah.jpg" alt="Izzah" class="team-img" onerror="this.onerror=null;this.src='https://placehold.co/120x120/E0E0E0/333333?text=I';" />
-        <div class="text-lg font-semibold mt-2 mb-1">IZZAH</div>
-        <div class="text-gray-700 text-sm font-medium">CTO</div>
-      </div>
-    </div>
-  </section>
+  <script>
+    document.getElementById('addExpenseForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
 
-  <!-- Contact Section (from about_us_page2.html) -->
-  <section id="contact-section" class="py-12 px-4 max-w-5xl mx-auto">
-    <h2 class="text-5xl font-extrabold text-center mb-2 contact-gradient">CONTACT US</h2>
-    <p class="text-center text-gray-500 text-lg mb-10">If you want to get in touch with us, use these e-mails.</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-base text-gray-800">
-      <div>
-        <div class="mb-6">
-          <span class="font-semibold">For Support</span><br/>
-          <a href="mailto:hello@moneyTracker.com" class="underline">hello@moneyTracker.com</a>
-        </div>
-        <div>
-          <span class="font-semibold">For Business Opportunities & Marketing Purposes, contact Arissa</span><br/>
-          <a href="mailto:Arissa@moneyTracker.com" class="underline">Arissa@moneyTracker.com</a>
-        </div>
-      </div>
-      <div>
-        <div class="mb-6">
-          <span class="font-semibold">For Media & PR Opportunities</span><br/>
-          <a href="mailto:media@moneyTracker.com" class="underline">media@moneyTracker.com</a>
-        </div>
-        <div>
-          <span class="font-semibold">For Other Opportunities, contact our CEO Farhana</span><br/>
-          <a href="mailto:Farhana@moneyTracker.com" class="underline">Farhana@moneyTracker.com</a>
-        </div>
-        </div>
-      </div>
-    </section>
+      const title = document.getElementById('expenseTitle').value;
+      const amount = parseFloat(document.getElementById('expenseAmount').value);
+      const category = document.getElementById('expenseCategory').value;
+      const date = document.getElementById('expenseDate').value;
 
-  <!-- Scroll to Contact Button -->
-  <button class="scroll-down-btn" onclick="document.getElementById('contact-section').scrollIntoView({behavior: 'smooth'});" aria-label="Scroll to contact section" style="position: fixed; bottom: 4.5rem; right: 2rem; background: #a259ff; color: #fff; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 4px 16px 0 rgba(138,43,226,0.15); cursor: pointer; z-index: 51; transition: background 0.2s;">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-7 h-7">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid positive amount.");
+        return;
+      }
+      if (!category) {
+        alert("Please select a category.");
+        return;
+      }
+
+      const expense = {
+        description: title, // Renamed to description for consistency with expenses.html
+        amount: amount,
+        category: category,
+        date: date
+      };
+
+      // Retrieve existing expenses, add new one, and save back to localStorage
+      let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+      expenses.push(expense);
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+
+      // Update total expenses in localStorage
+      let totalExpenses = parseFloat(localStorage.getItem('totalExpenses')) || 0;
+      totalExpenses += amount;
+      localStorage.setItem('totalExpenses', totalExpenses.toFixed(2));
+
+      alert("Expense added successfully!");
+      window.location.href = 'expenses.html'; // Redirect to expenses page
+    });
+  </script>
 </body>
 </html>

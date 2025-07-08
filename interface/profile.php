@@ -1,126 +1,133 @@
-<?php
-// TODO: Fetch user data from database
-$user = [
-    'first_name' => 'Rebecca',
-    'last_name' => 'Louis',
-    'email' => 'rebecca@gmail.com',
-    'type' => 'Premium User',
-];
-?>
+<?php // profile.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profile Page</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-color: #f0f2f5;
     }
+
     .sidebar {
-      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
-      width: 17rem;
-      padding: 2rem 1.5rem 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-top-right-radius: 2rem;
-      border-bottom-right-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
       position: fixed;
       top: 0;
       left: 0;
       height: 100vh;
+      width: 16rem;
+      background-color: #ffffff;
+      border-top-right-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
       z-index: 10;
-    }
-    .nav-links {
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-btn {
+      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       gap: 0.5rem;
     }
+
     .nav-links a {
-      padding: 0.7rem 1.3rem;
-      border-radius: 0.8rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
       color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      transition: background 0.2s, color 0.2s;
-      font-size: 1.05rem;
-      letter-spacing: 0.01em;
-      width: 100%;
-      text-align: left;
+      transition: background-color 0.2s ease-in-out;
     }
+
     .nav-links a.active,
     .nav-links a:hover {
-      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
-      color: #4a00e0;
+      background-color: #e0b0ff;
     }
+
+    .logout-link {
+      background-color: #ef4444;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .logout-link:hover {
+      background-color: #dc2626;
+    }
+
     .main-content {
-      margin-left: 17rem;
-      padding: 3.5rem 2rem 2rem 2rem;
+      margin-left: 16rem;
+      flex: 1;
+      padding: 2rem;
     }
+
     .profile-card {
-      background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
-      padding: 2.5rem 2.5rem 2rem 2.5rem;
-      border-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-      max-width: 32rem;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
       margin: 0 auto;
-      text-align: left;
     }
+
     .profile-field {
-      padding: 0.75rem 0;
-      border-bottom: 1px solid #e2e8f0;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-    .profile-field:last-of-type {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
+
     .profile-field label {
       display: block;
       font-size: 0.875rem;
       font-weight: 500;
       color: #4a5568;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
     }
-    .profile-field input {
+
+    .profile-field input[type="text"],
+    .profile-field input[type="email"],
+    .profile-field input[type="password"] {
       width: 100%;
-      padding: 0.5rem 0;
-      border: none;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background-color: #f9fafb;
       font-size: 1rem;
-      color: #1a202c;
-      font-weight: 600;
-      background-color: transparent;
-      outline: none;
+      color: #2d3748;
+      pointer-events: none; /* Make inputs read-only visually */
     }
-    .edit-profile-btn {
-      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
-      color: #4B0082;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      transition: background-color 0.2s ease-in-out;
-      display: block;
-      width: fit-content;
-      margin: 2rem auto 0;
-    }
-    .edit-profile-btn:hover {
-      filter: brightness(1.05);
+
+    .profile-field input[readonly] {
+      background-color: #edf2f7;
+      cursor: default;
     }
   </style>
 </head>
-<body>
-  
-  <?include 'sidebar.php'; ?>
+<body class="flex min-h-screen">
+  <?php include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <main class="main-content">
@@ -128,28 +135,69 @@ $user = [
     <p class="text-gray-600 mb-8">View your profile information.</p>
 
     <div class="profile-card">
+      <div class="flex flex-col items-center mb-8">
+        <img id="profilePageImage" src="https://placehold.co/100x100/cbd5e1/000000?text=P" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover border-4 border-purple-300 shadow-lg mb-4" />
+        <h2 id="profilePageName" class="text-2xl font-bold text-gray-800">User Name</h2>
+      </div>
+
       <div class="profile-field">
         <label for="firstName">First Name</label>
-        <input type="text" id="firstName" value="<?php echo htmlspecialchars($user['first_name']); ?>" readonly />
+        <input type="text" id="firstName" value="" readonly />
       </div>
       <div class="profile-field">
         <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" value="<?php echo htmlspecialchars($user['last_name']); ?>" readonly />
+        <input type="text" id="lastName" value="" readonly />
       </div>
       <div class="profile-field">
         <label for="email">Email</label>
-        <input type="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" readonly />
+        <input type="email" id="email" value="" readonly />
       </div>
       <div class="profile-field flex justify-between items-center">
         <div class="flex-grow">
           <label for="password">Current Password</label>
           <input type="password" id="password" value="********" readonly />
         </div>
-        <i class="fas fa-eye-slash text-gray-500 cursor-pointer ml-4"></i>
       </div>
 
-      <button onclick="window.location.href='editprofile.php'" class="edit-profile-btn">Edit Profile</button>
+      <button onclick="window.location.href='editprofile.html'" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg mt-6 transition-colors duration-200">
+        Edit Profile
+      </button>
     </div>
   </main>
+
+  <!-- Scripts -->
+  <script>
+    // Function to load user data from localStorage
+    function loadUserData() {
+      const userDataString = localStorage.getItem('userData');
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+
+        // Update sidebar
+        document.getElementById('sidebarName').textContent = `Hi, ${userData.firstName}!`;
+        document.getElementById('sidebarProfilePic').src = userData.profilePic || "https://placehold.co/40x40/cbd5e1/000000?text=P";
+
+        // Update profile page main content
+        document.getElementById('profilePageImage').src = userData.profilePic || "https://placehold.co/100x100/cbd5e1/000000?text=P";
+        document.getElementById('profilePageName').textContent = `${userData.firstName} ${userData.lastName}`;
+        document.getElementById('firstName').value = userData.firstName;
+        document.getElementById('lastName').value = userData.lastName;
+        document.getElementById('email').value = userData.email;
+        // Password is not stored for security, so it remains static or is handled differently
+      } else {
+        // Default values if no user data is found
+        document.getElementById('sidebarName').textContent = 'Hi, User!';
+        document.getElementById('sidebarProfilePic').src = "https://placehold.co/40x40/cbd5e1/000000?text=P";
+        document.getElementById('profilePageImage').src = "https://placehold.co/100x100/cbd5e1/000000?text=P";
+        document.getElementById('profilePageName').textContent = 'User Name';
+        document.getElementById('firstName').value = '';
+        document.getElementById('lastName').value = '';
+        document.getElementById('email').value = '';
+      }
+    }
+
+    // Load user data when the page loads
+    window.addEventListener('DOMContentLoaded', loadUserData);
+  </script>
 </body>
 </html>

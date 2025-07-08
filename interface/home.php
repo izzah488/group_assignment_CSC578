@@ -1,3 +1,4 @@
+<?php // home.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,38 +190,7 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
-
-  <!-- Navbar -->
-  <nav class="navbar-gradient text-white p-4 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <!-- Logo and Name -->
-      <div class="flex items-center space-x-4">
-        <div class="logo-container bg-white rounded-full p-3 shadow-xl">
-          <img src="https://img.icons8.com/color/48/000000/combo-chart--v2.png" alt="Money Mate Logo" class="w-8 h-8">
-        </div>
-        <span class="text-3xl font-bold tracking-wider">Money Mate</span>
-      </div>
-
-      <!-- Navigation Menu -->
-      <div class="hidden md:flex items-center space-x-10">
-        <a href="home.html" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
-        <a href="about_us_page2.html" class="nav-link hover:text-gray-200 text-lg font-medium">ABOUT US</a>
-        <a href="login.html" class="nav-link hover:text-gray-200 text-lg font-medium">LOGIN</a>
-        <button class="cta-button px-10 py-3 rounded-full shadow-xl font-semibold text-lg">
-          <a href="signup.html">SIGN UP</a>
-        </button>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button class="text-white hover:text-gray-200 transition duration-300">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
+  <?php include 'navbar.php'; ?>
 
   <!-- Hero Section -->
   <main class="flex-grow flex items-center justify-center px-6 py-20">

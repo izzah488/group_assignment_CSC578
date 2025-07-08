@@ -1,3 +1,4 @@
+<?php // dashboard.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,6 @@
       font-family: 'Inter', sans-serif;
       background-color: #f0f2f5;
     }
-
     .sidebar {
       position: fixed;
       top: 0;
@@ -29,7 +29,6 @@
       flex-direction: column;
       justify-content: space-between;
     }
-
     .menu-btn {
       background: linear-gradient(to right, #8e2de2, #4a00e0);
       color: white;
@@ -41,7 +40,6 @@
       justify-content: center;
       gap: 0.5rem;
     }
-
     .nav-links a {
       padding: 0.75rem 1.5rem;
       border-radius: 0.75rem;
@@ -52,12 +50,10 @@
       gap: 0.75rem;
       transition: background-color 0.2s ease-in-out;
     }
-
     .nav-links a.active,
     .nav-links a:hover {
       background-color: #e0b0ff;
     }
-
     .logout {
       background-color: #ef4444;
       color: white;
@@ -70,26 +66,21 @@
       gap: 0.5rem;
       transition: background-color 0.2s ease-in-out;
     }
-
     .logout:hover {
       background-color: #dc2626;
     }
-
     .primary-btn-gradient {
       background-image: linear-gradient(to right, #8e2de2, #4a00e0);
     }
-
     .primary-btn-gradient:hover {
       filter: brightness(1.1);
     }
-
     .no-data-message {
       text-align: center;
       color: #6b7280;
       font-style: italic;
       padding: 1rem;
     }
-
     .chart-placeholder {
       width: 250px;
       height: 250px;
@@ -107,11 +98,8 @@
 </head>
 
 <body class="bg-gray-100">
+  <?php include 'sidebar.php'; ?>
 
-   <?include 'sidebar.php'; ?>
-
-
-  <!-- Main Content -->
   <main class="ml-64 p-8">
     <header class="flex justify-between items-center mb-8">
       <div>
@@ -126,104 +114,55 @@
       </div>
     </header>
 
-    <!-- Cards Section -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <!-- Total Savings -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+    <!-- Summary Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Savings Count -->
+      <a href="savings.html" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Savings</h2>
-          <p class="text-3xl font-bold text-green-600">RM 0</p>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Savings Count</h2>
+          <p id="totalSavingsCount" class="text-3xl font-bold text-green-600">0</p>
         </div>
-        <button class="text-green-500 hover:text-green-700">
-          <i class="fas fa-plus-circle text-4xl"></i>
-        </button>
-      </div>
+      </a>
+
+      <!-- Monthly Budget -->
+      <a href="budget.html" class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Monthly Budget</h2>
+          <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
+          <p id="budgetStartDate" class="text-sm text-gray-500">Starts: --/--/----</p>
+        </div>
+      </a>
 
       <!-- Total Expenses -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between">
+      <a href="budget.html" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Total Expenses</h2>
-          <p class="text-3xl font-bold text-red-600">RM 0</p>
+          <p id="totalExpensesAmount" class="text-3xl font-bold text-red-600">RM 0.00</p>
         </div>
         <i class="fas fa-money-bill-wave text-4xl text-red-400"></i>
-      </div>
+      </a>
 
-      <!-- Set Monthly Budget -->
-      <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
-        <h2 class="text-xl font-semibold text-gray-800 mb-2">Set Monthly Budget</h2>
-        <p id="budgetAmountDisplay" class="text-3xl font-bold text-blue-600 mb-4">RM 0.00</p>
-        <button onclick="toggleEditBudgetModal()" class="w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold primary-btn-gradient">
-          Set Budget
-        </button>
-      </div>
+      <!-- Balance -->
+      <a href="budget.html" class="bg-white p-6 rounded-2xl shadow-lg flex items-center justify-between hover:shadow-xl transition-all duration-300">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Balance</h2>
+          <p id="balanceAmount" class="text-3xl font-bold text-purple-600">RM 0.00</p>
+        </div>
+        <i class="fas fa-balance-scale text-4xl text-purple-400"></i>
+      </a>
     </section>
 
-    <!-- Edit Budget Modal -->
-    <div id="editBudgetModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-      <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
-        <button onclick="toggleEditBudgetModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Money Budget</h2>
-
-        <div class="space-y-6">
-          <div>
-            <label for="budgetLimit" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
-            <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
-              <input type="number" id="budgetLimit" value="2500.00"
-                     class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-medium text-lg"
-                     placeholder="Enter amount">
-            </div>
-          </div>
-
-          <div>
-            <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
-         <select id="month" class="...">
-  <option value="january">January</option>
-  <option value="february">February</option>
-  <option value="march" selected>March</option>
-  <option value="april">April</option>
-  <option value="may">May</option>
-  <option value="june">June</option>
-  <option value="july">July</option>
-  <option value="august">August</option>
-  <option value="september">September</option>
-  <option value="october">October</option>
-  <option value="november">November</option>
-  <option value="december">December</option>
-</select>
-
-            </select>
-          </div>
-        </div>
-        <div class="mt-8 flex justify-between space-x-4">
-          <button onclick="toggleEditBudgetModal()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition-colors duration-200">
-            CANCEL
-          </button>
-          <button onclick="saveBudget()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-200">
-            SAVE
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Budget Overview Section -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Recent Expenses -->
+    <section class="grid grid-cols-1 gap-6 mb-8">
       <div class="bg-white p-6 rounded-2xl shadow-lg">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
-        <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
-        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Recent Expenses</h2>
+        <div id="recentExpensesList">
+          <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
+        </div>
+        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient" onclick="window.location.href='add_money_expenses.html'">
           <i class="fas fa-plus-circle"></i>
           <span>Add New Expenses</span>
         </button>
-      </div>
-
-      <div class="bg-white p-6 rounded-2xl shadow-lg">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Budget Overview</h2>
-        <div class="no-data-message">No budget categories set up yet.</div>
-        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient">
-          <i class="fas fa-chart-pie"></i>
-          <span>Manage Budget</span>
-      </button>
       </div>
     </section>
 
@@ -231,7 +170,7 @@
     <section class="bg-white p-6 rounded-2xl shadow-lg mb-8">
       <h2 class="text-2xl font-bold text-gray-800 mb-4">Expenses Chart (March)</h2>
       <div class="flex flex-col md:flex-row items-center justify-around">
-      <div class="chart-placeholder">No data to display.</div>
+        <div class="chart-placeholder">No data to display.</div>
         <div class="grid grid-cols-2 gap-4">
           <div class="flex items-center"><span class="w-4 h-4 bg-purple-700 rounded-full mr-2"></span>Food</div>
           <div class="flex items-center"><span class="w-4 h-4 bg-green-500 rounded-full mr-2"></span>Topup</div>
@@ -243,17 +182,69 @@
     </section>
   </main>
 
-  <!-- JS -->
   <script>
-    function toggleEditBudgetModal() {
-      document.getElementById('editBudgetModal').classList.toggle('hidden');
+    let monthlyBudget = parseFloat(localStorage.getItem('monthlyBudget')) || 0;
+    let totalExpenses = parseFloat(localStorage.getItem('totalExpenses')) || 0;
+    let budgetStartDate = localStorage.getItem('budgetStartDate') || '';
+
+    function updateDashboardSavingsCount() {
+      const savings = JSON.parse(localStorage.getItem('savings')) || [];
+      document.getElementById('totalSavingsCount').textContent = savings.length;
     }
 
-    function saveBudget() {
-      const budgetValue = document.getElementById('budgetLimit').value;
-      document.getElementById('budgetAmountDisplay').textContent = "RM " + parseFloat(budgetValue).toFixed(2);
-      toggleEditBudgetModal();
+    function updateRecentExpenses() {
+        const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        const recentExpensesList = document.getElementById('recentExpensesList');
+        
+        // Clear existing list items, but keep the 'no-data-message' if it exists
+        Array.from(recentExpensesList.children).forEach(child => {
+            if (!child.classList.contains('no-data-message')) {
+                child.remove();
+            }
+        });
+
+        const noDataMessage = recentExpensesList.querySelector('.no-data-message');
+
+        if (expenses.length === 0) {
+            if (noDataMessage) noDataMessage.style.display = 'block';
+        } else {
+            if (noDataMessage) noDataMessage.style.display = 'none';
+
+            // Sort expenses by date in descending order (most recent first)
+            const sortedExpenses = expenses.sort((a, b) => new Date(b.date) - new Date(a.date));
+            // Display only the latest 5 expenses
+            const latestExpenses = sortedExpenses.slice(0, 5);
+
+            latestExpenses.forEach(expense => {
+                const expenseItem = document.createElement('div');
+                expenseItem.className = 'flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0';
+                expenseItem.innerHTML = `
+                    <p class="text-gray-700 font-medium">${expense.date ? new Date(expense.date).toLocaleDateString() : 'N/A'}: ${expense.description || 'N/A'}</p>
+                    <p class="text-gray-900 font-semibold">RM ${expense.amount.toFixed(2)}</p>
+                `;
+                recentExpensesList.appendChild(expenseItem);
+            });
+        }
     }
+
+    function updateDashboardValues() {
+      updateDashboardSavingsCount();
+      document.getElementById('budgetAmountDisplay').textContent = `RM ${monthlyBudget.toFixed(2)}`;
+      document.getElementById('totalExpensesAmount').textContent = `RM ${totalExpenses.toFixed(2)}`;
+      const balance = monthlyBudget - totalExpenses;
+      document.getElementById('balanceAmount').textContent = `RM ${balance.toFixed(2)}`;
+      if (budgetStartDate) {
+        const [year, month, day] = budgetStartDate.split('-');
+        document.getElementById('budgetStartDate').textContent = `Starts: ${day}/${month}/${year}`;
+      } else {
+        document.getElementById('budgetStartDate').textContent = `Starts: --/--/----`;
+      }
+      updateRecentExpenses(); // Call this function to update recent expenses
+    }
+
+    window.onload = () => {
+      updateDashboardValues();
+    };
   </script>
 </body>
 </html>
