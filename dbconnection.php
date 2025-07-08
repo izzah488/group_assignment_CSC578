@@ -8,23 +8,17 @@ $password = ''; // **CHANGE THIS to your actual database password**
 // Data Source Name (DSN)
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 
+require_once __DIR__ . '/config.php'; // Assuming config.php is in the same directory as dbconnection.php
+                                     // Or adjust path: e.g., '../config.php' if dbconnection.php is in 'includes/'
+                                     // and config.php is in the parent directory (project root)
+
 try {
-    // Create a new PDO instance
-    $dbh = new PDO($dsn, $username, $password);
-
-    // Set the PDO error mode to exception
-    // This makes PDO throw exceptions on errors, which is good for debugging and error handling
+    $dbh = new PDO(DB_DSN, DB_USER, DB_PASS);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Optional: Set default fetch mode to associative array
     $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // You can uncomment the line below for debugging purposes to confirm connection
-    // echo "Database connected successfully!";
-
 } catch (PDOException $e) {
-    // If connection fails, display an error message and exit
-    // In a production environment, you might log the error instead of displaying it directly
-    die("Database connection failed: " . $e->getMessage());
+    // In development, let's temporarily show the full error for better debugging
+    die("ERROR: Database connection failed: " . $e->getMessage()); // This will stop execution and show details
 }
-?>
+

@@ -3,7 +3,7 @@
 
 // Ensure the configuration file is loaded.
 // Adjust the path based on where you placed config.php relative to Database.php
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . 'includes/config.php';
 
 class Database {
     private static $instance = null; // Holds the single instance of the class (Singleton pattern)
