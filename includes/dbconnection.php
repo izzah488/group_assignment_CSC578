@@ -1,9 +1,9 @@
 <?php
 // Database connection parameters
 $host = 'localhost'; // Your database host (often 'localhost')
-$dbname = 'your_database_name'; // **CHANGE THIS to your actual database name**
-$username = 'your_db_username'; // **CHANGE THIS to your actual database username**
-$password = 'your_db_password'; // **CHANGE THIS to your actual database password**
+$dbname = 'money_mate_db'; // **CHANGE THIS to your actual database name**
+$username = 'root'; // **CHANGE THIS to your actual database username**
+$password = ''; // **CHANGE THIS to your actual database password**
 
 // Data Source Name (DSN)
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";

@@ -13,7 +13,7 @@ class Database {
      * Private constructor to prevent direct instantiation (Singleton pattern).
      */
     private function __construct() {
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+        $dsn = 'mysql:host=' . localhost. ';dbname=' . money_mate_db. ';charset=utf8mb4';
         $options = [
             // Throw exceptions on errors, allowing for structured error handling with try/catch
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
