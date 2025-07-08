@@ -118,7 +118,7 @@
           <a href="expenses.html">⬆️ Expenses</a>
         </nav>
       </div>
-      <button onclick="window.location.href='home.html'" class="logout w-full mt-10">
+      <!--button onclick="window.location.href='logout.php'" class="logout w-full mt-10"-->
         <i class="fas fa-sign-out-alt"></i> Log Out
       </button>
     </div>
