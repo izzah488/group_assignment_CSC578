@@ -123,6 +123,7 @@
       </button>
     </div>
   </aside>
+  <?include 'sidebar.php'; ?>
   <!-- Main Content Area -->
   <main class="ml-64 min-h-screen flex flex-col items-center justify-start p-8">
     <div class="w-full max-w-2xl">

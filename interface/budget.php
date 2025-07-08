@@ -81,37 +81,7 @@
 <body>
 
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="flex flex-col justify-start h-full">
-      <!-- User Info -->
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile Picture" class="rounded-full mr-3" />
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
-        </div>
-      </div>
-
-      <!-- Dashboard Button -->
-      <button onclick="location.href='dashboard.html'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
-        ☰ Dashboard
-      </button>
-
-      <!-- Nav Links -->
-      <nav class="nav-links mb-auto">
-        <a href="savings.html">⭐️ Savings</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="statistic.html">📈 Statistics</a>
-        <a href="budget.html" class="active">⬇️ Budget</a>
-        <a href="expenses.html">⬆️ Expenses</a>
-      </nav>
-
-      <!-- Logout Button -->
-      <button onclick="location.href='login.html'" class="logout-btn font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </button>
-    </div>
-  </aside>
+   <?include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <div class="main-content">

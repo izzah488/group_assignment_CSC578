@@ -119,38 +119,8 @@ $user = [
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="flex flex-col justify-start h-full">
-      <!-- User Info -->
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="<?php echo htmlspecialchars($user['first_name']); ?>" class="rounded-full mr-3" />
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, <?php echo htmlspecialchars($user['first_name']); ?>!</p>
-          <p class="text-xs text-gray-500"><?php echo htmlspecialchars($user['type']); ?></p>
-        </div>
-      </div>
-
-      <!-- Dashboard Button -->
-      <button onclick="window.location.href='dashboard.php'" class="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold py-2 px-4 rounded-lg mb-4 flex items-center justify-center gap-2">
-        ☰ Dashboard
-      </button>
-
-      <!-- Navigation Links -->
-      <nav class="nav-links mb-auto">
-        <a href="savings.php">⭐ Savings</a>
-        <a href="profile.php" class="active">👤 Profile</a>
-        <a href="statistic.php">📈 Statistics</a>
-        <a href="budget.php">⬇ Budget</a>
-        <a href="expenses.php">⬆ Expenses</a>
-      </nav>
-
-      <!-- Logout Button -->
-      <button onclick="window.location.href='login.php'" class="bg-red-500 hover:bg-red-600 text-white mt-10 font-semibold py-2 px-4 rounded-lg flex items-center gap-2">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </button>
-    </div>
-  </aside>
+  
+  <?include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <main class="main-content">

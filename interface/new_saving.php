@@ -99,28 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <div class="flex items-center mb-8">
-        <img src="https://img.icons8.com/color/48/000000/combo-chart--v2.png" alt="Profile" class="rounded-full mr-3">
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
-        </div>
-      </div>
-      <button onclick="window.location.href='dashboard.php'" class="menu-btn w-full mb-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-lg py-2 font-semibold">
-        ☰ Dashboard
-      </button>
-      <nav class="nav-links">
-        <a href="savings.php" class="bg-purple-100 text-purple-800 rounded-lg py-2 px-4 font-medium">⭐ Savings</a>
-        <a href="editprofile.php" class="py-2 px-4 rounded-lg text-purple-800">👤 Profile</a>
-        <a href="statistic.php" class="py-2 px-4 rounded-lg text-purple-800">📈 Statistics</a>
-        <a href="budget.php" class="py-2 px-4 rounded-lg text-purple-800">⬇ Budget</a>
-        <a href="expenses.php" class="py-2 px-4 rounded-lg text-purple-800">⬆ Expenses</a>
-        <button onclick="window.location.href='login.php'" class="logout-link bg-yellow-100 text-yellow-800 rounded-lg py-2 px-4 mt-4">⏻ Log Out</button>
-      </nav>
-    </div>
-  </aside>
+  <?include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <main class="main-content">

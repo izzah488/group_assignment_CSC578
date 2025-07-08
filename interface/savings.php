@@ -121,36 +121,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <!-- User Info -->
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" alt="Profile" class="rounded-full mr-3" />
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, <?php echo htmlspecialchars($user['first_name']); ?>!</p>
-          <p class="text-xs text-gray-500"><?php echo htmlspecialchars($user['type']); ?></p>
-        </div>
-      </div>
+   <?include 'sidebar.php'; ?>
 
-      <!-- Menu -->
-      <button onclick="window.location.href='dashboard.php'" class="menu-btn w-full mb-4">☰ Dashboard</button>
 
-      <!-- Navigation -->
-      <nav class="nav-links">
-        <a href="savings.php" class="active">⭐ Savings</a>
-        <a href="editprofile.php">👤 Profile</a>
-        <a href="statistic.php">📈 Statistics</a>
-        <a href="budget.php">⬇ Budget</a>
-        <a href="expenses.php">⬆ Expenses</a>
-      </nav>
-    </div>
-
-    <!-- Logout button at the bottom -->
-    <div>
-      <button onclick="window.location.href='login.php'" class="logout-link">⏻ Log Out</button>
-    </div>
-  </aside>
-
+   
   <!-- Main Content -->
   <main class="main-content">
     <!-- Header -->
