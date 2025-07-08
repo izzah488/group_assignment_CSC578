@@ -226,14 +226,25 @@
       <div class="expense-category-header bg-green-500 text-white shadow-md">Top Up</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="topupExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
-  </div>
+    </div>
 
       <div class="expense-category-header bg-blue-500 text-white shadow-md">Entertainment</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="entertainmentExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
       </div>
+     
+      <div class="expense-category-header" style="background-color: #a78bfa; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">Shopping</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="shoppingExpensesList">
+        <div class="no-data-message">No expenses in this category yet.</div>
+      </div>
+
+      <div class="expense-category-header bg-pink-500 text-white shadow-md">Utilities</div>
+      <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="utilitiesExpensesList">
+        <div class="no-data-message">No expenses in this category yet.</div>    
+     
+
     </section>
-  </main>
+    </main>
 </body>
   <script>
     let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
@@ -243,8 +254,10 @@
             case 'Food': return '#a78bfa';
             case 'Transport': return '#fcd34d';
             case 'Bill': return '#2dd4bf';
-            case 'Topup': return '#4ade80';
+            case 'Top Up': return '#4ade80'; // Changed to 'Top Up' to match the HTML option value
             case 'Entertainment': return '#60a5fa';
+            case 'Shopping': return '#f97316'; // Added Shopping color
+            case 'Utilities': return '#ec4899'; // Added Utilities color
             default: return '#cbd5e1';
         }
     }
@@ -254,8 +267,10 @@
         const categoryLists = {
             'Food': document.getElementById('foodExpensesList'),
             'Transport': document.getElementById('transportExpensesList'),
+            'Shopping': document.getElementById('shoppingExpensesList'), // Added Shopping
+            'Utilities': document.getElementById('utilitiesExpensesList'), // Added Utilities
             'Bill': document.getElementById('billExpensesList'),
-            'Topup': document.getElementById('topupExpensesList'),
+            'Top Up': document.getElementById('topupExpensesList'), // Note: "Top Up" has a space
             'Entertainment': document.getElementById('entertainmentExpensesList')
         };
 
@@ -274,7 +289,7 @@
         }
 
         if (expenses.length === 0) {
-            chartPlaceholder.textContent = 'No data to display.';
+            chartPlaceholder.textContent = 'No data to display. Add expenses to see your chart!';
         } else {
             const categoryTotals = expenses.reduce((acc, expense) => {
                 acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
