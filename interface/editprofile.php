@@ -192,37 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="flex min-h-screen">
 
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <!-- User Info -->
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Profile Pic" class="w-10 h-10 rounded-full mr-3">
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, <?php echo htmlspecialchars($currentUser['first_name']); ?>!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
-        </div>
-      </div>
-
-      <!-- Dashboard Button -->
-      <button onclick="window.location.href='dashboard.php'" class="menu-btn w-full mb-4 bg-gradient-to-r from-purple-500 to-purple-700 text-white rounded-lg py-2 font-semibold flex items-center justify-center gap-2">
-        ☰ Dashboard
-      </button>
-
-      <!-- Navigation -->
-      <nav class="nav-links">
-        <a href="savings.php" class="nav-link">⭐ Savings</a>
-        <a href="editprofile.php" class="nav-link active">👤 Profile</a>
-        <a href="statistic.php" class="nav-link">📈 Statistics</a>
-        <a href="budget.php" class="nav-link">⬇ Budget</a>
-        <a href="expenses.php" class="nav-link">⬆ Expenses</a>
-      </nav>
-    </div>
-
-    <!-- Logout button at bottom -->
-    <div class="mt-6">
-      <button onclick="window.location.href='index.php'" class="logout-link">⏻ Log Out</button>
-    </div>
-  </aside>
+   <?include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <main class="main-content">

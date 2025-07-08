@@ -108,32 +108,9 @@
 
 <body class="bg-gray-100">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/FF69B4/FFFFFF?text=R" alt="Profile Picture" class="rounded-full mr-3" />
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
-        </div>
-      </div>
+   <?include 'sidebar.php'; ?>
 
-      <button onclick="window.location.href='dashboard.html'" class="w-full menu-btn mb-4">☰ Dashboard</button>
-
-      <nav class="nav-links mb-auto">
-        <a href="savings.html">⭐️ Savings</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="statistic.html">📈 Statistics</a>
-        <a href="budget.html">⬇️ Budget</a>
-        <a href="expenses.html">⬆️ Expenses</a>
-      </nav>
-
-      <button onclick="window.location.href='home.html'" class="logout w-full mt-10">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </button>
-    </div>
-  </aside>
+   
   <!-- Main Content -->
   <main class="ml-64 p-8">
     <header class="flex justify-between items-center mb-8">

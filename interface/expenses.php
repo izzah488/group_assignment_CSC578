@@ -133,33 +133,7 @@
 </head>
 <body class="bg-gray-100 flex">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="flex flex-col justify-start h-full">
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" class="rounded-full mr-3" />
-        <div>
-          <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
-        </div>
-      </div>
-      <button onclick="window.location.href='dashbord.php'" class="menu-btn w-full mb-4">
-        ☰ Dashboard
-      </button>
-
-      <nav class="nav-links mb-auto">
-        <a href="savings.php">⭐️ Savings</a>
-        <a href="profile.php">👤 Profile</a>
-        <a href="statistic.php">📈 Statistics</a>
-        <a href="budget.php">⬇️ Budget</a>
-        <a href="expenses.php" class="active">⬆️ Expenses</a>
-      </nav>
-
-      <button onclick="window.location.href='logout.php'" class="logout w-full mt-10">
-        ⏻ Log Out
-      </button>
-    </div>
-  </aside>
+    <?include 'sidebar.php'; ?>
 
   <!-- Main Content -->
   <main class="main-content">
