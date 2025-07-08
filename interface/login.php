@@ -173,22 +173,7 @@ $conn->close();
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <!-- Navbar -->
-    <nav class="navbar w-full fixed top-0 left-0 z-10 shadow-lg rounded-b-lg">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-white p-2 rounded-full shadow-md">
-                    <img src="https://img.icons8.com/color/48/000000/combo-chart--v2.png" alt="Money Mate Logo" class="w-6 h-6">
-                </div>
-                <span class="text-white text-2xl font-semibold">Money Mate</span>
-            </div>
-            <div class="flex space-x-6">
-                <a href="home.php" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">HOME</a>
-                <a href="about_us_page2.php" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">ABOUT US</a>
-                <a href="login.php" class="bg-white text-[#a259ff] px-6 py-2 rounded-full font-semibold shadow-md hover:bg-gray-100 transition-colors duration-200">LOGIN</a>
-            </div>
-        </div>
-    </nav>
+  <?php include 'navbar.php'; ?>
 
     <!-- Login Card -->
     <div class="login-card">

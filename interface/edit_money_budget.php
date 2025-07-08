@@ -1,16 +1,4 @@
-<?php
-$success = false;
-$currentBudget = 2500; // TODO: Fetch from database
-$currentMonth = 'march'; // TODO: Fetch from database or session
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $budget = htmlspecialchars($_POST['budget'] ?? '');
-    $month = htmlspecialchars($_POST['month'] ?? '');
-    // TODO: Save to database
-    $success = true;
-    $currentBudget = $budget;
-    $currentMonth = $month;
-}
-?>
+<?php // edit_money_budget.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,10 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body class="flex min-h-screen">
-    <!-- Sidebar -->
-    <?include 'sidebar.php'; ?>
+  <?php include 'sidebar.php'; ?>
 
-    
     <!-- Main Content -->
     <main class="main-content">
         <header class="flex items-center mb-8">
@@ -116,63 +102,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-card">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Money Budget</h2>
-            <?php if ($success): ?>
-                <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
-                    Budget updated successfully!
-                </div>
-            <?php endif; ?>
-            <form method="POST" action="" class="space-y-6">
+
+            <div class="space-y-6">
                 <!-- Budget Limit Input -->
                 <div>
                     <label for="budgetLimit" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
-                        <input type="number" id="budgetLimit" name="budget" value="<?php echo htmlspecialchars($currentBudget); ?>"
+                        <input type="number" id="budgetLimit" value="0"
                                class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800 font-medium text-lg"
-                               placeholder="Enter amount" required min="0">
+                               placeholder="Enter amount">
                     </div>
-                    <p class="mt-2 text-sm text-gray-500">The money budget limit is RM <?php echo number_format($currentBudget, 2); ?>.</p>
+                    <p class="mt-2 text-sm text-gray-500">The money budget limit is RM 2,500.00.</p>
                 </div>
 
                 <!-- Month Dropdown -->
                 <div>
                     <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
-                    <select id="month" name="month"
+                    <select id="month"
                             class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-gray-800">
-                        <?php
-                        $months = [
-                            'january' => 'January',
-                            'february' => 'February',
-                            'march' => 'March',
-                            'april' => 'April',
-                            'may' => 'May',
-                            'june' => 'June',
-                            'july' => 'July',
-                            'august' => 'August',
-                            'september' => 'September',
-                            'october' => 'October',
-                            'november' => 'November',
-                            'december' => 'December',
-                        ];
-                        foreach ($months as $val => $label) {
-                            $selected = ($val === $currentMonth) ? 'selected' : '';
-                            echo "<option value='$val' $selected>$label</option>";
-                        }
-                        ?>
+                        <option value="january">January</option>
+                        <option value="february">February</option>
+                        <option value="march" selected>March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="august">August</option>
+                        <option value="september">September</option>
+                        <option value="october">October</option>
+                        <option value="november">November</option>
+                        <option value="december">December</option>
                     </select>
-                    <p class="mt-2 text-sm text-gray-500">This budget is for <?php echo ucfirst($currentMonth); ?> only.</p>
+                    <p class="mt-2 text-sm text-gray-500">This budget is for March only.</p>
                 </div>
+            </div>
 
-                <!-- Action Buttons -->
-                <div class="mt-8 flex justify-between space-x-4">
-                    <button type="button" onclick="window.location.href='budget.php'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition-colors duration-200">
-                        CANCEL
-                    </button>
-                    <button type="submit" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-200">
-                        SAVE
-                    </button>
-                </div>
-            </form>
+            <!-- Action Buttons -->
+            <div class="mt-8 flex justify-between space-x-4">
+                <button onclick="window.location.href='budget.html'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition-colors duration-200">
+                    CANCEL
+                </button>
+                <button class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition-colors duration-200">
+                    SAVE
+                </button>
+            </div>
         </div>
     </main>
 

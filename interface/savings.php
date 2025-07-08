@@ -1,55 +1,34 @@
-<?php
-$success = false;
-// TODO: Fetch user and savings data from database
-$user = [
-    'first_name' => 'Rebecca',
-    'type' => 'Premium User',
-];
-$savings = []; // TODO: Fetch from database
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $saving_for = htmlspecialchars($_POST['saving_for'] ?? '');
-    $amount = htmlspecialchars($_POST['amount'] ?? '');
-    $target_date = htmlspecialchars($_POST['target_date'] ?? '');
-    // TODO: Save to database
-    $success = true;
-}
-?>
+<?php // savings.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Savings</title>
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background-color: #f0f2f5;
     }
     .sidebar {
-      background: linear-gradient(135deg, #fff 60%, #e0b0ff 100%);
-      width: 17rem;
-      padding: 2rem 1.5rem 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-top-right-radius: 2rem;
-      border-bottom-right-radius: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
       position: fixed;
       top: 0;
       left: 0;
+      width: 16rem;
       height: 100vh;
+      background-color: #ffffff;
+      border-top-right-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
       z-index: 10;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                  0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
     .menu-btn {
       background: linear-gradient(to right, #8e2de2, #4a00e0);
@@ -62,167 +41,261 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       justify-content: center;
       gap: 0.5rem;
     }
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
     .nav-links a {
-      padding: 0.7rem 1.3rem;
-      border-radius: 0.8rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
       color: #4a00e0;
       font-weight: 500;
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      transition: background 0.2s, color 0.2s;
-      font-size: 1.05rem;
-      letter-spacing: 0.01em;
       width: 100%;
-      text-align: left;
-    }
-    .nav-links a.active,
-    .nav-links a:hover {
-      background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
-      color: #4a00e0;
-    }
-    .logout-link {
-      background: linear-gradient(90deg, #fbd38d 0%, #f6ad55 100%);
-      color: #c05621;
-      font-weight: 600;
-      padding: 0.8rem 1.5rem;
-      border-radius: 0.9rem;
-      width: 100%;
-      transition: filter 0.2s;
-      box-shadow: 0 2px 8px 0 rgba(251,211,141,0.10);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .logout-link:hover {
-      filter: brightness(1.08);
     }
     .main-content {
-      margin-left: 17rem;
-      padding: 3.5rem 2rem 2rem 2rem;
+      margin-left: 16rem;
       flex: 1;
-    }
-    .new-saving-btn {
-      background-image: linear-gradient(to right, #8e2de2, #4a00e0);
-    }
-    .new-saving-btn:hover {
-      filter: brightness(1.1);
+      padding: 2rem;
     }
   </style>
 </head>
-
 <body class="flex min-h-screen">
+  <?php include 'sidebar.php'; ?>
 
-  <!-- Sidebar -->
-   <?include 'sidebar.php'; ?>
-
-
-   
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- Header -->
+  <main class="main-content w-full">
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
       <div>
         <h1 class="text-3xl font-bold text-gray-900">Savings</h1>
         <p class="text-gray-600">Track your savings goals.</p>
       </div>
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
-        <span class="text-gray-700 font-medium"><?php echo date('F Y'); ?></span>
-        <button class="text-gray-500 hover:text-gray-700">
-          <i class="fas fa-calendar-alt text-xl"></i>
-        </button>
+        <span class="text-gray-700 font-medium">March 2025</span>
+        <i class="fas fa-calendar-alt text-xl text-gray-500"></i>
       </div>
     </header>
 
-    <?php if ($success): ?>
-      <div style="background:#d1fae5;color:#065f46;border-radius:0.7rem;padding:1rem;text-align:center;margin-bottom:1rem;">
-        Savings goal added successfully!
-      </div>
-    <?php endif; ?>
+    <section id="savingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></section>
 
-    <!-- Savings Cards -->
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <?php if (empty($savings)): ?>
-        <div class="lg:col-span-3 flex justify-center items-center py-10">
-          <p class="text-gray-500 text-lg italic">No savings goals added yet. Click below to create your first one!</p>
-        </div>
-      <?php else: ?>
-        <?php foreach ($savings as $saving): ?>
-          <div class="bg-white p-6 rounded-2xl shadow-lg">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2"><?php echo htmlspecialchars($saving['title']); ?></h3>
-            <p class="text-3xl font-bold text-green-600 mb-2">RM <?php echo number_format($saving['amount'], 2); ?></p>
-            <p class="text-sm text-gray-500">Target: <?php echo htmlspecialchars($saving['target_date']); ?></p>
-          </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </section>
-
-    <!-- New Savings Button -->
     <section class="flex justify-center mt-8">
-      <button onclick="toggleNewSavingModal()" class="w-full max-w-md py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center gap-2 new-saving-btn">
+      <button onclick="toggleNewSavingModal()" class="w-full max-w-md py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center gap-2 new-saving-btn" style="background-image: linear-gradient(to right, #8e2de2, #4a00e0);">
         <i class="fas fa-plus-circle"></i>
         <span>New Savings</span>
       </button>
     </section>
   </main>
 
-  <!-- New Saving Modal -->
   <div id="newSavingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
       <button onclick="toggleNewSavingModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Saving Goal</h2>
-
-      <form method="POST" action="" class="space-y-6">
-        <!-- Saving For -->
-        <div>
-          <label for="savingFor" class="block text-sm font-medium text-gray-700 mb-1">Saving For</label>
-          <input type="text" id="savingFor" name="saving_for" placeholder="e.g., New Laptop" required
-                 class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+      <div class="space-y-6">
+        <input type="text" id="savingFor" placeholder="e.g., New Laptop" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="budgetAmount" placeholder="Target Amount (e.g., 5000.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="currentSavingsInitial" placeholder="Current Savings (optional, e.g., 1000.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="date" id="targetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+      </div>
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="toggleNewSavingModal()" class="flex-1 py-3 px-4 rounded-xl bg-red-400 text-white">CANCEL</button>
+        <button onclick="saveSaving()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">SAVE</button>
+      </div>
+    </div>
         </div>
 
-        <!-- Budget Amount -->
-        <div>
-          <label for="budgetAmount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
-            <input type="number" id="budgetAmount" name="amount" placeholder="0.00" required
-                   class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800 font-medium text-lg">
+  <div id="editSavingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
+      <button onclick="toggleEditSavingModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Saving Goal</h2>
+      <div class="space-y-6">
+        <input type="text" id="editSavingFor" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="editBudgetAmount" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="number" id="editCurrentSavings" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+        <input type="date" id="editTargetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+      </div>
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="toggleEditSavingModal()" class="flex-1 py-3 px-4 rounded-xl bg-red-400 text-white">CANCEL</button>
+        <button onclick="updateSaving()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">UPDATE</button>
+      </div>
           </div>
         </div>
 
-        <!-- Target Date -->
-        <div>
-          <label for="targetDate" class="block text-sm font-medium text-gray-700 mb-1">Target Date</label>
-          <input type="date" id="targetDate" name="target_date" required
-                 class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="mt-8 flex justify-between space-x-4">
-          <button type="button" onclick="toggleNewSavingModal()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
-            CANCEL
-          </button>
-          <button type="submit" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-            SAVE
-          </button>
-        </div>
-      </form>
+  <div id="addCurrentSavingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full relative">
+      <button onclick="toggleAddCurrentSavingsModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Savings to Goal</h2>
+      <p class="text-center text-gray-600 mb-4" id="addSavingsGoalTitle"></p>
+      <div class="space-y-4">
+        <input type="number" id="amountToAdd" placeholder="Amount to add (e.g., 50.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
+      </div>
+      <div class="mt-8 flex justify-between space-x-4">
+        <button onclick="toggleAddCurrentSavingsModal()" class="flex-1 py-3 px-4 rounded-xl bg-red-400 text-white">CANCEL</button>
+        <button onclick="addSavingsToGoal()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">ADD</button>
+      </div>
     </div>
   </div>
 
-  <!-- Modal Script -->
   <script>
-    function toggleNewSavingModal() {
-      const modal = document.getElementById("newSavingModal");
-      modal.classList.toggle("hidden");
+    let savings = JSON.parse(localStorage.getItem('savings')) || [];
+    let editIndex = null; // Used for editing a goal
+    let addSavingsIndex = null; // Used for adding current savings to a specific goal
+
+    function updateSavingsCount() {
+      localStorage.setItem('savingsCount', savings.length);
     }
+
+    function toggleNewSavingModal() {
+      document.getElementById('newSavingModal').classList.toggle('hidden');
+      if (!document.getElementById('newSavingModal').classList.contains('hidden')) {
+        // Clear fields when opening for new saving
+        document.getElementById("savingFor").value = "";
+        document.getElementById("budgetAmount").value = "";
+        document.getElementById("currentSavingsInitial").value = ""; // Renamed this ID
+        document.getElementById("targetDate").value = "";
+      }
+    }
+
+    function toggleEditSavingModal() {
+      document.getElementById('editSavingModal').classList.toggle('hidden');
+    }
+
+    function toggleAddCurrentSavingsModal() {
+      document.getElementById('addCurrentSavingsModal').classList.toggle('hidden');
+      if (!document.getElementById('addCurrentSavingsModal').classList.contains('hidden')) {
+        document.getElementById("amountToAdd").value = ""; // Clear amount when opening
+      }
+    }
+
+    function saveSaving() {
+      const savingFor = document.getElementById("savingFor").value.trim();
+      const budgetAmount = parseFloat(document.getElementById("budgetAmount").value.trim());
+      const currentSavingsInitial = parseFloat(document.getElementById("currentSavingsInitial").value.trim()) || 0; // New ID
+      const targetDate = document.getElementById("targetDate").value;
+
+      if (!savingFor || isNaN(budgetAmount) || budgetAmount <= 0 || !targetDate) {
+        alert("Please fill in all fields correctly (Target Amount must be a positive number).");
+        return;
+      }
+      if (isNaN(currentSavingsInitial) || currentSavingsInitial < 0) {
+        alert("Current Savings must be a non-negative number.");
+        return;
+      }
+
+      const newSaving = { savingFor, budgetAmount, currentSavings: currentSavingsInitial, targetDate }; // Use currentSavings for consistency
+      savings.push(newSaving);
+
+      localStorage.setItem('savings', JSON.stringify(savings));
+      updateSavingsCount(); // Call this function to update the count
+      toggleNewSavingModal();
+      renderSavings();
+    }
+
+    function renderSavings() {
+      const container = document.getElementById("savingsList");
+      container.innerHTML = "";
+
+      if (savings.length === 0) {
+        container.innerHTML = `<div class="col-span-full text-center text-gray-500 italic py-10">No savings goals added yet.</div>`;
+        return;
+      }
+
+      savings.forEach((item, index) => {
+        // Ensure currentSavings is a number, default to 0 if not
+        item.currentSavings = parseFloat(item.currentSavings) || 0;
+        item.budgetAmount = parseFloat(item.budgetAmount) || 0;
+
+        const progress = (item.currentSavings / item.budgetAmount) * 100;
+        const progressBarWidth = Math.min(progress, 100); // Cap at 100%
+
+        const card = document.createElement("div");
+        card.className = "bg-white p-4 rounded-lg shadow";
+        card.innerHTML = `
+          <h3 class="text-xl font-semibold text-purple-700">${item.savingFor}</h3>
+          <p class="text-gray-700 mt-1">Target: <strong>RM ${item.budgetAmount.toFixed(2)}</strong></p>
+          <p class="text-gray-700">Current: <strong>RM ${item.currentSavings.toFixed(2)}</strong></p>
+          <p class="text-gray-600 text-sm mb-4">Target Date: ${item.targetDate}</p>
+          <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+            <div class="bg-purple-600 h-2.5 rounded-full" style="width: ${progressBarWidth}%"></div>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">${progressBarWidth.toFixed(1)}% complete</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="editSaving(${index})" class="bg-yellow-400 text-white px-3 py-1 rounded">Edit</button>
+            <button onclick="deleteSaving(${index})" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+            <button onclick="openAddCurrentSavingsModal(${index})" class="bg-blue-500 text-white px-3 py-1 rounded">Add Savings</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function editSaving(index) {
+      editIndex = index;
+      const item = savings[index];
+      document.getElementById("editSavingFor").value = item.savingFor;
+      document.getElementById("editBudgetAmount").value = item.budgetAmount;
+      document.getElementById("editCurrentSavings").value = item.currentSavings;
+      document.getElementById("editTargetDate").value = item.targetDate;
+      toggleEditSavingModal();
+    }
+
+    function updateSaving() {
+      const savingFor = document.getElementById("editSavingFor").value.trim();
+      const budgetAmount = parseFloat(document.getElementById("editBudgetAmount").value.trim());
+      const currentSavings = parseFloat(document.getElementById("editCurrentSavings").value.trim());
+      const targetDate = document.getElementById("editTargetDate").value;
+
+      if (!savingFor || isNaN(budgetAmount) || budgetAmount <= 0 || !targetDate) {
+        alert("Please fill in all fields correctly (Target Amount must be a positive number).");
+        return;
+      }
+      if (isNaN(currentSavings) || currentSavings < 0) {
+        alert("Current Savings must be a non-negative number.");
+        return;
+      }
+
+      savings[editIndex] = { savingFor, budgetAmount, currentSavings, targetDate };
+      localStorage.setItem('savings', JSON.stringify(savings));
+      toggleEditSavingModal();
+      renderSavings();
+      editIndex = null; // Reset editIndex
+    }
+
+    function deleteSaving(index) {
+      if (confirm("Are you sure you want to delete this saving goal?")) {
+        savings.splice(index, 1);
+        localStorage.setItem('savings', JSON.stringify(savings));
+        updateSavingsCount(); // Call this function to update the count
+        renderSavings();
+      }
+    }
+
+    function openAddCurrentSavingsModal(index) {
+      addSavingsIndex = index;
+      const item = savings[index];
+      document.getElementById("addSavingsGoalTitle").textContent = `Goal: ${item.savingFor}`;
+      toggleAddCurrentSavingsModal();
+    }
+
+    function addSavingsToGoal() {
+      const amountToAdd = parseFloat(document.getElementById("amountToAdd").value.trim());
+
+      if (isNaN(amountToAdd) || amountToAdd <= 0) {
+        alert("Please enter a valid positive amount to add.");
+        return;
+      }
+
+      if (addSavingsIndex !== null && savings[addSavingsIndex]) {
+        savings[addSavingsIndex].currentSavings += amountToAdd;
+        localStorage.setItem('savings', JSON.stringify(savings));
+        toggleAddCurrentSavingsModal();
+        renderSavings();
+      } else {
+        alert("Error: Could not find saving goal.");
+      }
+      addSavingsIndex = null; // Reset
+    }
+
+    window.onload = () => {
+      renderSavings();
+      updateSavingsCount(); // Ensure count is updated on load as well
+    };
   </script>
 </body>
 </html>
