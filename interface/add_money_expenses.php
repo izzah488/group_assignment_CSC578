@@ -1,4 +1,52 @@
-<?php // add_money_expenses.php ?>
+<?php
+session_start();
+include '../dbconnection.php';
+
+$expense_error = '';
+$expense_success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get userID from session if you use user accounts
+    $userID = $_SESSION['userID'] ?? null;
+
+    $expTitle = trim($_POST['expTitle'] ?? '');
+    $expAmount = floatval($_POST['expAmount'] ?? 0);
+    $categoryName = trim($_POST['expenseCategory'] ?? '');
+    $expDate = $_POST['expDate'] ?? '';
+
+    // Validation
+    if (!$expTitle || !$expAmount || !$categoryName || !$expDate) {
+        $expense_error = 'Please fill in all fields.';
+    } elseif ($expAmount <= 0) {
+        $expense_error = 'Amount must be positive.';
+    } else {
+        // First, get the category ID from the lookup table
+        $catStmt = $conn->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = ?");
+        $catStmt->bind_param("s", $categoryName);
+        $catStmt->execute();
+        $catResult = $catStmt->get_result();
+        
+        if ($catResult->num_rows > 0) {
+            $catRow = $catResult->fetch_assoc();
+            $catLookupID = $catRow['catLookupID'];
+            
+            // Insert into database with correct column names
+            $stmt = $conn->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("isdis", $userID, $expTitle, $expAmount, $catLookupID, $expDate);
+            if ($stmt->execute()) {
+                $expense_success = 'Expense added successfully!';
+            } else {
+                $expense_error = 'Failed to add expense. Please try again.';
+            }
+            $stmt->close();
+        } else {
+            $expense_error = 'Invalid category selected.';
+        }
+        $catStmt->close();
+    }
+    $conn->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,10 +223,15 @@
       <div class="form-card">
         <button onclick="location.href='expenses.php'" class="back-btn">←</button>
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
-        <form id="addExpenseForm">
-          <input type="text" id="expenseTitle" placeholder="Title" class="input" required>
-          <input type="number" id="expenseAmount" placeholder="RM" class="input" step="0.01" required>
-          <select id="expenseCategory" class="input" required>
+        <?php if ($expense_error): ?>
+          <div class="mb-4 text-red-600 text-center font-semibold"><?= htmlspecialchars($expense_error) ?></div>
+        <?php elseif ($expense_success): ?>
+          <div class="mb-4 text-green-600 text-center font-semibold"><?= $expense_success ?></div>
+        <?php endif; ?>
+        <form id="addExpenseForm" method="POST">
+          <input type="text" id="expTitle" name="expTitle" placeholder="Title" class="input" required>
+          <input type="number" id="expAmount" name="expAmount" placeholder="RM" class="input" step="0.01" required>
+          <select id="expenseCategory" name="expenseCategory" class="input" required>
             <option value="" disabled selected>Category</option>
             <option value="Food">Food</option>
             <option value="Transport">Transport</option>
@@ -188,51 +241,10 @@
             <option value="Top Up">Top Up</option>
             <option value="Entertainment">Entertainment</option>
           </select>
-          <input type="date" id="expenseDate" class="input" required>
+          <input type="date" id="expDate" name="expDate" class="input" required>
           <button type="submit" class="add-btn">Add Expenses</button>
         </form>
       </div>
     </main>
-  </div>
-
-  <script>
-    document.getElementById('addExpenseForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent default form submission
-
-      const title = document.getElementById('expenseTitle').value;
-      const amount = parseFloat(document.getElementById('expenseAmount').value);
-      const category = document.getElementById('expenseCategory').value;
-      const date = document.getElementById('expenseDate').value;
-
-      if (isNaN(amount) || amount <= 0) {
-        alert("Please enter a valid positive amount.");
-        return;
-      }
-      if (!category) {
-        alert("Please select a category.");
-        return;
-      }
-
-      const expense = {
-        description: title, // Renamed to description for consistency with expenses.html
-        amount: amount,
-        category: category,
-        date: date
-      };
-
-      // Retrieve existing expenses, add new one, and save back to localStorage
-      let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
-      expenses.push(expense);
-      localStorage.setItem('expenses', JSON.stringify(expenses));
-
-      // Update total expenses in localStorage
-      let totalExpenses = parseFloat(localStorage.getItem('totalExpenses')) || 0;
-      totalExpenses += amount;
-      localStorage.setItem('totalExpenses', totalExpenses.toFixed(2));
-
-      alert("Expense added successfully!");
-      window.location.href = 'expenses.php'; // Redirect to expenses page
-    });
-  </script>
 </body>
 </html>
