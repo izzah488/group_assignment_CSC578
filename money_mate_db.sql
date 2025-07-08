@@ -15,10 +15,10 @@ CREATE TABLE users (
 CREATE TABLE budget (
     budgetID BIGINT AUTO_INCREMENT PRIMARY KEY,
     userID BIGINT NOT NULL,
-    budgetMonth DATE NOT NULL,
+    budgetDate DATE NOT NULL,
     totBudget DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (userID) REFERENCES users(userID),
-    UNIQUE (userID, budgetMonth) -- A user can only have one budget per month
+    UNIQUE (userID, budgetDate) -- A user can only have one budget per month
 );
 
 CREATE TABLE expenses (
@@ -66,7 +66,7 @@ INSERT INTO expCatLookup (catName) VALUES
 ('Top Up'),
 ('Entertainment');
 
-DROP TABLE IF EXISTS budgetCat;
+DROP TABLE IF EXISTS budget;
 
 SHOW CREATE TABLE EXPENSES;
 DESCRIBE USERS;
