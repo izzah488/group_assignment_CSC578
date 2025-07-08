@@ -1,3 +1,4 @@
+<?php // For future PHP logic ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,8 +131,8 @@
                 <span class="text-white text-2xl font-semibold">Money Mate</span>
             </div>
             <div class="flex space-x-6">
-                <a href="login.html" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">HOME</a>
-                <a href="about_us_page1.html" class="active text-white text-lg font-medium transition-colors duration-200">ABOUT US</a>
+                <a href="home.html" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">HOME</a>
+                <a href="about_us_page1.php" class="active text-white text-lg font-medium transition-colors duration-200">ABOUT US</a>
                 <a href="login.html" class="text-white text-lg font-medium hover:text-gray-200 transition-colors duration-200">LOGIN</a>
                 <a href="signup.html" class="bg-white text-[#a259ff] px-6 py-2 rounded-full font-semibold shadow-md hover:bg-gray-100 transition-colors duration-200">SIGN UP</a>
             </div>

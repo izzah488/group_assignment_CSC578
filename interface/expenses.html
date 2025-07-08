@@ -148,6 +148,7 @@
 </head>
 <body class="bg-gray-100 flex">
 
+  <!--?include 'sidebar.php'; ?-->
     <aside class="sidebar">
     <div class="flex flex-col justify-start h-full">
       <div class="flex items-center mb-8">
@@ -215,7 +216,7 @@
       <div class="expense-category-header bg-yellow-500 text-gray-800 shadow-md">Transport</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="transportExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
-      </div>
+          </div>
 
       <div class="expense-category-header bg-teal-500 text-white shadow-md">Bill</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="billExpensesList">
@@ -225,7 +226,7 @@
       <div class="expense-category-header bg-green-500 text-white shadow-md">Top Up</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="topupExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
-      </div>
+  </div>
 
       <div class="expense-category-header bg-blue-500 text-white shadow-md">Entertainment</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="entertainmentExpensesList">
@@ -234,7 +235,7 @@
     </section>
   </main>
 </body>
-<script>
+  <script>
     let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
     function getCategoryColor(category) {
@@ -308,5 +309,5 @@
     }
 
     window.onload = updateExpensesPage;
-</script>
+  </script>
 </html>
