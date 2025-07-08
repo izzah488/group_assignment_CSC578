@@ -18,14 +18,17 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+
     h1, h2, .hero-text-gradient {
       font-family: 'Playfair Display', serif;
     }
+
     .navbar-gradient {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
+
     .hero-text-gradient {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       -webkit-background-clip: text;
@@ -33,6 +36,7 @@
       background-clip: text;
       font-weight: 700;
     }
+
     .cta-button {
       background: linear-gradient(135deg, #a259ff 0%, #6a11cb 100%);
       color: #fff;
@@ -44,6 +48,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .cta-button::before {
       content: '';
       position: absolute;
@@ -54,17 +59,21 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
       transition: left 0.5s;
     }
+
     .cta-button:hover::before {
       left: 100%;
     }
+
     .cta-button:hover {
       transform: scale(1.05) translateY(-2px);
       box-shadow: 0 8px 24px rgba(138,43,226,0.18);
     }
+
     .nav-link {
       position: relative;
       transition: all 0.3s ease;
     }
+
     .nav-link::after {
       content: '';
       position: absolute;
@@ -75,14 +84,17 @@
       background: white;
       transition: width 0.3s ease;
     }
+
     .nav-link:hover::after,
     .nav-link.active::after {
       width: 100%;
     }
+
     .logo-container {
       position: relative;
       overflow: hidden;
     }
+
     .logo-container::before {
       content: '';
       position: absolute;
@@ -94,15 +106,19 @@
       transform: rotate(45deg);
       transition: all 0.6s ease;
     }
+
     .logo-container:hover::before {
       transform: rotate(45deg) translate(50%, 50%);
     }
+
     .hero-content {
       animation: fadeInUp 1s ease-out;
     }
+
     .hero-image {
       animation: fadeInRight 1s ease-out 0.3s both;
     }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -113,6 +129,7 @@
         transform: translateY(0);
       }
     }
+
     @keyframes fadeInRight {
       from {
         opacity: 0;
@@ -123,12 +140,14 @@
         transform: translateX(0);
       }
     }
+
     .image-container {
       position: relative;
       overflow: hidden;
       border-radius: 2rem;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
     }
+
     .image-container::before {
       content: '';
       position: absolute;
@@ -138,15 +157,19 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
+
     .image-container:hover::before {
       opacity: 1;
     }
+
     .image-container img {
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
     .image-container:hover img {
       transform: scale(1.05);
     }
+
     .feature-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(20px);
@@ -154,10 +177,12 @@
       border-radius: 1.5rem;
       transition: all 0.3s ease;
     }
+
     .feature-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
+
     .text-shadow {
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -178,11 +203,11 @@
 
       <!-- Navigation Menu -->
       <div class="hidden md:flex items-center space-x-10">
-        <a href="home.php" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
-        <a href="about_us_page2.php" class="nav-link hover:text-gray-200 text-lg font-medium">ABOUT US</a>
-        <a href="login.php" class="nav-link hover:text-gray-200 text-lg font-medium">LOGIN</a>
+        <a href="home.html" class="nav-link active hover:text-gray-200 text-lg font-medium">HOME</a>
+        <a href="about_us_page2.html" class="nav-link hover:text-gray-200 text-lg font-medium">ABOUT US</a>
+        <a href="login.html" class="nav-link hover:text-gray-200 text-lg font-medium">LOGIN</a>
         <button class="cta-button px-10 py-3 rounded-full shadow-xl font-semibold text-lg">
-          <a href="signup.php">SIGN UP</a>
+          <a href="signup.html">SIGN UP</a>
         </button>
       </div>
 
@@ -215,7 +240,7 @@
           Track your income, expenses, and savings — all in one simple and beautiful platform designed for modern financial management.
         </p>
         
-        <button class="cta-button font-bold py-4 px-10 rounded-full shadow-xl text-lg" onclick="window.location.href='about_us_page2.php'">
+        <button class="cta-button font-bold py-4 px-10 rounded-full shadow-xl text-lg" onclick="window.location.href='about_us_page2.html'">
           Read More
         </button>
 

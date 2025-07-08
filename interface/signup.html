@@ -10,6 +10,25 @@
     body {
       font-family: 'Inter', sans-serif;
     }
+    .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+        color: #fff !important;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: white;
+        transition: width 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-100">
