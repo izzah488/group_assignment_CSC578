@@ -112,6 +112,7 @@ if (!isset($_SESSION['userID'])) {
             <div class="space-y-6">
                 <!-- Budget Limit Input -->
                 <div>
+                    <form method="POST" action="api/update_budget.php" id="budgetForm">
                     <label for="budgetLimit" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>

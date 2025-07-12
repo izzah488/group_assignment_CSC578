@@ -1,4 +1,3 @@
-    <?php // about_us_page1.php ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,12 +185,22 @@
         }
     </style>
 </head>
-<body> 
-    <?php include 'navbar.php'; ?>
-    
-    <!-- Main Content -->
+<body>
+    <nav class="navbar-gradient w-full px-0 py-0 text-white p-4 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 logo-container bg-white rounded-full p-2 shadow-md">
+                <img src="https://img.icons8.com/color/48/000000/combo-chart--v2.png" alt="Logo" class="w-7 h-7">
+                <span class="text-2xl font-semibold text-gray-900 ml-2">Money Mate</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="home.php" class="nav-link text-lg font-medium">HOME</a>
+                <a href="about_us_page2.php" class="nav-link text-lg font-medium active">ABOUT US</a>
+                <a href="login.php" class="nav-link text-lg font-medium">LOGIN</a>
+                <a href="signup.php" class="cta-btn px-6 py-2 font-semibold">SIGN UP</a>
+            </div>
+        </div>
+    </nav>
     <div class="main-content">
-        <!-- Left Section -->
         <div class="left">
             <h1 class="text-4xl font-bold mb-6 hero-text-gradient">About Us</h1>
             <p class="text-lg mb-6" style="line-height:1.7">
@@ -205,16 +214,13 @@
             </p>
             <button class="cta-btn">GET IN TOUCH WITH US!</button>
         </div>
-        <!-- Right Section -->
         <div class="right">
             <div class="quote-card">
                 <div class="quote-text mb-4">“<span style="font-family: 'Inter', cursive;">helps people worldwide to get their money into shape.</span>”</div>
                 <button class="quote-btn">Track it. Save it. Master your money.</button>
-                <!-- Illustration Placeholder -->
                 <img src="https://img.freepik.com/vetores-gratis/ilustracao-do-conceito-de-discussao-em-grupo_114360-4716.jpg" alt="Team Illustration" class="w-full max-w-xs mt-2 rounded-xl shadow-md" style="background:#fff;">
             </div>
         </div>
     </div>
-    <?php include 'footer.php'; ?>
 </body>
-</html> 
+</html>

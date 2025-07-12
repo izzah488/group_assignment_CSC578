@@ -1,0 +1,7 @@
+<?php
+// config.php
+define('ROOT_PATH', __DIR__ . '/'); // Defines the root of your project
+define('LOG_FILE_PATH', ROOT_PATH . '../logs/app_errors.log');
+
+// Other configurations...
+?>

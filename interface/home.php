@@ -1,4 +1,7 @@
-<?php // home.php ?>
+<?php
+require_once 'header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Money Mate - Smart Financial Management</title>
 
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 
   <style>
@@ -190,13 +191,20 @@
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
-  <?php include 'navbar.php'; ?>
 
-  <!-- Hero Section -->
+      <div class="md:hidden">
+        <button class="text-white hover:text-gray-200 transition duration-300">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
   <main class="flex-grow flex items-center justify-center px-6 py-20">
     <div class="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-16 max-w-7xl">
       
-      <!-- Left Side: Content -->
       <div class="text-center lg:text-left lg:w-1/2 hero-content">
         <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-800 leading-tight mb-4 text-shadow">
           Manage your money with
@@ -214,7 +222,6 @@
           Read More
         </button>
 
-        <!-- Feature Highlights -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
           <div class="feature-card p-6 text-center">
             <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -248,7 +255,6 @@
         </div>
       </div>
 
-      <!-- Right Side: Image -->
       <div class="lg:w-1/2 flex justify-center hero-image">
         <div class="image-container w-full max-w-lg">
           <img src="https://i.pinimg.com/736x/72/17/4e/72174ef251d0438cbf00d62975727d4a.jpg"
@@ -259,5 +265,6 @@
       </div>
     </div>
   </main>
+  <?php require_once '../includes/footer.php'; ?>
 </body>
 </html>

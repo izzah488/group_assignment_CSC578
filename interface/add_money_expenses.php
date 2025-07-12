@@ -10,11 +10,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 
 // Include the Database connection files
-require_once __DIR__ . '/../includes/config.php'; // Assuming config.php defines LOG_FILE_PATH etc.
-require_once __DIR__ . '/../includes/dbconnection.php'; // Assuming dbconnection.php provides $dbh
+require_once __DIR__ . '/../config.php'; // Assuming config.php defines LOG_FILE_PATH etc.
+require_once __DIR__ . '/../dbconnection.php'; // Assuming dbconnection.php provides $conn
 
 // Get the PDO database connection instance (from dbconnection.php)
-global $dbh; // Access the global database handle
+global $conn; // Access the global database handle
 
 $expense_error = '';
 $expense_success = '';
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // First, get the category ID from the lookup table
             // Assuming expCatLookup table exists and has catName and catLookupID
-            $catStmt = $dbh->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = :categoryName");
+$catStmt = $pdo->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = :categoryName");
             $catStmt->bindParam(':categoryName', $categoryName, PDO::PARAM_STR);
             $catStmt->execute();
             $catRow = $catStmt->fetch(PDO::FETCH_ASSOC);
@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // For consistency with your provided APIs, I'll assume insertion into 'expenses' table
                 // and that 'expAmount' is stored as a positive value.
-                $stmt = $dbh->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (:userID, :expTitle, :expAmount, :catLookupID, :expDate)");
-                $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+$stmt = $pdo->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (:userID, :expTitle, :expAmount, :catLookupID, :expDate)");
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
                 $stmt->bindParam(':expTitle', $expTitle, PDO::PARAM_STR);
                 $stmt->bindParam(':expAmount', $expAmount, PDO::PARAM_STR); // Use STR for DECIMAL
                 $stmt->bindParam(':catLookupID', $catLookupID, PDO::PARAM_INT);
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Fetch categories for the dropdown
 $categories = [];
 try {
-    $catStmt = $dbh->query("SELECT catName FROM expCatLookup ORDER BY catName");
+    $catStmt = $pdo->query("SELECT catName FROM expCatLookup ORDER BY catName");
     $categories = $catStmt->fetchAll(PDO::FETCH_COLUMN);
 } catch (PDOException $e) {
     error_log("Error fetching categories: " . $e->getMessage(), 3, LOG_FILE_PATH);
@@ -105,44 +105,95 @@ try {
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%); /* Matching the example's body background */
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            overflow-x: hidden; /* Added from example */
         }
-        .container {
-            background-color: #ffffff;
+        .form-card { /* Renamed from .container to .form-card as per example */
+            background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%); /* Matching the example's form-card background */
             padding: 2.5rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 2rem; /* Adjusted for larger border-radius */
+            box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08); /* Matching example's shadow */
             width: 100%;
-            max-width: 400px;
+            max-width: 400px; /* Adjusted max-width */
             position: relative;
         }
         .input {
-            @apply w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gray-50 text-gray-800;
+            width: 100%;
+            padding: 0.9rem 1.2rem; /* Adjusted padding */
+            border-radius: 0.75rem; /* Adjusted border-radius */
+            border: 1px solid #e2e8f0; /* Adjusted border */
+            background-color: #f8fafc; /* Adjusted background */
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #334155;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input:focus {
+            outline: none;
+            border-color: #a259ff; /* Focus border color from example */
+            box-shadow: 0 0 0 2px rgba(162, 89, 255, 0.2); /* Focus shadow from example */
         }
         .btn-group {
-            @apply flex justify-between space-x-4 mt-6;
+            display: flex; /* Changed from @apply flex */
+            justify-content: space-between;
+            gap: 1rem; /* Replaced space-x-4 with gap for modern flexbox */
+            margin-top: 1.5rem; /* Adjusted margin-top */
         }
         .btn-group button {
-            @apply flex-1 py-3 px-4 rounded-xl shadow-lg font-semibold text-lg transition-colors duration-200;
+            flex: 1; /* Changed from @apply flex-1 */
+            padding: 1rem 0; /* Adjusted padding for buttons */
+            border-radius: 1.2rem; /* Adjusted border-radius for buttons */
+            font-weight: 700; /* Adjusted font-weight */
+            font-size: 1.15rem; /* Adjusted font-size */
+            box-shadow: 0 2px 12px 0 rgba(138,43,226,0.13); /* Adjusted shadow for buttons */
+            transition: filter 0.2s, transform 0.2s;
         }
         .btn-group button[type="reset"] {
-            @apply bg-gray-300 text-gray-800 hover:bg-gray-400;
+            background: #f3e8ff; /* Matching example's secondary button */
+            color: #a259ff; /* Matching example's secondary button */
+            border: none; /* Ensure no border */
+        }
+        .btn-group button[type="reset"]:hover {
+            filter: brightness(1.08);
+            transform: scale(1.02);
         }
         .btn-group button[type="submit"] {
-            @apply bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700;
+            background: linear-gradient(to right, #a259ff, #6a11cb); /* Matching example's primary button */
+            color: white;
+            border: none; /* Ensure no border */
+        }
+        .btn-group button[type="submit"]:hover {
+            filter: brightness(1.08);
+            transform: scale(1.02);
         }
         .back-btn {
-            @apply absolute top-4 left-4 text-gray-600 hover:text-gray-900 text-3xl font-bold;
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: #f3e8ff; /* Matching example's back button */
+            color: #a259ff; /* Matching example's back button */
+            border: none;
+            border-radius: 9999px;
+            padding: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem; /* Adjusted font-size for better appearance */
+            transition: background 0.2s, color 0.2s;
+        }
+        .back-btn:hover {
+            background: #e0b0ff; /* Matching example's back button hover */
+            color: #6a11cb; /* Matching example's back button hover */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <button onclick="window.history.back()" class="back-btn">←</button>
+    <?php include 'sidebar.php'; // Include the navbar from your existing code ?>
+    <div class="form-card"> <button onclick="window.history.back()" class="back-btn">←</button>
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
         <?php if ($expense_error): ?>
           <div class="mb-4 text-red-600 text-center font-semibold"><?= htmlspecialchars($expense_error) ?></div>

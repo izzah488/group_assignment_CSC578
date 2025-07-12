@@ -1,3 +1,4 @@
+farhana 3B2, [9/7/2025 9:48 AM]
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,7 +177,8 @@
 </head>
 <body class="bg-gray-100 flex">
 
-  <aside class="sidebar">
+  <!--?include 'sidebar.php'; ?-->
+    <aside class="sidebar">
     <div class="flex flex-col justify-start h-full">
       <div class="flex items-center mb-8">
         <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" class="rounded-full mr-3" />
@@ -261,7 +263,7 @@
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="entertainmentExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
       </div>
-
+      
       <div class="expense-category-header" style="background-color: #f97316; color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">Shopping</div>
       <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="shoppingExpensesList">
         <div class="no-data-message">No expenses in this category yet.</div>
@@ -274,6 +276,7 @@
     </section>
     </main>
 
+    <!-- Edit Expense Modal -->
     <div id="editExpenseModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
       <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
         <button onclick="toggleEditExpenseModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
@@ -319,10 +322,7 @@
     </div>
 
   <script>
-    let expenses = []; // This will now be populated from the API
-
-    // IMPORTANT: Set this to the actual URL of your API endpoint
-    const API_BASE_URL = 'http://localhost/api/expenses.php'; // Adjust this URL based on your server setup
+    let expenses = JSON.parse(localStorage.getItem('expenses'))  [];
 
     function getCategoryColor(category) {
         switch (category) {
@@ -337,24 +337,7 @@
         }
     }
 
-    async function fetchExpenses() {
-        const chartPlaceholder = document.querySelector('.chart-placeholder');
-        try {
-            const response = await fetch(API_BASE_URL);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            expenses = data; // Update the global expenses array with data from the API
-            updateExpensesPageContent(); // Call a new function to update UI after data is fetched
-        } catch (error) {
-            console.error('Error fetching expenses:', error);
-            chartPlaceholder.textContent = 'Error loading expenses. Please try again later.';
-        }
-    }
-
-
-    function updateExpensesPageContent() { // Renamed from updateExpensesPage to avoid confusion
+    function updateExpensesPage() {
         const chartPlaceholder = document.querySelector('.chart-placeholder');
         const categoryLists = {
             'Food': document.getElementById('foodExpensesList'),
@@ -369,13 +352,14 @@
         // Clear existing expense list items and reset "No data" messages
         for (const category in categoryLists) {
             if (categoryLists[category]) {
+                // Remove all children except the one with 'no-data-message' class
                 Array.from(categoryLists[category].children).forEach(child => {
                     if (!child.classList.contains('no-data-message')) {
                         child.remove();
                     }
                 });
                 const noDataMessage = categoryLists[category].querySelector('.no-data-message');
-                if (noDataMessage) noDataMessage.style.display = 'block';
+                if (noDataMessage) noDataMessage.style.display = 'block'; // Show no-data-message by default
             }
         }
 
@@ -383,31 +367,31 @@
             chartPlaceholder.textContent = 'No data to display. Add expenses to see your chart!';
         } else {
             const categoryTotals = expenses.reduce((acc, expense) => {
-                acc[expense.category] = (acc[expense.category] || 0) + parseFloat(expense.amount); // Ensure amount is float
+                acc[expense.category] = (acc[expense.category]  0) + expense.amount;
                 return acc;
             }, {});
 
             let chartText = "Expense Breakdown:\n";
             for (const category in categoryTotals) {
-                chartText += `${category}: RM ${categoryTotals[category].toFixed(2)}\n`;
+                chartText += ${category}: RM ${categoryTotals[category].toFixed(2)}\n;
             }
-            chartPlaceholder.textContent = chartText;
+            chartPlaceholder.textContent = chartText; // Update placeholder text for demonstration
 
             // Populate category lists
             for (const category in categoryLists) {
                 const filteredExpenses = expenses.filter(exp => exp.category === category);
                 if (filteredExpenses.length > 0) {
                     const noDataMessage = categoryLists[category].querySelector('.no-data-message');
-                    if (noDataMessage) noDataMessage.style.display = 'none';
+                    if (noDataMessage) noDataMessage.style.display = 'none'; // Hide no-data-message if there's data
 
-                    filteredExpenses.forEach(expense => { // No need for index here, use expense.id for actions
+filteredExpenses.forEach((expense, index) => { // Added index to loop
                         const expenseItem = document.createElement('div');
                         expenseItem.className = 'flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0';
                         expenseItem.innerHTML = `
-                            <p class="text-gray-700 font-medium">${new Date(expense.expense_date).toLocaleDateString()}: ${expense.description || 'N/A'} - RM ${parseFloat(expense.amount).toFixed(2)}</p>
+                            <p class="text-gray-700 font-medium">${expense.date ? new Date(expense.date).toLocaleDateString() : 'No Date'}: ${expense.description  'N/A'}</p>
                             <div class="action-buttons">
-                                <button onclick="openEditExpenseModal(${expense.id})" class="edit-btn">Edit</button>
-                                <button onclick="deleteExpense(${expense.id})" class="delete-btn">Delete</button>
+                                <button onclick="openEditExpenseModal(${expenses.indexOf(expense)})" class="edit-btn">Edit</button>
+                                <button onclick="deleteExpense(${expenses.indexOf(expense)})" class="delete-btn">Delete</button>
                             </div>
                         `;
                         categoryLists[category].appendChild(expenseItem);
@@ -415,37 +399,34 @@
                 }
             }
         }
-        // Total expenses can still be calculated and stored if needed for other parts of the app
-        // localStorage.setItem('totalExpenses', expenses.reduce((sum, exp) => sum + parseFloat(exp.amount), 0).toFixed(2));
+        // Update total expenses in localStorage after any changes
+        localStorage.setItem('totalExpenses', expenses.reduce((sum, exp) => sum + exp.amount, 0).toFixed(2));
     }
-
 
     function toggleEditExpenseModal() {
       document.getElementById('editExpenseModal').classList.toggle('hidden');
     }
 
-    async function openEditExpenseModal(id) { // Now takes ID instead of index
-      const expense = expenses.find(exp => exp.id === id); // Find expense by ID
+    function openEditExpenseModal(index) {
+      const expense = expenses[index];
       if (expense) {
         document.getElementById('editExpenseTitle').value = expense.description;
         document.getElementById('editExpenseAmount').value = expense.amount;
         document.getElementById('editExpenseCategory').value = expense.category;
-        document.getElementById('editExpenseDate').value = expense.expense_date; // Use expense_date from DB
-        document.getElementById('editingExpenseIndex').value = expense.id; // Store ID for saving
+        document.getElementById('editExpenseDate').value = expense.date;
+        document.getElementById('editingExpenseIndex').value = index; // Store index for saving
         toggleEditExpenseModal();
-      } else {
-        alert("Expense not found!");
       }
     }
 
-    async function saveEditedExpense() {
-      const id = document.getElementById('editingExpenseIndex').value; // Get ID
+    function saveEditedExpense() {
+      const index = document.getElementById('editingExpenseIndex').value;
       const title = document.getElementById('editExpenseTitle').value;
       const amount = parseFloat(document.getElementById('editExpenseAmount').value);
       const category = document.getElementById('editExpenseCategory').value;
       const date = document.getElementById('editExpenseDate').value;
 
-      if (isNaN(amount) || amount <= 0) {
+      if (isNaN(amount)  amount <= 0) {
         alert("Please enter a valid positive amount.");
         return;
       }
@@ -454,58 +435,27 @@
         return;
       }
 
-      const updatedExpense = {
-        id: id,
+      expenses[index] = {
         description: title,
         amount: amount,
         category: category,
-        date: date // Use 'date' to match PHP API
+        date: date
       };
 
-      try {
-          const response = await fetch(API_BASE_URL, {
-              method: 'PUT',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(updatedExpense)
-          });
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+      updateExpensesPage();
+      toggleEditExpenseModal();
+    }
 
-          const result = await response.json();
-          if (!response.ok) {
-              throw new Error(result.message || 'Failed to update expense.');
-          }
-          alert(result.message);
-          toggleEditExpenseModal();
-          fetchExpenses(); // Re-fetch all expenses to update the UI
-      } catch (error) {
-          console.error('Error updating expense:', error);
-          alert('Failed to update expense: ' + error.message);
+    function deleteExpense(index) {
+      if (confirm("Are you sure you want to delete this expense?")) { // Using confirm for simplicity
+        expenses.splice(index, 1); // Remove the expense at the given index
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        updateExpensesPage(); // Re-render the list
       }
     }
 
-    async function deleteExpense(id) { // Now takes ID instead of index
-      if (confirm("Are you sure you want to delete this expense?")) {
-        try {
-            const response = await fetch(`${API_BASE_URL}?id=${id}`, { // Pass ID as query parameter
-                method: 'DELETE',
-            });
-
-            const result = await response.json();
-            if (!response.ok) {
-                throw new Error(result.message || 'Failed to delete expense.');
-            }
-            alert(result.message);
-            fetchExpenses(); // Re-fetch all expenses to update the UI
-        } catch (error) {
-            console.error('Error deleting expense:', error);
-            alert('Failed to delete expense: ' + error.message);
-        }
-      }
-    }
-
-    // Call fetchExpenses on page load
-    window.onload = fetchExpenses;
+    window.onload = updateExpensesPage;
   </script>
 </body>
 </html>

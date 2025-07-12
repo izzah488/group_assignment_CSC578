@@ -15,7 +15,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 require_once __DIR__ . '/../../includes/Database.php'; 
 
 try {
-    $dbh = Database::getInstance()->getConnection();
+    $conn = Database::getInstance()->getConnection();
     $userId = $_SESSION['id']; // Get the logged-in user's ID
 
     // SQL to get spending by category for the logged-in user
@@ -25,7 +25,7 @@ try {
             WHERE user_id = :userId AND amount < 0 
             GROUP BY category";
     
-    $stmt = $dbh->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

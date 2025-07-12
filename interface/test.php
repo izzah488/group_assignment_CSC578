@@ -5,8 +5,9 @@ session_start();
 // Include your configuration file and database connection file
 // Assuming 'login.php' is in a subdirectory (e.g., 'interface/')
 // and 'config.php' and 'dbconnection.php' are in the parent directory (project root).
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/../dbconnection.php';
+require_once '../config.php';
+require_once '../dbconnection.php';
+
 $login_error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $login_error = 'Please enter both email and password.';
     } else {
         // Prepare a SQL statement using PDO ($dbh)
-            $stmt = $pdo->prepare("SELECT userID, email, pw FROM users WHERE email = :email");
+        $stmt = $dbh->prepare("SELECT userID, pw FROM users WHERE email = :email");
 
         // Check if the statement preparation was successful
         if ($stmt === false) {
@@ -81,7 +82,26 @@ $dbh = null;
             justify-content: center;
             align-items: center;
         }
-
+        .navbar {
+            background: linear-gradient(90deg, #a259ff 0%, #6a11cb 100%);
+            box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+        }
+        .navbar .active,
+        .navbar a.bg-white {
+            background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+            color: #6a11cb !important;
+        }
+        .navbar a {
+            transition: background 0.2s, color 0.2s;
+            border-radius: 1.5rem;
+            padding: 0.5rem 1.5rem;
+        }
+        .navbar a:hover {
+            background: linear-gradient(90deg, #e0b0ff 0%, #f3e8ff 100%);
+            color: #6a11cb !important;
+        }
         .login-card {
             background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
             padding: 2.5rem 2.5rem 2rem 2.5rem;

@@ -10,9 +10,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 }
 
 require_once __DIR__ . '/../../includes/config.php'; // Include config for LOG_FILE_PATH
-require_once __DIR__ . '/../../includes/dbconnection.php'; // Provides $dbh
+require_once __DIR__ . '/../../includes/dbconnection.php'; // Provides $conn
 
-global $dbh; // Access the global database handle
+global $conn; // Access the global database handle
 
 try {
     // Fetch all expense transactions (amount < 0) for the logged-in user
@@ -24,7 +24,7 @@ try {
             WHERE exp.userID = :userID
             ORDER BY exp.expDate DESC, exp.expenseID DESC"; // Ensure you're filtering by user and linking to category name
 
-    $stmt = $dbh->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bindParam(':userID', $_SESSION['id'], PDO::PARAM_INT);
     $stmt->execute();
     $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
