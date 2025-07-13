@@ -21,7 +21,7 @@ $expense_success = '';
 
 // Handle form submission via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userID = $_SESSION['id']; // Get userID from session
+    $userID = $_SESSION['userID']; // Get userID from session
 
     $expTitle = trim($_POST['expTitle'] ?? '');
     $expAmount = floatval($_POST['expAmount'] ?? 0);
