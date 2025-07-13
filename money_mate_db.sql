@@ -74,4 +74,15 @@ DESCRIBE expenses;
 
 DROP DATABASE money_mate_db;
 
+CREATE TABLE userlog (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userID INT NULL, -- Link to your users table's userID
+    userEmail VARCHAR(255) NOT NULL,
+    login_time DATETIME DEFAULT CURRENT_TIMESTAMP, -- Automatically set when a new log entry is created
+    logout DATETIME NULL -- This will be updated by your logout script
+);
+
+ALTER TABLE userlog MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE userlog MODIFY COLUMN userID INT NULL;
+
 

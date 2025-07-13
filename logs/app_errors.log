@@ -1,7 +1,1 @@
-<?php
-// config.php
-define('ROOT_PATH', __DIR__ . '/'); // Defines the root of your project
-define('LOG_FILE_PATH', ROOT_PATH . '../logs/app_errors.log');
-
-// Other configurations...
-?>
+Login DB Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'Login DB Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'field list'

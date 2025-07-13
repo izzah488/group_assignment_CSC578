@@ -1,5 +1,9 @@
 <?php
 // config.php
+define('ROOT_PATH', __DIR__ . '/'); // Defines the root of your project
+define('LOG_FILE_PATH', ROOT_PATH . 'logs/app_errors.log');
+
+
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'money_mate_db');

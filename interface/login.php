@@ -5,7 +5,7 @@ session_start();
 // Include your configuration file and database connection file
 // Assuming 'login.php' is in a subdirectory (e.g., 'interface/')
 // and 'config.php' and 'dbconnection.php' are in the parent directory (project root).
-require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../dbconnection.php';
 $login_error = '';
 
@@ -72,88 +72,14 @@ $dbh = null;
     <title>Money Mate - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e0b0ff 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-card {
-            background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
-            padding: 2.5rem 2.5rem 2rem 2.5rem;
-            border-radius: 2rem;
-            box-shadow: 0 8px 32px 0 rgba(138,43,226,0.10), 0 1.5px 6px 0 rgba(138,43,226,0.08);
-            max-width: 26rem;
-            width: 100%;
-            margin-top: 7rem;
-            transition: transform 0.3s;
-        }
-        .login-card:hover {
-            transform: scale(1.03);
-        }
-        .login-btn {
-            background: linear-gradient(to right, #a259ff, #6a11cb);
-            color: white;
-            font-weight: 700;
-            border-radius: 1.2rem;
-            box-shadow: 0 2px 12px 0 rgba(138,43,226,0.13);
-            transition: filter 0.2s, transform 0.2s;
-            font-size: 1.15rem;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        .login-btn:hover {
-            filter: brightness(1.08);
-            transform: scale(1.04);
-        }
-        /* Purple theme for focus/hover */
-        input:focus {
-            outline: none;
-            border-color: #a259ff;
-            box-shadow: 0 0 0 2px #e0b0ff;
-        }
-        .back-btn {
-            background: #f3e8ff;
-            color: #a259ff;
-            border: none;
-            transition: background 0.2s, color 0.2s;
-        }
-        .back-btn:hover {
-            background: #e0b0ff;
-            color: #6a11cb;
-        }
-        .signup-link {
-            color: #a259ff;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .signup-link:hover {
-            color: #6a11cb;
-            text-decoration: underline;
-        }
-        @media (max-width: 640px) {
-            .login-card {
-                padding: 1.5rem 1rem 1rem 1rem;
-                margin-top: 4rem;
-            }
-            .navbar .container {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-    </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <?php require_once 'header.php'; ?>
+    <?php include 'header.php'; ?>
 
     <div class="login-card">
         <form method="POST" action="">
             <div class="flex items-center mb-6">
-                <button type="button" onclick="window.location.href='home.php'" class="p-2 rounded-full back-btn mr-4">
+                <button type="button" onclick="window.location.href='h.php'" class="p-2 rounded-full back-btn mr-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                     </svg>

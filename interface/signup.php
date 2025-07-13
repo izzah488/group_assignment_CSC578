@@ -1,35 +1,6 @@
 <?php
-// Start a session at the very beginning of the script to manage messages and form data
 session_start();
-
-// --- Database Connection Details (Using PDO) ---
-// IMPORTANT: Replace with your actual database credentials
-$host = 'localhost';
-$db   = 'moneymate_db';
-$user = 'root';     // Your database username
-$pass = 'danny3'; // <<< CHANGE THIS!
-$charset = 'utf8mb4'; // Recommended for full Unicode support
-
-// DSN (Data Source Name) string for MySQL
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-
-// PDO Options (highly recommended for security and error handling)
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Throw exceptions on errors
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Fetch results as associative arrays by default
-    PDO::ATTR_EMULATE_PREPARES   => false,                  // Disable emulation for better security and performance
-];
-
-// Try to establish the PDO database connection
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-    // Connection successful, $pdo object is ready
-} catch (\PDOException $e) {
-    // If connection fails, log the error and terminate script with a generic message
-    error_log("PDO Connection Error: " . $e->getMessage() . " (Code: " . $e->getCode() . ")");
-    die("Database connection failed. Please try again later.");
-}
-
+require_once __DIR__ . '/../dbconnection.php';
 // --- Initialize variables for form data and errors ---
 $errors = [];
 $formData = []; // To pre-fill form fields if there are errors
@@ -45,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Store submitted data to re-populate form fields in case of errors
     $formData = [
-        'firstName' => $firstName,
-        'lastName' => $lastName,
+        'fName' => $firstName,
+        'lName' => $lastName,
         'email' => $email,
     ];
 
@@ -73,11 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Handle profile picture upload
     $profilePicPath = null; // Default to null
-    if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['profilePic']['tmp_name'];
-        $fileName = $_FILES['profilePic']['name'];
-        $fileSize = $_FILES['profilePic']['size'];
-        $fileType = $_FILES['profilePic']['type'];
+    if (isset($_FILES['proPic']) && $_FILES['proPic']['error'] == UPLOAD_ERR_OK) { // Corrected name from 'profilePic' to 'proPic'
+        $fileTmpPath = $_FILES['proPic']['tmp_name'];
+        $fileName = $_FILES['proPic']['name'];
+        $fileSize = $_FILES['proPic']['size'];
+        $fileType = $_FILES['proPic']['type'];
         $fileNameCmps = explode(".", $fileName);
         $fileExtension = strtolower(end($fileNameCmps));
 
@@ -118,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         try {
             // Check if email already exists using PDO prepared statement
-            $stmt_check_email = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+            $stmt_check_email = $pdo->prepare("SELECT userID FROM users WHERE email = :email");
             $stmt_check_email->execute([':email' => $email]);
             $existingUser = $stmt_check_email->fetch();
 
@@ -126,14 +97,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errors[] = "Email already registered. Please use a different email or log in.";
             } else {
                 // Insert new user into the database using PDO prepared statement
-                $stmt_insert = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password, profile_pic) VALUES (:firstName, :lastName, :email, :password, :profilePic)");
+                // Corrected parameter names to match your form data names (fName, lName, pw, proPic)
+                $stmt_insert = $pdo->prepare("INSERT INTO users (fName, lName, email, pw, proPic) VALUES (:fName, :lName, :email, :pw, :proPic)");
 
                 $stmt_insert->execute([
                     ':fName' => $firstName,
                     ':lName' => $lastName,
                     ':email' => $email,
-                    ':pw' => $hashedPassword,
-                    ':proPic' => $profilePicPath
+                    ':pw' => $hashedPassword, // Use :pw for password
+                    ':proPic' => $profilePicPath // Use :proPic for profile picture
                 ]);
 
                 $_SESSION['message'] = "Sign up successful! Please log in.";
@@ -142,8 +114,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } catch (\PDOException $e) {
             // Catch database-related errors during query execution
-            error_log("Database Query Error during signup: " . $e->getMessage());
-            $errors[] = "An internal error occurred during registration. Please try again.";
+            error_log("Login DB Error: " . $e->getMessage(), 3, LOG_FILE_PATH);
+            $login_error = 'An internal error occurred. Please try again later.';
         }
     }
 
@@ -174,48 +146,17 @@ if (isset($_SESSION['message'])) {
     unset($_SESSION['message']); // Clear message after displaying
 }
 
-// Note: With PDO, you don't typically need to explicitly close the connection ($pdo = null;)
-// as PHP will close it automatically when the script finishes execution.
-
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Money Mate - Sign Up</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
-            color: #fff !important;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: white;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-    </style>
-</head>
-<body class="flex flex-col min-h-screen bg-gray-100">
-<?php include 'header.php';?>
 
-    <main class="flex-grow flex items-center justify-center p-6">
+//<body class="flex flex-col min-h-screen bg-gray-100">//
+<?php
+// Set page title for header
+$pageTitle = "Money Mate - Sign Up";
+require_once 'header.php';
+?>
+
+    <main class="flex-grow flex items-center justify-center p-6 pt-24 pb-12"> <!-- Added pt-24 and pb-12 -->
         <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
             <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Sign Up</h1>
 
@@ -250,14 +191,14 @@ if (isset($_SESSION['message'])) {
                     <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                     <input type="text" id="firstName" name="fName" placeholder="Enter your first name"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required
-                           value="<?php echo htmlspecialchars($formData['firstName'] ?? ''); ?>">
+                           value="<?php echo htmlspecialchars($formData['fName'] ?? ''); ?>"> <!-- Corrected formData key -->
                 </div>
 
                 <div class="mb-4">
                     <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                     <input type="text" id="lastName" name="lName" placeholder="Enter your last name"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" required
-                           value="<?php echo htmlspecialchars($formData['lastName'] ?? ''); ?>">
+                           value="<?php echo htmlspecialchars($formData['lName'] ?? ''); ?>"> <!-- Corrected formData key -->
                 </div>
 
                 <div class="mb-4">
@@ -304,5 +245,6 @@ if (isset($_SESSION['message'])) {
             }
         });
     </script>
-</body>
-</html>
+<?php
+require_once __DIR__ . '/../includes/footer.php'; // Include footer if you have one
+?>

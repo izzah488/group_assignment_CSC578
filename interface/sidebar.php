@@ -9,7 +9,7 @@
       <img id="sidebarProfilePic" src="https://placehold.co/40x40/cbd5e1/000000?text=P" class="rounded-full w-10 h-10 mr-3" />
       <div>
         <p id="sidebarName" class="text-sm font-medium text-gray-700">Hi, User!</p>
-        <p class="text-xs text-gray-500">Premium User</p>
+        
       </div>
     </div>
 

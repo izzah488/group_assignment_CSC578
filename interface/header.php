@@ -31,7 +31,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         }
 
         h1, h2, .hero-text-gradient {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Roboto', serif;
         }
 
         /* Navbar specific CSS */
