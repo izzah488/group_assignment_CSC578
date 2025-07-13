@@ -10,10 +10,10 @@ header('Access-Control-Allow-Methods: GET'); // Only GET requests are allowed fo
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Include your configuration and database connection files
-require_once '../config.php';
-require_once '../dbconnection.php'; // Your PDO database connection file
+require_once '/../config.php';
+require_once '/../dbconnection.php'; // Your PDO database connection file
 
-global $conn; // Access the global database handle
+global $pdo; // Access the global database handle
 
 $response = ['data' => [], 'error' => null];
 
@@ -21,7 +21,7 @@ $response = ['data' => [], 'error' => null];
 if (!isset($_SESSION['userID'])) {
     $response['error'] = 'User not logged in.';
     echo json_encode($response);
-    $conn = null; // Close connection
+    $pdo = null; // Close connection
     exit();
 } else {
     $userID = $_SESSION['userID'];
@@ -34,7 +34,7 @@ try {
 
     // SQL to get spending by category for the logged-in user for the current month
     // Join with 'expCatLookup' to get the category name
-    $stmt = $conn->prepare("
+    $stmt = $pdo->prepare("
         SELECT 
             ecl.catName AS category, 
             SUM(exp.expAmount) AS value
@@ -71,6 +71,6 @@ try {
 }
 
 echo json_encode($response);
-$conn = null; // Close the database connection
+$pdo = null; // Close the database connection
 exit();
 ?>

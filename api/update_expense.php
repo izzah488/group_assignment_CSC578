@@ -13,16 +13,16 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-require_once '../config.php';
-require_once '../dbconnection.php';
+require_once '/../config.php';
+require_once '/../dbconnection.php';
 
-global $conn; // Access the global database handle
+global $pdo; // Access the global database handle
 
 $response = ['success' => false, 'message' => ''];
 
 if (!isset($_SESSION['userID'])) {
     $response['message'] = 'User not logged in.';
-    echo json_encode($response); $conn = null; exit();
+    echo json_encode($response); $pdo = null; exit();
 } else {
     $userID = $_SESSION['userID'];
 }
@@ -38,11 +38,11 @@ $expDate = $data['expDate'] ?? null;
 if (empty($expenseID) || !is_numeric($expenseID) || empty($expTitle) || !is_numeric($expAmount) || $expAmount >= 0 || empty($catLookupID) || !is_numeric($catLookupID) || empty($expDate)) {
     $response['message'] = 'Invalid input data.';
     echo json_encode($response);
-    $conn = null; exit();
+    $pdo = null; exit();
 }
 
 try {
-    $stmt = $conn->prepare("
+    $stmt = $pdo->prepare("
         UPDATE expenses 
         SET 
             expTitle = :expTitle, 
@@ -76,5 +76,5 @@ try {
 }
 
 echo json_encode($response);
-$conn = null; exit();
+$pdo = null; exit();
 ?>

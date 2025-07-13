@@ -3,8 +3,8 @@ session_start(); // Start the session to access user ID
 
 // Include your configuration and database connection files
 // Assuming this file is in 'interface/' and config/dbconnection are in the parent root.
-require_once '../config.php';
-require_once '../dbconnection.php';
+require_once '/../config.php';
+require_once '/../dbconnection.php';
 
 // --- IMPORTANT: User ID Management ---
 // Redirect if user is not logged in
@@ -211,33 +211,7 @@ $userID = $_SESSION['userID']; // Get the logged-in user's ID
 <body class="bg-gray-100 flex">
 
   <!-- Sidebar (PHP include for dynamic content if needed, otherwise keep as static HTML) -->
-  <?php // include 'sidebar.php'; ?>
-    <aside class="sidebar">
-    <div class="flex flex-col justify-start h-full">
-      <div class="flex items-center mb-8">
-        <img src="https://placehold.co/40x40/cbd5e1/000000?text=P" class="rounded-full mr-3" />
-        <div>
-        <p class="text-sm font-medium text-gray-700">Hi, Rebecca!</p>
-          <p class="text-xs text-gray-500">Premium User</p>
-        </div>
-      </div>
-      <button onclick="window.location.href='dashboard.php'" class="menu-btn w-full mb-4">
-        ☰ Dashboard
-      </button>
-
-      <nav class="nav-links mb-auto">
-        <a href="savings.php">⭐️ Savings</a>
-        <a href="profile.php">👤 Profile</a>
-        <a href="budget.php">⬇️ Budget</a>
-        <a href="expenses.php" class="active">⬆️ Expenses</a>
-      </nav>
-
-      <button onclick="window.location.href='home.php'" class="logout w-full mt-10">
-        <i class="fa-solid fa-power-off"></i>
-        Log Out
-      </button>
-    </div>
-    </aside>
+  <?php //include 'sidebar.php'; ?>
 
     <main class="main-content">
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">

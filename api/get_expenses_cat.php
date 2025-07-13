@@ -5,17 +5,16 @@ session_start();
 header('Content-Type: application/json'); // Tell the browser we're sending JSON
 
 // Check if the user is logged in (crucial for fetching user-specific data)
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    echo json_encode(['error' => 'Not authenticated']);
-    exit;
+if (!isset($_SESSION['userID'])) {
+    header('Location: login.php');
+    exit();
 }
-
 // Include the Database connection class
 // Adjust path as needed based on your project's root and includes folder
-require_once __DIR__ . '/../../includes/Database.php'; 
+require_once __DIR__ . '/../includes/database.php';
 
 try {
-    $conn = Database::getInstance()->getConnection();
+    $pdo = Database::getInstance()->getConnection();
     $userId = $_SESSION['id']; // Get the logged-in user's ID
 
     // SQL to get spending by category for the logged-in user
@@ -25,7 +24,7 @@ try {
             WHERE user_id = :userId AND amount < 0 
             GROUP BY category";
     
-    $stmt = $conn->prepare($sql);
+    $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);

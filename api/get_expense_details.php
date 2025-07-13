@@ -4,15 +4,15 @@
 session_start();
 header('Content-Type: application/json');
 
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    echo json_encode(['error' => 'Not authenticated']);
-    exit;
+if (!isset($_SESSION['userID'])) {
+    header('Location: login.php');
+    exit();
 }
 
-require_once __DIR__ . '/../../includes/config.php'; // Include config for LOG_FILE_PATH
-require_once __DIR__ . '/../../includes/dbconnection.php'; // Provides $conn
+require_once __DIR__ . '/../config.php'; // Include config for LOG_FILE_PATH
+require_once __DIR__ . '/../dbconnection.php'; // Provides $pdo
 
-global $conn; // Access the global database handle
+global $pdo; // Access the global database handle
 
 try {
     // Fetch all expense transactions (amount < 0) for the logged-in user
@@ -24,7 +24,7 @@ try {
             WHERE exp.userID = :userID
             ORDER BY exp.expDate DESC, exp.expenseID DESC"; // Ensure you're filtering by user and linking to category name
 
-    $stmt = $conn->prepare($sql);
+    $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':userID', $_SESSION['id'], PDO::PARAM_INT);
     $stmt->execute();
     $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -2,19 +2,17 @@
 // File: public/add_money_expenses.php
 
 session_start();
-
-// Check if the user is logged in. If not, redirect.
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: login.php");
-    exit;
+if (!isset($_SESSION['userID'])) {
+    header('Location: login.php');
+    exit();
 }
 
 // Include the Database connection files
 require_once __DIR__ . '/../config.php'; // Assuming config.php defines LOG_FILE_PATH etc.
-require_once __DIR__ . '/../dbconnection.php'; // Assuming dbconnection.php provides $conn
+require_once __DIR__ . '/../dbconnection.php'; // Assuming dbconnection.php provides $pdo
 
 // Get the PDO database connection instance (from dbconnection.php)
-global $conn; // Access the global database handle
+global $pdo; // Access the global database handle
 
 $expense_error = '';
 $expense_success = '';

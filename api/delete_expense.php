@@ -5,16 +5,16 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-require_once '../config.php';
-require_once '../dbconnection.php';
+require_once '/../config.php';
+require_once '/../dbconnection.php';
 
-global $conn; // Access the global database handle
+global $pdo; // Access the global database handle
 
 $response = ['success' => false, 'message' => ''];
 
 if (!isset($_SESSION['userID'])) {
     $response['message'] = 'User not logged in.';
-    echo json_encode($response); $conn = null; exit();
+    echo json_encode($response); $pdo = null; exit();
 } else {
     $userID = $_SESSION['userID'];
 }
@@ -25,11 +25,11 @@ $expenseID = $data['expenseID'] ?? null;
 if (empty($expenseID) || !is_numeric($expenseID)) {
     $response['message'] = 'Invalid expense ID.';
     echo json_encode($response);
-    $conn = null; exit();
+    $pdo = null; exit();
 }
 
 try {
-    $stmt = $conn->prepare("DELETE FROM expenses WHERE expenseID = :expenseID AND userID = :userID");
+    $stmt = $pdo->prepare("DELETE FROM expenses WHERE expenseID = :expenseID AND userID = :userID");
     $stmt->bindParam(':expenseID', $expenseID, PDO::PARAM_INT);
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 
@@ -50,5 +50,5 @@ try {
 }
 
 echo json_encode($response);
-$conn = null; exit();
+$pdo = null; exit();
 ?>
