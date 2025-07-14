@@ -4,6 +4,25 @@ if (!isset($_SESSION['userID'])) {
     header('Location: login.php');
     exit();
 }
+
+// Include database connection
+require_once '../dbconnection.php'; // Assuming you have a db_connection.php file
+
+$userID = $_SESSION['userID'];
+$userData = null;
+
+// Fetch user data from the database
+try {
+    $stmt = $pdo->prepare("SELECT fName, lName, email, proPic FROM users WHERE userID = :userID");
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Log error or display a user-friendly message
+    error_log("Error fetching user data: " . $e->getMessage());
+    // Optionally redirect or show an error
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,11 +30,8 @@ if (!isset($_SESSION['userID'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profile Page</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts - Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
   <style>
@@ -135,33 +151,32 @@ if (!isset($_SESSION['userID'])) {
 <body class="flex min-h-screen">
   <?php include 'sidebar.php'; ?>
 
-  <!-- Main Content -->
   <main class="main-content">
     <h1 class="text-3xl font-bold text-gray-900 mb-2">Profile</h1>
     <p class="text-gray-600 mb-8">View your profile information.</p>
 
     <div class="profile-card">
       <div class="flex flex-col items-center mb-8">
-        <img id="profilePageImage" src="https://placehold.co/100x100/cbd5e1/000000?text=P" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover border-4 border-purple-300 shadow-lg mb-4" />
-        <h2 id="profilePageName" class="text-2xl font-bold text-gray-800">User Name</h2>
+        <img id="profilePageImage" src="<?php echo htmlspecialchars($userData['proPic'] ?? 'https://placehold.co/100x100/cbd5e1/000000?text=P'); ?>" alt="Profile Picture" class="w-24 h-24 rounded-full object-cover border-4 border-purple-300 shadow-lg mb-4" />
+        <h2 id="profilePageName" class="text-2xl font-bold text-gray-800"><?php echo htmlspecialchars(($userData['fName'] ?? 'User') . ' ' . ($userData['lName'] ?? 'Name')); ?></h2>
       </div>
 
       <div class="profile-field">
         <label for="firstName">First Name</label>
-        <input type="text" id="firstName" value="" readonly />
+        <input type="text" id="firstName" name="fName" value="<?php echo htmlspecialchars($userData['fName'] ?? ''); ?>" readonly />
       </div>
       <div class="profile-field">
         <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" value="" readonly />
+        <input type="text" id="lastName" name="lName" value="<?php echo htmlspecialchars($userData['lName'] ?? ''); ?>" readonly />
       </div>
       <div class="profile-field">
         <label for="email">Email</label>
-        <input type="email" id="email" value="" readonly />
+        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>" readonly />
       </div>
       <div class="profile-field flex justify-between items-center">
         <div class="flex-grow">
           <label for="password">Current Password</label>
-          <input type="password" id="password" value="********" readonly />
+          <input type="password" id="password" name="currentPassword" value="********" readonly />
         </div>
       </div>
 
@@ -171,39 +186,19 @@ if (!isset($_SESSION['userID'])) {
     </div>
   </main>
 
-  <!-- Scripts -->
   <script>
-    // Function to load user data from localStorage
-    function loadUserData() {
-      const userDataString = localStorage.getItem('userData');
-      if (userDataString) {
-        const userData = JSON.parse(userDataString);
+    // This script block is largely simplified as data comes from PHP now.
+    // However, if sidebar.php also needs dynamic data, you might pass it
+    // via a global JS variable or refactor sidebar to also get data from PHP.
+    // For now, we'll assume sidebar.php has its own way to get data, or it's static.
 
-        // Update sidebar
-        document.getElementById('sidebarName').textContent = `Hi, ${userData.firstName}!`;
-        document.getElementById('sidebarProfilePic').src = userData.profilePic || "https://placehold.co/40x40/cbd5e1/000000?text=P";
-
-        // Update profile page main content
-        document.getElementById('profilePageImage').src = userData.profilePic || "https://placehold.co/100x100/cbd5e1/000000?text=P";
-        document.getElementById('profilePageName').textContent = `${userData.firstName} ${userData.lastName}`;
-        document.getElementById('firstName').value = userData.firstName;
-        document.getElementById('lastName').value = userData.lastName;
-        document.getElementById('email').value = userData.email;
-        // Password is not stored for security, so it remains static or is handled differently
-      } else {
-        // Default values if no user data is found
-        document.getElementById('sidebarName').textContent = 'Hi, User!';
-        document.getElementById('sidebarProfilePic').src = "https://placehold.co/40x40/cbd5e1/000000?text=P";
-        document.getElementById('profilePageImage').src = "https://placehold.co/100x100/cbd5e1/000000?text=P";
-        document.getElementById('profilePageName').textContent = 'User Name';
-        document.getElementById('firstName').value = '';
-        document.getElementById('lastName').value = '';
-        document.getElementById('email').value = '';
-      }
-    }
-
-    // Load user data when the page loads
-    window.addEventListener('DOMContentLoaded', loadUserData);
+    // Example for sidebar (if not handled by sidebar.php directly):
+    // const sidebarName = document.getElementById('sidebarName');
+    // const sidebarProfilePic = document.getElementById('sidebarProfilePic');
+    // if (sidebarName && sidebarProfilePic) {
+    //   sidebarName.textContent = `Hi, <?php echo htmlspecialchars($userData['fName'] ?? 'User'); ?>!`;
+    //   sidebarProfilePic.src = `<?php echo htmlspecialchars($userData['proPic'] ?? 'https://placehold.co/40x40/cbd5e1/000000?text=P'); ?>`;
+    // }
   </script>
 </body>
 </html>

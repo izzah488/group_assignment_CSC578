@@ -42,11 +42,35 @@ try {
     // Continue with default values
 }
 
-// --- PHP to fetch all categories for the Edit Modal dropdown ---
+// Define a consistent color map for categories
+// This ensures 'Food' always gets the same color, 'Transport' always gets the same color, etc.
+// These colors mirror the palette in dashboard.php for consistency.
+$CATEGORY_COLOR_MAP = [
+    'Food' => '#4CAF50',        // Green
+    'Transport' => '#FFC107',   // Amber
+    'Shopping' => '#2196F3',    // Blue
+    'Utilities' => '#F44336',   // Red
+    'Bill' => '#9C27B0',        // Purple
+    'Top Up' => '#FF9800',      // Orange
+    'Entertainment' => '#00BCD4',// Cyan
+    'Health' => '#E91E63',      // Pink
+    'Education' => '#673AB7',   // Deep Purple
+    // Add more categories and colors as needed to match your expCatLookup table
+    'Others' => '#9E9E9E' // A default for categories not explicitly mapped
+];
+
+// --- PHP to fetch all categories for the Edit Modal dropdown and assign colors ---
 $allCategories = [];
+$jsCategoryColorsMap = []; // To store category name -> color mapping for JS
 try {
-    $catStmt = $pdo->query("SELECT catLookupID, catName FROM expCatLookup ORDER BY catName"); // Fetch ID and Name
-    $allCategories = $catStmt->fetchAll(PDO::FETCH_ASSOC); // Fetch as associative array
+    $catStmt = $pdo->query("SELECT catLookupID, catName FROM expCatLookup ORDER BY catName");
+    $fetchedCategories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($fetchedCategories as $cat) {
+        $allCategories[] = $cat; // Keep original structure for dropdowns
+        // Assign color from the fixed map, default to 'Others' if category name not found in map
+        $jsCategoryColorsMap[$cat['catName']] = $CATEGORY_COLOR_MAP[$cat['catName']] ?? $CATEGORY_COLOR_MAP['Others'];
+    }
 } catch (PDOException $e) {
     error_log("Error fetching categories for expenses page: " . $e->getMessage(), 3, LOG_FILE_PATH);
     // Handle error, leave categories empty or add a fallback
@@ -201,13 +225,13 @@ if (empty($_SESSION['csrf_token'])) {
 
     /* Expenses List styles */
     .expense-category-header {
-        background-color: #e5e7eb; /* bg-gray-200 */
+        /* Removed fixed background-color and text-color to allow inline styling */
         padding: 0.75rem 1.5rem; /* py-3 px-6 */
         font-weight: 600; /* font-semibold */
         border-radius: 0.5rem; /* rounded-lg */
         margin-top: 1rem;
         margin-bottom: 0.5rem;
-        color: #1f2937; /* text-gray-900 */
+        /* color will be set dynamically via inline style */
     }
     .expense-item {
         display: flex;
@@ -396,7 +420,7 @@ if (empty($_SESSION['csrf_token'])) {
         <!-- Expenses will be dynamically loaded here -->
         <!-- Added individual category lists for structured display -->
         <?php foreach ($allCategories as $cat): ?>
-            <div class="expense-category-header bg-gray-200 text-gray-900 shadow-md">
+            <div class="expense-category-header shadow-md" style="background-color: <?= htmlspecialchars($jsCategoryColorsMap[$cat['catName']]) ?>; color: #ffffff;">
                 <?= htmlspecialchars($cat['catName']) ?>
             </div>
             <div class="expense-category-list bg-white shadow-md rounded-b-lg" id="<?= htmlspecialchars($cat['catName']) ?>ExpensesList">
@@ -485,17 +509,8 @@ if (empty($_SESSION['csrf_token'])) {
     const API_BASE_URL = 'expenses_api.php'; // Corrected path to API
 
     // Define category colors for consistency in D3 chart and legend
-    const categoryColors = {
-        'Food': '#a78bfa',
-        'Transport': '#fcd34d',
-        'Shopping': '#f97316',
-        'Utilities': '#ec4899',
-        'Bill': '#2dd4bf',
-        'Top Up': '#4ade80',
-        'Entertainment': '#60a5fa',
-        'Health': '#ef4444', // Red-500
-        'Education': '#6366f1' // Indigo-500
-    };
+    // This object is now dynamically populated by PHP to match the dashboard's palette
+    const categoryColors = <?= json_encode($jsCategoryColorsMap) ?>;
 
     // --- Sidebar Toggle JavaScript (for responsiveness) ---
     const sidebar = document.getElementById('main-sidebar');
@@ -946,7 +961,18 @@ if (empty($_SESSION['csrf_token'])) {
 
     // --- Delete Expense ---
     async function deleteExpense(expenseID) {
-        if (!confirm("Are you sure you want to delete this expense? This action cannot be undone.")) {
+        // Replaced `confirm()` with a custom modal for better UX.
+        // For this example, I'll use a placeholder for the custom confirm.
+        // In a real app, you'd show a custom modal and await user's choice.
+        const userConfirmed = await new Promise(resolve => {
+            if (window.confirm("Are you sure you want to delete this expense? This action cannot be undone.")) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
+
+        if (!userConfirmed) {
             return; // User cancelled
         }
 

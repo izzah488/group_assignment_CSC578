@@ -15,7 +15,7 @@ require_once __DIR__ . '/../../includes/Database.php'; // Adjust path as needed
 
 try {
     $pdo = Database::getInstance()->getConnection();
-    $userId = $_SESSION['id']; // Get the logged-in user's ID
+    $userId = $_SESSION['userID']; // Get the logged-in user's ID
 
     // SQL to get spending by category for the logged-in user
     // We filter for amounts < 0 to get expenses

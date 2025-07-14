@@ -4,6 +4,41 @@ if (!isset($_SESSION['userID'])) {
     header('Location: login.php');
     exit();
 }
+
+// Include database connection
+require_once '../dbconnection.php'; // This will make $conn (which is $pdo) available
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userID = $_SESSION['userID'];
+    $savTitle = $_POST['savingFor'];
+    $savAmount = $_POST['budgetAmount'];
+    $targetDate = $_POST['targetDate'];
+    $curSavings = 0.00; // New savings goal starts with 0 current savings
+
+    try {
+        // Prepare an insert statement using PDO
+        $stmt = $pdo->prepare("INSERT INTO savingGoals (userID, savTitle, savAmount, targetDate, curSavings) VALUES (:userID, :savTitle, :savAmount, :targetDate, :curSavings)");
+        
+        // Bind parameters using PDO's bindParam
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':savTitle', $savTitle, PDO::PARAM_STR);
+        $stmt->bindParam(':savAmount', $savAmount, PDO::PARAM_STR); // PDO handles decimals as strings sometimes
+        $stmt->bindParam(':targetDate', $targetDate, PDO::PARAM_STR);
+        $stmt->bindParam(':curSavings', $curSavings, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            // Redirect back to savings page with success message or just redirect
+            header('Location: savings.php?status=success');
+            exit();
+        } else {
+            // Handle error
+            echo "Error: Could not save goal.";
+        }
+    } catch (PDOException $e) {
+        error_log("Error inserting saving goal: " . $e->getMessage());
+        echo "Database error: " . $e->getMessage();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +131,6 @@ if (!isset($_SESSION['userID'])) {
 <body class="flex min-h-screen">
   <?php include 'sidebar.php'; ?>
 
-  <!-- Main Content -->
   <main class="main-content">
     <header class="flex items-center mb-8">
       <button onclick="window.history.back()" class="text-gray-500 hover:text-gray-700 mr-4">
@@ -113,58 +147,35 @@ if (!isset($_SESSION['userID'])) {
     <div class="form-card">
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Add Saving Goal</h2>
 
-      <div class="space-y-6">
-        <!-- Saving For -->
+      <form action="new_saving.php" method="POST" class="space-y-6">
         <div>
           <label for="savingFor" class="block text-sm font-medium text-gray-700 mb-1">Saving For</label>
-          <input type="text" id="savingFor" placeholder="e.g., New Laptop" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+          <input type="text" id="savingFor" name="savingFor" placeholder="e.g., New Laptop" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800" required>
         </div>
 
-        <!-- Budget Amount -->
         <div>
           <label for="budgetAmount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
           <div class="relative">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">RM</span>
-            <input type="number" id="budgetAmount" placeholder="0.00" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800 font-medium text-lg">
+            <input type="number" id="budgetAmount" name="budgetAmount" placeholder="0.00" step="0.01" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800 font-medium text-lg" required min="0.01">
           </div>
         </div>
 
-        <!-- Target Date -->
         <div>
           <label for="targetDate" class="block text-sm font-medium text-gray-700 mb-1">Target Date</label>
-          <input type="date" id="targetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800">
+          <input type="date" id="targetDate" name="targetDate" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-800" required>
         </div>
-      </div>
 
-      <!-- Action Buttons -->
-      <div class="mt-8 flex justify-between space-x-4">
-        <button onclick="window.location.href='savings.php'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
-          CANCEL
-        </button>
-        <button onclick="saveSaving()" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
-          SAVE
-        </button>
-      </div>
+        <div class="mt-8 flex justify-between space-x-4">
+          <button type="button" onclick="window.location.href='savings.php'" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-red-400 text-white font-semibold hover:bg-red-500 transition">
+            CANCEL
+          </button>
+          <button type="submit" class="flex-1 py-3 px-4 rounded-xl shadow-lg bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+            SAVE
+          </button>
+        </div>
+      </form>
     </div>
   </main>
-
-  <script>
-    function saveSaving() {
-      const savingFor = document.getElementById("savingFor").value;
-      const amount = document.getElementById("budgetAmount").value;
-      const targetDate = document.getElementById("targetDate").value;
-
-      if (!savingFor || !amount || !targetDate) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      // Simulate saving (replace with backend code if needed)
-      alert("Saving goal added successfully!");
-
-      // Redirect back to savings page
-      window.location.href = "savings.php";
-    }
-  </script>
 </body>
 </html>

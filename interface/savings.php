@@ -4,6 +4,92 @@ if (!isset($_SESSION['userID'])) {
     header('Location: login.php');
     exit();
 }
+
+// Include database connection
+require_once '../dbconnection.php'; // This will make $conn (which is $pdo) available
+
+$userID = $_SESSION['userID'];
+
+// --- Handle DELETE request ---
+if (isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['savingID'])) {
+    $savingID = $_POST['savingID'];
+    try {
+        $stmt = $pdo->prepare("DELETE FROM savingGoals WHERE savingID = :savingID AND userID = :userID");
+        $stmt->bindParam(':savingID', $savingID, PDO::PARAM_INT);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to delete saving goal.']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    }
+    exit();
+}
+
+// --- Handle UPDATE request ---
+if (isset($_POST['action']) && $_POST['action'] === 'update' && isset($_POST['savingID'])) {
+    $savingID = $_POST['savingID'];
+    $savTitle = $_POST['savTitle'];
+    $savAmount = $_POST['savAmount'];
+    $currentSavings = $_POST['currentSavings'];
+    $targetDate = $_POST['targetDate'];
+
+    try {
+        $stmt = $pdo->prepare("UPDATE savingGoals SET savTitle = :savTitle, savAmount = :savAmount, curSavings = :curSavings, targetDate = :targetDate WHERE savingID = :savingID AND userID = :userID");
+        $stmt->bindParam(':savTitle', $savTitle, PDO::PARAM_STR);
+        $stmt->bindParam(':savAmount', $savAmount, PDO::PARAM_STR);
+        $stmt->bindParam(':curSavings', $currentSavings, PDO::PARAM_STR);
+        $stmt->bindParam(':targetDate', $targetDate, PDO::PARAM_STR);
+        $stmt->bindParam(':savingID', $savingID, PDO::PARAM_INT);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update saving goal.']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    }
+    exit();
+}
+
+// --- Handle ADD CURRENT SAVINGS request ---
+if (isset($_POST['action']) && $_POST['action'] === 'addCurrentSavings' && isset($_POST['savingID']) && isset($_POST['amountToAdd'])) {
+    $savingID = $_POST['savingID'];
+    $amountToAdd = $_POST['amountToAdd'];
+
+    try {
+        $stmt = $pdo->prepare("UPDATE savingGoals SET curSavings = curSavings + :amountToAdd WHERE savingID = :savingID AND userID = :userID");
+        $stmt->bindParam(':amountToAdd', $amountToAdd, PDO::PARAM_STR);
+        $stmt->bindParam(':savingID', $savingID, PDO::PARAM_INT);
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to add savings.']);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    }
+    exit();
+}
+
+// --- Fetch saving goals for the current user ---
+$savingsGoals = [];
+try {
+    $stmt = $pdo->prepare("SELECT savingID, savTitle, savAmount, targetDate, curSavings FROM savingGoals WHERE userID = :userID ORDER BY targetDate ASC");
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    $savingsGoals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Error fetching saving goals: " . $e->getMessage());
+    // Optionally, send an empty array or an error message to the client
+    $savingsGoals = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,16 +162,16 @@ if (!isset($_SESSION['userID'])) {
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
         <span class="text-gray-700 font-medium">March 2025</span>
         <i class="fas fa-calendar-alt text-xl text-gray-500"></i>
-      </div>
+  </div>
     </header>
 
     <section id="savingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></section>
 
     <section class="flex justify-center mt-8">
-      <button onclick="toggleNewSavingModal()" class="w-full max-w-md py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center gap-2 new-saving-btn" style="background-image: linear-gradient(to right, #8e2de2, #4a00e0);">
+      <a href="new_saving.php" class="w-full max-w-md py-4 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center gap-2 new-saving-btn" style="background-image: linear-gradient(to right, #8e2de2, #4a00e0);">
         <i class="fas fa-plus-circle"></i>
         <span>New Savings</span>
-      </button>
+      </a>
     </section>
   </main>
 
@@ -111,6 +197,7 @@ if (!isset($_SESSION['userID'])) {
       <button onclick="toggleEditSavingModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
       <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Edit Saving Goal</h2>
       <div class="space-y-6">
+        <input type="hidden" id="editSavingID">
         <input type="text" id="editSavingFor" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
         <input type="number" id="editBudgetAmount" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
         <input type="number" id="editCurrentSavings" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
@@ -129,6 +216,7 @@ if (!isset($_SESSION['userID'])) {
       <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add Savings to Goal</h2>
       <p class="text-center text-gray-600 mb-4" id="addSavingsGoalTitle"></p>
       <div class="space-y-4">
+        <input type="hidden" id="addSavingsSavingID">
         <input type="number" id="amountToAdd" placeholder="Amount to add (e.g., 50.00)" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50">
       </div>
       <div class="mt-8 flex justify-between space-x-4">
@@ -139,23 +227,17 @@ if (!isset($_SESSION['userID'])) {
   </div>
 
   <script>
-    let savings = JSON.parse(localStorage.getItem('savings')) || [];
-    let editIndex = null; // Used for editing a goal
-    let addSavingsIndex = null; // Used for adding current savings to a specific goal
+    // PHP data passed to JavaScript
+    const savings = <?php echo json_encode($savingsGoals); ?>;
 
-    function updateSavingsCount() {
-      localStorage.setItem('savingsCount', savings.length);
-    }
+    let editSavingID = null; // Used for editing a goal
+    let addSavingsSavingID = null; // Used for adding current savings to a specific goal
 
     function toggleNewSavingModal() {
+      // This modal is no longer used for adding new savings;
+      // instead, the "New Savings" button now links to new_saving.php
+      // Keeping the function for consistency if other parts of the UI trigger it.
       document.getElementById('newSavingModal').classList.toggle('hidden');
-      if (!document.getElementById('newSavingModal').classList.contains('hidden')) {
-        // Clear fields when opening for new saving
-        document.getElementById("savingFor").value = "";
-        document.getElementById("budgetAmount").value = "";
-        document.getElementById("currentSavingsInitial").value = ""; // Renamed this ID
-        document.getElementById("targetDate").value = "";
-      }
     }
 
     function toggleEditSavingModal() {
@@ -169,30 +251,6 @@ if (!isset($_SESSION['userID'])) {
       }
     }
 
-    function saveSaving() {
-      const savingFor = document.getElementById("savingFor").value.trim();
-      const budgetAmount = parseFloat(document.getElementById("budgetAmount").value.trim());
-      const currentSavingsInitial = parseFloat(document.getElementById("currentSavingsInitial").value.trim()) || 0; // New ID
-      const targetDate = document.getElementById("targetDate").value;
-
-      if (!savingFor || isNaN(budgetAmount) || budgetAmount <= 0 || !targetDate) {
-        alert("Please fill in all fields correctly (Target Amount must be a positive number).");
-        return;
-      }
-      if (isNaN(currentSavingsInitial) || currentSavingsInitial < 0) {
-        alert("Current Savings must be a non-negative number.");
-        return;
-      }
-
-      const newSaving = { savingFor, budgetAmount, currentSavings: currentSavingsInitial, targetDate }; // Use currentSavings for consistency
-      savings.push(newSaving);
-
-      localStorage.setItem('savings', JSON.stringify(savings));
-      updateSavingsCount(); // Call this function to update the count
-      toggleNewSavingModal();
-      renderSavings();
-    }
-
     function renderSavings() {
       const container = document.getElementById("savingsList");
       container.innerHTML = "";
@@ -203,51 +261,51 @@ if (!isset($_SESSION['userID'])) {
       }
 
       savings.forEach((item, index) => {
-        // Ensure currentSavings is a number, default to 0 if not
-        item.currentSavings = parseFloat(item.currentSavings) || 0;
-        item.budgetAmount = parseFloat(item.budgetAmount) || 0;
-
-        const progress = (item.currentSavings / item.budgetAmount) * 100;
+        const progress = (parseFloat(item.curSavings) / parseFloat(item.savAmount)) * 100;
         const progressBarWidth = Math.min(progress, 100); // Cap at 100%
 
         const card = document.createElement("div");
         card.className = "bg-white p-4 rounded-lg shadow";
         card.innerHTML = `
-          <h3 class="text-xl font-semibold text-purple-700">${item.savingFor}</h3>
-          <p class="text-gray-700 mt-1">Target: <strong>RM ${item.budgetAmount.toFixed(2)}</strong></p>
-          <p class="text-gray-700">Current: <strong>RM ${item.currentSavings.toFixed(2)}</strong></p>
+          <h3 class="text-xl font-semibold text-purple-700">${item.savTitle}</h3>
+          <p class="text-gray-700 mt-1">Target: <strong>RM ${parseFloat(item.savAmount).toFixed(2)}</strong></p>
+          <p class="text-700">Current: <strong>RM ${parseFloat(item.curSavings).toFixed(2)}</strong></p>
           <p class="text-gray-600 text-sm mb-4">Target Date: ${item.targetDate}</p>
           <div class="w-full bg-gray-200 rounded-full h-2.5 mb-2">
             <div class="bg-purple-600 h-2.5 rounded-full" style="width: ${progressBarWidth}%"></div>
           </div>
           <p class="text-sm text-gray-600 mb-4">${progressBarWidth.toFixed(1)}% complete</p>
           <div class="flex flex-wrap gap-2">
-            <button onclick="editSaving(${index})" class="bg-yellow-400 text-white px-3 py-1 rounded">Edit</button>
-            <button onclick="deleteSaving(${index})" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
-            <button onclick="openAddCurrentSavingsModal(${index})" class="bg-blue-500 text-white px-3 py-1 rounded">Add Savings</button>
+            <button onclick="editSaving(${item.savingID})" class="bg-yellow-400 text-white px-3 py-1 rounded">Edit</button>
+            <button onclick="deleteSaving(${item.savingID})" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+            <button onclick="openAddCurrentSavingsModal(${item.savingID}, '${item.savTitle}')" class="bg-blue-500 text-white px-3 py-1 rounded">Add Savings</button>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    function editSaving(index) {
-      editIndex = index;
-      const item = savings[index];
-      document.getElementById("editSavingFor").value = item.savingFor;
-      document.getElementById("editBudgetAmount").value = item.budgetAmount;
-      document.getElementById("editCurrentSavings").value = item.currentSavings;
-      document.getElementById("editTargetDate").value = item.targetDate;
-      toggleEditSavingModal();
+    async function editSaving(savingID) {
+      editSavingID = savingID;
+      const item = savings.find(s => s.savingID == savingID); // Find by savingID
+      if (item) {
+          document.getElementById("editSavingID").value = item.savingID;
+          document.getElementById("editSavingFor").value = item.savTitle;
+          document.getElementById("editBudgetAmount").value = item.savAmount;
+          document.getElementById("editCurrentSavings").value = item.curSavings;
+          document.getElementById("editTargetDate").value = item.targetDate;
+          toggleEditSavingModal();
+      }
     }
 
-    function updateSaving() {
-      const savingFor = document.getElementById("editSavingFor").value.trim();
-      const budgetAmount = parseFloat(document.getElementById("editBudgetAmount").value.trim());
+    async function updateSaving() {
+      const savingID = document.getElementById("editSavingID").value;
+      const savTitle = document.getElementById("editSavingFor").value.trim();
+      const savAmount = parseFloat(document.getElementById("editBudgetAmount").value.trim());
       const currentSavings = parseFloat(document.getElementById("editCurrentSavings").value.trim());
       const targetDate = document.getElementById("editTargetDate").value;
 
-      if (!savingFor || isNaN(budgetAmount) || budgetAmount <= 0 || !targetDate) {
+      if (!savTitle || isNaN(savAmount) || savAmount <= 0 || !targetDate) {
         alert("Please fill in all fields correctly (Target Amount must be a positive number).");
         return;
       }
@@ -256,51 +314,96 @@ if (!isset($_SESSION['userID'])) {
         return;
       }
 
-      savings[editIndex] = { savingFor, budgetAmount, currentSavings, targetDate };
-      localStorage.setItem('savings', JSON.stringify(savings));
-      toggleEditSavingModal();
-      renderSavings();
-      editIndex = null; // Reset editIndex
-    }
+      const response = await fetch('savings.php', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+              action: 'update',
+              savingID: savingID,
+              savTitle: savTitle,
+              savAmount: savAmount,
+              currentSavings: currentSavings,
+              targetDate: targetDate
+          })
+      });
 
-    function deleteSaving(index) {
-      if (confirm("Are you sure you want to delete this saving goal?")) {
-        savings.splice(index, 1);
-        localStorage.setItem('savings', JSON.stringify(savings));
-        updateSavingsCount(); // Call this function to update the count
-        renderSavings();
+      const result = await response.json();
+      if (result.status === 'success') {
+          toggleEditSavingModal();
+          location.reload(); // Reload to reflect changes from database
+      } else {
+          alert("Error updating saving goal: " + result.message);
       }
     }
 
-    function openAddCurrentSavingsModal(index) {
-      addSavingsIndex = index;
-      const item = savings[index];
-      document.getElementById("addSavingsGoalTitle").textContent = `Goal: ${item.savingFor}`;
+    async function deleteSaving(savingID) {
+      if (confirm("Are you sure you want to delete this saving goal?")) {
+        const response = await fetch('savings.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                action: 'delete',
+                savingID: savingID
+            })
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+            location.reload(); // Reload to reflect changes from database
+        } else {
+            alert("Error deleting saving goal: " + result.message);
+        }
+      }
+    }
+
+    function openAddCurrentSavingsModal(savingID, savTitle) {
+      addSavingsSavingID = savingID;
+      document.getElementById("addSavingsGoalTitle").textContent = `Goal: ${savTitle}`;
+      document.getElementById("addSavingsSavingID").value = savingID; // Set hidden input
       toggleAddCurrentSavingsModal();
     }
 
-    function addSavingsToGoal() {
+    async function addSavingsToGoal() {
       const amountToAdd = parseFloat(document.getElementById("amountToAdd").value.trim());
+      const savingID = document.getElementById("addSavingsSavingID").value;
 
       if (isNaN(amountToAdd) || amountToAdd <= 0) {
         alert("Please enter a valid positive amount to add.");
         return;
       }
 
-      if (addSavingsIndex !== null && savings[addSavingsIndex]) {
-        savings[addSavingsIndex].currentSavings += amountToAdd;
-        localStorage.setItem('savings', JSON.stringify(savings));
-        toggleAddCurrentSavingsModal();
-        renderSavings();
+      if (savingID) {
+        const response = await fetch('savings.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                action: 'addCurrentSavings',
+                savingID: savingID,
+                amountToAdd: amountToAdd
+            })
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+            toggleAddCurrentSavingsModal();
+            location.reload(); // Reload to reflect changes from database
+        } else {
+            alert("Error adding savings: " + result.message);
+        }
       } else {
-        alert("Error: Could not find saving goal.");
+        alert("Error: Could not find saving goal ID.");
       }
-      addSavingsIndex = null; // Reset
     }
 
     window.onload = () => {
       renderSavings();
-      updateSavingsCount(); // Ensure count is updated on load as well
+      // No need for updateSavingsCount() as data is fetched live from DB
     };
   </script>
 </body>

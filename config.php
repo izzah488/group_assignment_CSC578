@@ -11,4 +11,5 @@ define('DB_USER', 'root');
 define('DB_PASS', 'danny3'); // CHANGE THIS!
 // You might also define other global constants here, e.g., site name
 // define('SITE_NAME', 'Money Mate');
+
 ?>

@@ -13,7 +13,7 @@ require_once __DIR__ . '/../dbconnection.php';
 global $pdo;
 
 // Include the common sidebar.php
-require_once  'sidebar.php'; // Corrected path to sidebar.php
+require_once 'sidebar.php'; // Corrected path to sidebar.php
 
 // Get user ID from session for fetching profile data in sidebar
 $userId = $_SESSION['userID'];
@@ -110,24 +110,12 @@ if (empty($_SESSION['csrf_token'])) {
     .nav-links a:hover {
       background-color: #e0b0ff;
     }
-    .logout {
-      background-color: #ef4444;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: background-color 0.2s ease-in-out;
-    }
     .logout:hover {
       background-color: #dc2626;
     }
     .main-content {
       flex-grow: 1; /* Allow main content to take remaining space */
-      padding: 2rem;
+      padding: 1.5rem; /* Adjusted from 2rem to 1.5rem for consistency and tighter look */
       margin-left: 0; /* Default for mobile (no sidebar margin) */
       transition: margin-left 0.3s ease-in-out;
     }
@@ -139,7 +127,7 @@ if (empty($_SESSION['csrf_token'])) {
             flex-shrink: 0; /* Prevent sidebar from shrinking */
         }
         .main-content {
-            margin-left: 16rem; /* Space for sidebar on desktop */
+            margin-left: 10rem; /* Adjusted to be closer to the sidebar */
         }
         .menu-toggle-btn {
             display: none; /* Hide hamburger on desktop */
