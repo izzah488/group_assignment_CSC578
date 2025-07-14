@@ -35,38 +35,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // First, get the category ID from the lookup table
             // Assuming expCatLookup table exists and has catName and catLookupID
-$catStmt = $pdo->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = :categoryName");
+            $catStmt = $pdo->prepare("SELECT catLookupID FROM expCatLookup WHERE catName = :categoryName");
             $catStmt->bindParam(':categoryName', $categoryName, PDO::PARAM_STR);
             $catStmt->execute();
             $catRow = $catStmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if ($catRow) {
                 $catLookupID = $catRow['catLookupID'];
-                
-                // Insert into 'expenses' table (as per your uploaded PHP files)
-                // Note: The amount is stored as positive in the form, but for expenses,
-                // it should ideally be stored as negative in the 'transactions' table
-                // if you use a single 'transactions' table for both income and expenses.
-                // If you have a dedicated 'expenses' table, you store it as positive.
-                // Given your provided APIs use 'expAmount' and assume it's an expense,
-                // I will store it as a positive value in the 'expenses' table,
-                // but the D3.js chart will use abs() for visualization.
-                // If you are using the 'transactions' table with negative amounts for expenses,
-                // you would need to negate $expAmount here: $expAmount = -$expAmount;
 
-                // For consistency with your provided APIs, I'll assume insertion into 'expenses' table
-                // and that 'expAmount' is stored as a positive value.
-$stmt = $pdo->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (:userID, :expTitle, :expAmount, :catLookupID, :expDate)");
-$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+                $stmt = $pdo->prepare("INSERT INTO expenses (userID, expTitle, expAmount, catLookupID, expDate) VALUES (:userID, :expTitle, :expAmount, :catLookupID, :expDate)");
+                $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
                 $stmt->bindParam(':expTitle', $expTitle, PDO::PARAM_STR);
                 $stmt->bindParam(':expAmount', $expAmount, PDO::PARAM_STR); // Use STR for DECIMAL
                 $stmt->bindParam(':catLookupID', $catLookupID, PDO::PARAM_INT);
                 $stmt->bindParam(':expDate', $expDate, PDO::PARAM_STR);
 
                 if ($stmt->execute()) {
-                    $expense_success = 'Expense added successfully!';
-                    // Clear form fields after successful submission
-                    $_POST = array(); // Clear POST data to prevent re-submission on refresh
+                    // --- REDIRECT AFTER SUCCESSFUL ADDITION ---
+                    header('Location: expenses.php?status=expense_added');
+                    exit(); // Important: Always exit after a header redirect
                 } else {
                     $expense_error = 'Failed to add expense to the database.';
                 }

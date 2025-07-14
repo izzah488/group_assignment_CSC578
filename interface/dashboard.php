@@ -165,7 +165,8 @@ if (!isset($_SESSION['userID'])) {
         <div id="recentExpensesList">
           <div class="no-data-message">No expenses recorded yet. Start adding your expenses!</div>
         </div>
-        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient" onclick="window.location.href='add_money_expenses.php'">
+        <!-- Updated button to link to expenses.php with a parameter -->
+        <button class="mt-6 w-full py-3 px-4 rounded-xl shadow-lg text-white font-semibold text-lg flex items-center justify-center space-x-2 primary-btn-gradient" onclick="window.location.href='expenses.php?action=add_expense'">
           <i class="fas fa-plus-circle"></i>
           <span>Add New Expenses</span>
         </button>

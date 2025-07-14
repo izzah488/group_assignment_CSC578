@@ -55,17 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // 5. Prepare SQL statement using INSERT ... ON DUPLICATE KEY UPDATE
+        // Changed the named parameter for the UPDATE part to avoid 'Invalid parameter number' error.
         // This efficiently handles both inserting a new budget or updating an existing one
         // for the given user and month (due to the UNIQUE (userID, budgetDate) constraint).
         $sql = "INSERT INTO budget (userID, budgetDate, totBudget)
-                VALUES (:userID, :budgetDate, :totBudget)
-                ON DUPLICATE KEY UPDATE totBudget = :totBudget";
+                VALUES (:userID, :budgetDate, :totBudget_insert)
+                ON DUPLICATE KEY UPDATE totBudget = :totBudget_update";
 
         $stmt = $pdo->prepare($sql);
 
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         $stmt->bindParam(':budgetDate', $budgetMonthStart, PDO::PARAM_STR);
-        $stmt->bindParam(':totBudget', $amount, PDO::PARAM_STR); // Use STR for DECIMAL
+        $stmt->bindParam(':totBudget_insert', $amount, PDO::PARAM_STR); // Bind for INSERT part
+        $stmt->bindParam(':totBudget_update', $amount, PDO::PARAM_STR); // Bind for UPDATE part
 
         $stmt->execute();
 

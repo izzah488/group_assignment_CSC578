@@ -7,7 +7,7 @@ $ldate=date( 'd-m-Y h:i:s A', time () );
 $email=$_SESSION['email']; // Make sure 'email' is the correct session key for the user's email
 
 // Update the user's logout time in the database
-$sql="UPDATE userlog SET logout=:ldate WHERE userEmail = :email ORDER BY id DESC LIMIT 1";
+$sql="UPDATE userlog SET logout=:ldate WHERE email = :email ORDER BY id DESC LIMIT 1";
 $query=$pdo->prepare($sql);
 $query->bindParam(':ldate',$ldate,PDO::PARAM_STR);
 $query->bindParam(':email',$email,PDO::PARAM_STR); // Bind email parameter for security
