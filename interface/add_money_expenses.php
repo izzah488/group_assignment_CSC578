@@ -177,7 +177,7 @@ try {
     </style>
 </head>
 <body>
-    <?php include 'sidebar.php'; // Include the navbar from your existing code ?>
+    <?php require_once  'sidebar.php'; // Include the navbar from your existing code ?>
     <div class="form-card"> <button onclick="window.history.back()" class="back-btn">←</button>
         <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">Add Money Expenses</h2>
         <?php if ($expense_error): ?>

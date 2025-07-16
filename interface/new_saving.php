@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </style>
 </head>
 <body class="flex min-h-screen">
-  <?php include 'sidebar.php'; ?>
+  <?php require_once  'sidebar.php'; ?>
 
   <main class="main-content">
     <header class="flex items-center mb-8">

@@ -103,7 +103,7 @@ try {
     }
 
     .main-content {
-      margin-left: 16rem;
+      margin-left: 14rem;
       flex: 1;
       padding: 2rem;
     }
@@ -149,7 +149,7 @@ try {
   </style>
 </head>
 <body class="flex min-h-screen">
-  <?php include 'sidebar.php'; ?>
+  <?php require_once  'sidebar.php'; ?>
 
   <main class="main-content">
     <h1 class="text-3xl font-bold text-gray-900 mb-2">Profile</h1>

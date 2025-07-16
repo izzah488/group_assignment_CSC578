@@ -127,7 +127,7 @@ if (empty($_SESSION['csrf_token'])) {
             flex-shrink: 0; /* Prevent sidebar from shrinking */
         }
         .main-content {
-            margin-left: 10rem; /* Adjusted to be closer to the sidebar */
+            margin-left: 8rem; /* Adjusted to be closer to the sidebar */
         }
         .menu-toggle-btn {
             display: none; /* Hide hamburger on desktop */

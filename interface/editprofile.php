@@ -76,7 +76,7 @@ try {
   </script>
 </head>
 <body class="flex min-h-screen bg-gradient-to-br from-gray-100 to-purple-100 font-[Inter]">
-  <?php include 'sidebar.php'; ?>
+  <?php require_once  'sidebar.php'; ?>
 
   <main class="flex-grow p-8 ml-72">
     <h1 class="text-4xl font-extrabold text-gray-900 mb-6">Edit Profile</h1>

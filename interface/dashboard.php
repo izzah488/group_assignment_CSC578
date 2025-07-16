@@ -53,7 +53,7 @@ $CATEGORY_COLOR_MAP = [
 ];
 
 // Include the common sidebar.php
-require_once  'sidebar.php'; // Corrected path to sidebar.php
+// Removed redundant require_once 'sidebar.php'; from this section.
 
 ?>
 <!DOCTYPE html>
@@ -67,15 +67,22 @@ require_once  'sidebar.php'; // Corrected path to sidebar.php
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
+    /* Ensure html and body take full height and prevent overall scrolling */
+    html, body {
+      height: 100vh; /* Set full viewport height */
+      margin: 0;
+      padding: 0;
       font-family: 'Inter', sans-serif;
       background-color: #f0f2f5;
+      overflow: hidden; /* Prevent body from scrolling */
+      display: flex; /* Make body a flex container to manage sidebar and content layout */
     }
+
     .sidebar {
-      position: fixed;
+      position: fixed; /* Keep sidebar fixed */
       top: 0;
       left: 0;
-      height: 100vh;
+      height: 100vh; /* Sidebar takes full viewport height */
       width: 16rem;
       background-color: #ffffff;
       border-top-right-radius: 1.5rem;
@@ -87,14 +94,22 @@ require_once  'sidebar.php'; // Corrected path to sidebar.php
       flex-direction: column;
     }
     .content {
-      margin-left: 17rem; /* Adjust content to the right of the sidebar */
-      padding: 2rem;
-      flex-grow: 1;
+      padding: 1.5rem 2rem 2rem 2rem;
+      flex-grow: 1; /* Allow content to grow and take available space next to sidebar */
+      display: flex; /* Make content a flex container for its header and main */
+      flex-direction: column; /* Stack header and main vertically */
+      height: 100%; /* Ensure content takes full height of its parent (body, which is 100vh) */
+      /* Removed overflow-y: auto from here, as main-content will handle it */
+    }
+    /* Apply margin-left only for medium and larger screens */
+    @media (min-width: 768px) { /* Tailwind's 'md' breakpoint */
+      .content {
+        margin-left: 17rem; /* Adjust content to the right of the sidebar */
+      }
     }
     .main-content {
-      flex-grow: 1;
-      padding: 2rem;
-      overflow-y: auto;
+      flex-grow: 1; /* Allow main-content to take remaining vertical space within .content */
+      overflow-y: auto; /* Enable vertical scrolling within main-content */
     }
     .category-color-dot {
         display: inline-block;

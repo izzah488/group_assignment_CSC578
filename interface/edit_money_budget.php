@@ -75,7 +75,7 @@ if (!isset($_SESSION['userID'])) {
         .main-content {
             flex: 1;
             padding: 3.5rem 2rem 2rem 2rem;
-            margin-left: 17rem;
+            margin-left: 16.5rem;
         }
         .form-card {
             background: linear-gradient(135deg, #fff 80%, #f3e8ff 100%);
@@ -90,7 +90,7 @@ if (!isset($_SESSION['userID'])) {
     </style>
 </head>
 <body class="flex min-h-screen">
-  <?php include 'sidebar.php'; ?>
+  <?php require_once  'sidebar.php'; ?>
 
     <!-- Main Content -->
     <main class="main-content">

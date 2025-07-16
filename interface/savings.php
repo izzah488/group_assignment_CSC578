@@ -144,14 +144,14 @@ try {
       width: 100%;
     }
     .main-content {
-      margin-left: 16rem;
+      margin-left: 14rem; /* This places content immediately next to the 16rem sidebar */
       flex: 1;
       padding: 2rem;
     }
   </style>
 </head>
 <body class="flex min-h-screen">
-  <?php include 'sidebar.php'; ?>
+  <?php require_once  'sidebar.php'; ?>
 
   <main class="main-content w-full">
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
@@ -162,7 +162,7 @@ try {
       <div class="flex items-center space-x-4 mt-4 md:mt-0">
         <span class="text-gray-700 font-medium">March 2025</span>
         <i class="fas fa-calendar-alt text-xl text-gray-500"></i>
-  </div>
+      </div>
     </header>
 
     <section id="savingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"></section>
@@ -190,7 +190,7 @@ try {
         <button onclick="saveSaving()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">SAVE</button>
       </div>
     </div>
-        </div>
+  </div>
 
   <div id="editSavingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-2xl shadow-xl max-w-xl w-full relative">
@@ -207,8 +207,8 @@ try {
         <button onclick="toggleEditSavingModal()" class="flex-1 py-3 px-4 rounded-xl bg-red-400 text-white">CANCEL</button>
         <button onclick="updateSaving()" class="flex-1 py-3 px-4 rounded-xl bg-green-600 text-white">UPDATE</button>
       </div>
-          </div>
-        </div>
+    </div>
+  </div>
 
   <div id="addCurrentSavingsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white p-6 rounded-2xl shadow-xl max-w-sm w-full relative">
